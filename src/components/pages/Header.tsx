@@ -42,7 +42,7 @@ export const Header = () => {
               </button>
             </SheetTrigger>
             <SheetContent side="right">
-              <nav className="flex flex-col gap-y-6 mt-8">
+              <nav className="flex flex-col gap-y-6 mt-8 ml-4">
                 {navLinks.map((link) => (
                   <a
                     key={link.label}

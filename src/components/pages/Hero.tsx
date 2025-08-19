@@ -11,12 +11,12 @@ export const Hero = () => {
     <section className="container mx-auto flex flex-col md:flex-row items-center justify-between px-4 py-12 sm:py-24">
       {/* Left Column - Text Content */}
       <div className="md:w-1/2 text-center md:text-left">
-        <p className="text-lg">Hello, it's me</p>
+        <p className="text-lg">Hello, it&apos;s me</p>
         <h1 className="text-5xl font-bold tracking-tight lg:text-6xl my-2">
           Steve Arnold
         </h1>
         <h2 className="text-3xl lg:text-4xl font-semibold">
-          And I'm a{" "}
+          And I&apos;m a{" "}
           <TypeAnimation
             sequence={[
               "Full Stack Engineer",

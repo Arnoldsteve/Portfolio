@@ -1,4 +1,3 @@
-// src/app/api/send/route.ts
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
@@ -41,7 +40,7 @@ export async function POST(req: Request) {
       from: "Portfolio Contact <onboarding@resend.dev>",
       to: "stevearnold9e@gmail.com",
       subject: `New Message from ${firstName} ${lastName} via Portfolio`,
-      replyTo: email, // Corrected from reply_to
+      replyTo: email, 
       html: emailHtml,
     });
 

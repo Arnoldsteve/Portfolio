@@ -8,9 +8,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
-import { toast } from "sonner"; // ADDED: Import the toast function
+import { toast } from "sonner"; 
 
-// Define the form schema using Zod
 const contactFormSchema = z.object({
   firstName: z.string().min(2, "First name is required"),
   lastName: z.string().min(2, "Last name is required"),
@@ -19,13 +18,10 @@ const contactFormSchema = z.object({
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
-// Infer the TypeScript type from the schema
 type ContactFormInputs = z.infer<typeof contactFormSchema>;
 
 export const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  // REMOVED: The old submitStatus state is no longer needed.
-  // const [submitStatus, setSubmitStatus] = useState<{...} | null>(null);
 
   const {
     register,
@@ -51,11 +47,9 @@ export const Contact = () => {
         throw new Error("Failed to send message.");
       }
 
-      // ADDED: Call the success toast
       toast.success("Message sent successfully!");
-      reset(); // Reset form fields
+      reset(); 
     } catch (error) {
-      // ADDED: Call the error toast
       toast.error("Failed to send message. Please try again.");
     } finally {
       setIsSubmitting(false);

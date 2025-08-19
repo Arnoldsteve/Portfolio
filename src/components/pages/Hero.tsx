@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Github, Gitlab, Linkedin } from "lucide-react";
 import { TypeAnimation } from "react-type-animation";
+import Link from "next/link";
 
 export const Hero = () => {
   return (
@@ -53,7 +54,9 @@ export const Hero = () => {
 
         {/* Action Button */}
         <div className="mt-8">
-            <Button size="lg">Download CV</Button>
+            <Link href="/SteveOtieno_SoftwareEngineer_Resume.pdf" target="_blank" download>
+              <Button size="lg">Download CV</Button>
+            </Link>
         </div>
       </div>
 

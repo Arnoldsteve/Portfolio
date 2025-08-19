@@ -33,8 +33,10 @@ export const About = () => {
             including a booking engine that increased conversion rates by 30% and a secure 
             multi-tenant invoice system that reduced vulnerabilities by 95%.
           </p>
-          <div className="mt-6">
-            <Button size="lg">Read More</Button>
+           <div className="mt-6">
+            <a href="#projects">
+              <Button size="lg">Read More</Button>
+            </a>
           </div>
         </div>
 

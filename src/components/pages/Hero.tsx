@@ -61,7 +61,7 @@ export const Hero = () => {
       <div className="mt-10 md:mt-0 md:w-1/2 flex justify-center">
         <div className="w-80 h-80 lg:w-96 lg:h-96 relative">
           <Image
-            src="/profile-pic.png" // IMPORTANT: Replace with your actual image file name
+            src="/profile-pic.png" 
             alt="Steve Arnold Otieno"
             fill
             className="rounded-full object-cover border-4 border-cyan-400 shadow-lg"

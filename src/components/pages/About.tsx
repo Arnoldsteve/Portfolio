@@ -11,7 +11,7 @@ export const About = () => {
         <div className="md:w-1/3 flex justify-center">
           <div className="w-72 h-72 lg:w-80 lg:h-80 relative">
             <Image
-              src="/profile-pic.png" // Using the same image from your public folder
+              src="/profile-pic2.png" // Using the same image from your public folder
               alt="Steve Arnold Otieno"
               fill
               className="rounded-lg object-cover shadow-2xl"

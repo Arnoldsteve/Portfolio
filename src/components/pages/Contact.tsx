@@ -8,8 +8,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner"; // ADDED: Import the toast function
 
-// CHANGED: Updated schema for firstName and lastName
+// Define the form schema using Zod
 const contactFormSchema = z.object({
   firstName: z.string().min(2, "First name is required"),
   lastName: z.string().min(2, "Last name is required"),
@@ -23,10 +24,8 @@ type ContactFormInputs = z.infer<typeof contactFormSchema>;
 
 export const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<{
-    success: boolean;
-    message: string;
-  } | null>(null);
+  // REMOVED: The old submitStatus state is no longer needed.
+  // const [submitStatus, setSubmitStatus] = useState<{...} | null>(null);
 
   const {
     register,
@@ -39,7 +38,7 @@ export const Contact = () => {
 
   const onSubmit: SubmitHandler<ContactFormInputs> = async (data) => {
     setIsSubmitting(true);
-    setSubmitStatus(null);
+    // REMOVED: setSubmitStatus(null);
 
     try {
       const response = await fetch("/api/send", {
@@ -52,13 +51,12 @@ export const Contact = () => {
         throw new Error("Failed to send message.");
       }
 
-      setSubmitStatus({ success: true, message: "Message sent successfully!" });
+      // ADDED: Call the success toast
+      toast.success("Message sent successfully!");
       reset(); // Reset form fields
     } catch (error) {
-      setSubmitStatus({
-        success: false,
-        message: "Failed to send message. Please try again.",
-      });
+      // ADDED: Call the error toast
+      toast.error("Failed to send message. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -75,63 +73,24 @@ export const Contact = () => {
         className="max-w-4xl mx-auto mt-10"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* CHANGED: Split Full Name into First and Last Name inputs */}
           <div>
-            <Input
-              {...register("firstName")}
-              placeholder="First Name"
-              className="py-6"
-            />
-            {errors.firstName && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.firstName.message}
-              </p>
-            )}
+            <Input {...register("firstName")} placeholder="First Name" className="py-6" />
+            {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName.message}</p>}
           </div>
           <div>
-            <Input
-              {...register("lastName")}
-              placeholder="Last Name"
-              className="py-6"
-            />
-            {errors.lastName && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.lastName.message}
-              </p>
-            )}
+            <Input {...register("lastName")} placeholder="Last Name" className="py-6" />
+            {errors.lastName && <p className="text-red-500 text-sm mt-1">{errors.lastName.message}</p>}
           </div>
-          {/* END CHANGE */}
-
           <div>
-            <Input
-              {...register("email")}
-              placeholder="Email Address"
-              className="py-6"
-            />
-            {errors.email && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.email.message}
-              </p>
-            )}
+            <Input {...register("email")} placeholder="Email Address" className="py-6" />
+            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
           </div>
-          <Input
-            {...register("subject")}
-            placeholder="Email Subject"
-            className="py-6"
-          />
+          <Input {...register("subject")} placeholder="Email Subject" className="py-6" />
         </div>
 
         <div className="mt-6">
-          <Textarea
-            {...register("message")}
-            placeholder="Your Message"
-            rows={7}
-          />
-          {errors.message && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.message.message}
-            </p>
-          )}
+          <Textarea {...register("message")} placeholder="Your Message" rows={7} />
+          {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>}
         </div>
 
         <div className="mt-8 text-center">
@@ -146,16 +105,8 @@ export const Contact = () => {
             )}
           </Button>
         </div>
-
-        {submitStatus && (
-          <p
-            className={`mt-4 text-center text-lg ${
-              submitStatus.success ? "text-green-500" : "text-red-500"
-            }`}
-          >
-            {submitStatus.message}
-          </p>
-        )}
+        
+        {/* REMOVED: The old static text message element is gone. */}
       </form>
     </section>
   );

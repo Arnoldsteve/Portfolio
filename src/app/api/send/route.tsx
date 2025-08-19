@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
 
-// Import the render function and your new email component
 import { render } from "@react-email/render";
 import { ContactFormEmail } from "@/emails/ContactFormEmail";
 
@@ -20,7 +19,6 @@ const contactFormSchema = z.object({
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-
     const validation = contactFormSchema.safeParse(body);
 
     if (!validation.success) {
@@ -29,8 +27,7 @@ export async function POST(req: Request) {
 
     const { firstName, lastName, email, subject, message } = validation.data;
 
-    // NEW: Render the React component to an HTML string
-    const emailHtml = render(
+    const emailHtml = await render(
       <ContactFormEmail
         firstName={firstName}
         lastName={lastName}
@@ -44,8 +41,7 @@ export async function POST(req: Request) {
       from: "Portfolio Contact <onboarding@resend.dev>",
       to: "stevearnold9e@gmail.com",
       subject: `New Message from ${firstName} ${lastName} via Portfolio`,
-      reply_to: email,
-      // Pass the rendered HTML string to the 'html' property
+      replyTo: email, // Corrected from reply_to
       html: emailHtml,
     });
 

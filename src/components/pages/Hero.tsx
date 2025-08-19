@@ -39,24 +39,24 @@ export const Hero = () => {
           applications in the Node.js and PHP ecosystems.
         </p>
         
-        {/* Social Media Icons */}
-        <div className="mt-6 flex justify-center md:justify-start gap-x-4">
-          <a href="https://linkedin.com/your-profile" target="_blank" rel="noopener noreferrer">
-            <Linkedin className="h-8 w-8 hover:text-cyan-400 transition-colors" />
-          </a>
-          <a href="https://github.com/Arnoldsteve" target="_blank" rel="noopener noreferrer">
-            <Github className="h-8 w-8 hover:text-cyan-400 transition-colors" />
-          </a>
-          <a href="https://gitlab.com/your-profile" target="_blank" rel="noopener noreferrer">
-            <Gitlab className="h-8 w-8 hover:text-cyan-400 transition-colors" />
-          </a>
-        </div>
+        <div className="mt-6 flex flex-col h-full justify-between">
+          <div className="mt-6 flex justify-center md:justify-start gap-x-4">
+            <a href="https://linkedin.com/in/steve-arnold-otieno" target="_blank" rel="noopener noreferrer">
+              <Linkedin className="h-4 w-4 hover:text-cyan-400 transition-colors" />
+            </a>
+            <a href="https://github.com/Arnoldsteve" target="_blank" rel="noopener noreferrer">
+              <Github className="h-4 w-4 hover:text-cyan-400 transition-colors" />
+            </a>
+            <a href="https://gitlab.com/Arnoldsteve" target="_blank" rel="noopener noreferrer">
+              <Gitlab className="h-4 w-4 hover:text-cyan-400 transition-colors" />
+            </a>
+          </div>
 
-        {/* Action Button */}
-        <div className="mt-8">
-            <Link href="/SteveOtieno_SoftwareEngineer_Resume.pdf" target="_blank" download>
-              <Button size="lg">Download CV</Button>
-            </Link>
+          <div className="mt-8">
+              <Link href="/SteveOtieno_SoftwareEngineer_Resume.pdf" target="_blank" download>
+                <Button size="sm" className="cursor-pointer">Download CV</Button>
+              </Link>
+          </div>
         </div>
       </div>
 

@@ -18,6 +18,7 @@ const projectsData = [
     description: "A multi-app Next.js monorepo platform with separate public and admin views. The public side showcases services offered to users, while the admin panel manages operations and content.",
     tags: ["Next.js", "TypeScript", "Monorepo", "Admin Panel", "Public App"],
     gitlab: "https://gitlab.com/satechs/satechs-monorepo",
+    demo: "https://satechs-web.onrender.com/"
   },
   {
     image: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f", 
@@ -67,14 +68,6 @@ export const Projects = () => {
               </div>
 
               <div className="flex justify-between w-full">
-                {project.demo && (
-                  <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                    <Button size="sm" className="cursor-pointer">
-                      Live Demo
-                    </Button>
-                  </a>
-                )}
-
                 <a href={project.github || project.gitlab} target="_blank" rel="noopener noreferrer">
                   <Button variant="outline" size="sm" className="cursor-pointer">
                     {project.github ? (
@@ -85,6 +78,14 @@ export const Projects = () => {
                     View Code
                   </Button>
                 </a>
+
+                {project.demo && (
+                <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                  <Button size="sm" className="cursor-pointer">
+                    Live Demo
+                  </Button>
+                </a>
+                )}
               </div>
             </CardFooter>
           </Card>

@@ -8,10 +8,10 @@ export const About = () => {
       <div className="flex flex-col md:flex-row items-center justify-center gap-x-12 gap-y-10">
         
         {/* Left Column - Image */}
-        <div className="md:w-1/3 flex justify-center">
+         <div className="hidden md:flex md:w-1/3 justify-center">
           <div className="w-72 h-72 lg:w-80 lg:h-80 relative">
             <Image
-              src="/profile-pic2.png" // Using the same image from your public folder
+              src="/profile-pic2.png"
               alt="Steve Arnold Otieno"
               fill
               className="rounded-lg object-cover shadow-2xl"

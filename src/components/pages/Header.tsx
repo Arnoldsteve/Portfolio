@@ -1,12 +1,9 @@
-"use client"; // This is a client component because it uses state (for the mobile menu)
+"use client";
 
-import { useState } from "react";
-import { Menu, X } from "lucide-react"; // Icons for mobile menu toggle
+import { Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export const Header = () => {
-  // State to manage whether the mobile menu is open or closed
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const navLinks = [
     { href: "#", label: "Home" },
     { href: "#about", label: "About" },
@@ -18,12 +15,12 @@ export const Header = () => {
   return (
     <header className="fixed top-0 left-0 w-full bg-background/80 backdrop-blur-sm border-b z-50">
       <div className="container mx-auto flex justify-between items-center p-4">
-        {/* Logo / Name */}
+        {/* Logo */}
         <a href="#" className="text-2xl font-bold">
           Steve Arnold
         </a>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Nav */}
         <nav className="hidden md:flex gap-x-6">
           {navLinks.map((link) => (
             <a
@@ -36,31 +33,30 @@ export const Header = () => {
           ))}
         </nav>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Nav with Sheet */}
         <div className="md:hidden">
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <Sheet>
+            <SheetTrigger asChild>
+              <button aria-label="Open menu">
+                <Menu size={24} />
+              </button>
+            </SheetTrigger>
+            <SheetContent side="right">
+              <nav className="flex flex-col gap-y-6 mt-8">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
-
-      {/* Mobile Menu (Flyout) */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-background border-t">
-          <nav className="flex flex-col items-center p-4 gap-y-4">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setIsMenuOpen(false)} // Close menu on click
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-        </div>
-      )}
     </header>
   );
 };

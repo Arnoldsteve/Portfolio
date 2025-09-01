@@ -8,7 +8,7 @@ export const Services = () => {
   return (
     <section id="services" className="container mx-auto px-4 py-12 sm:py-24">
       <h2 className="text-3xl font-bold text-center">
-        Our <span className="text-cyan-400">Services</span>
+        My <span className="text-cyan-400">Services</span>
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
         {servicesData.map((service, index) => (

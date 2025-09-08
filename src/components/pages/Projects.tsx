@@ -11,6 +11,10 @@ const projectsData = [
     description: "A scalable e-commerce solution with a NestJS backend and distinct Next.js frontends for admins and storefronts. Features isolated databases for security.",
     tags: ["NestJS", "Next.js", "TypeScript", "Prisma", "Supabase"],
     github: "https://github.com/Arnoldsteve/artisan-base",
+    demo: {
+      storefront: "https://artisan-base-storefront.vercel.app",
+      // admin: "https://admin-url.vercel.app"
+    }
   },
   {
     image: "https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", 
@@ -60,14 +64,14 @@ export const Projects = () => {
               <CardTitle>{project.title}</CardTitle>
               <CardDescription className="mt-2">{project.description}</CardDescription>
             </CardContent>
-            <CardFooter className=" pt-0 flex flex-col items-start gap-y-6">
+            <CardFooter className="pt-0 flex flex-col items-start gap-y-6">
               <div className="flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
                   <Badge key={tag} variant="secondary">{tag}</Badge>
                 ))}
               </div>
 
-              <div className="flex justify-between w-full">
+              <div className="flex justify-between w-full gap-2">
                 <a href={project.github || project.gitlab} target="_blank" rel="noopener noreferrer">
                   <Button variant="outline" size="sm" className="cursor-pointer">
                     {project.github ? (
@@ -80,11 +84,25 @@ export const Projects = () => {
                 </a>
 
                 {project.demo && (
-                <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                  <Button size="sm" className="cursor-pointer">
-                    Live Demo
-                  </Button>
-                </a>
+                  <div className="flex gap-2">
+                    {/* Handle object-style demo links */}
+                    {typeof project.demo === 'object' && project.demo.storefront && (
+                      <a href={project.demo.storefront} target="_blank" rel="noopener noreferrer">
+                        <Button size="sm" className="cursor-pointer">Storefront</Button>
+                      </a>
+                    )}
+                    {typeof project.demo === 'object' && project.demo.admin && (
+                      <a href={project.demo.admin} target="_blank" rel="noopener noreferrer">
+                        <Button size="sm" className="cursor-pointer" variant="secondary">Admin Panel</Button>
+                      </a>
+                    )}
+                    {/* Handle string-style demo links */}
+                    {typeof project.demo === 'string' && (
+                      <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                        <Button size="sm" className="cursor-pointer">Live Demo</Button>
+                      </a>
+                    )}
+                  </div>
                 )}
               </div>
             </CardFooter>
@@ -93,4 +111,4 @@ export const Projects = () => {
       </div>
     </section>
   );
-};
+}; 

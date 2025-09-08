@@ -32,13 +32,13 @@ const projectsData = [
     github: "https://github.com/Arnoldsteve/Library-Management", 
   },
   {
-  image: "https://images.unsplash.com/photo-1541777542-1f675f9beeed?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-  title: "Vanilla JS Weather Application",
-  description: "A responsive weather app demonstrating strong core JavaScript skills and asynchronous API handling with the OpenWeatherMap API.",
-  tags: ["Vanilla JS", "HTML5", "CSS3", "API"],
-  github: "https://github.com/Arnoldsteve/Weather-app-vanilla-js",
-  demo: "https://weather-app-vanilla-js-mocha.vercel.app/"
-}
+    image: "https://images.unsplash.com/photo-1501973801540-537f08ccae7b", 
+    title: "Vanilla JS Weather Application",
+    description: "A responsive weather app demonstrating strong core JavaScript skills and asynchronous API handling with the OpenWeatherMap API.",
+    tags: ["Vanilla JS", "HTML5", "CSS3", "API"],
+    github: "https://github.com/Arnoldsteve/Weather-app-vanilla-js",
+    demo: "https://weather-app-vanilla-js-mocha.vercel.app/"
+  },
 ];
 
 export const Projects = () => {

@@ -54,7 +54,7 @@ export const Hero = () => {
 
           <div className="mt-8">
               <Link href="/SteveOtieno_SoftwareEngineer_Resume.pdf" target="_blank" download>
-                <Button size="sm" className="cursor-pointer">Download CV</Button>
+                <Button size="sm" className="cursor-pointer bg-cyan-400 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-black">Download CV</Button>
               </Link>
           </div>
         </div>
@@ -67,7 +67,7 @@ export const Hero = () => {
             src="/profile-pic.png" 
             alt="Steve Arnold Otieno"
             fill
-            className="rounded-full object-cover border-4 border-cyan-400 shadow-lg"
+            className="rounded-full object-cover shadow-xs"
           />
         </div>
       </div>

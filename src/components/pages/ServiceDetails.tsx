@@ -18,7 +18,8 @@ export const ServiceDetails = ({ service }: { service: Service }) => {
     <Dialog>
       <DialogTrigger asChild>
         <Button 
-            className="cursor-pointer bg-cyan-400 text-slate-900 font-bold hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all"
+          variant={"outline"}
+            className="cursor-pointer text-slate-900 font-bold hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all"
         >
             Read More
         </Button>

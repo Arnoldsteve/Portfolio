@@ -14,7 +14,7 @@ export const About = () => {
               src="/profile-pic2.png"
               alt="Steve Arnold Otieno"
               fill
-              className="rounded-lg object-cover shadow-2xl"
+              className="rounded-lg object-cover shadow-xs"
             />
           </div>
         </div>
@@ -35,7 +35,7 @@ export const About = () => {
           </p>
            <div className="mt-6">
             <a href="#projects">
-              <Button size="lg">Read More</Button>
+              <Button size="lg" className="cursor-pointer bg-cyan-500 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-blaxk">Read More</Button>
             </a>
           </div>
         </div>

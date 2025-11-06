@@ -1,4 +1,3 @@
-// src/app/layout.tsx
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
@@ -9,7 +8,6 @@ import { ScrollToTopButton } from "@/components/feature/ScrollToTopButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// --- THIS IS THE UPDATED PART ---
 export const metadata: Metadata = {
   title: "Steve Arnold Otieno | Full Stack Engineer",
   description: "Portfolio of Steve Arnold Otieno, a Full Stack Software Engineer specializing in Node.js and PHP ecosystems.",
@@ -35,7 +33,6 @@ export const metadata: Metadata = {
     images: ["/og-image.png"], 
   },
 };
-// --- END OF UPDATE ---
 
 export default function RootLayout({
   children,
@@ -43,8 +40,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" style={{ scrollBehavior: "smooth" }}>
-      <body className={`${inter.className} pt-16`}>
+    <html lang="en" className="light">
+      <body className={`${inter.className} pt-16 bg-muted/100 scroll-smooth`}>
         <Header />
         {children}
         <Footer />

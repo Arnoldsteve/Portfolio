@@ -3,19 +3,7 @@ import { Service } from "@/types/service";
 import { CodeXml, Server, CloudCog, TrendingUp } from "lucide-react";
 
 export const servicesData: Service[] = [
-  {
-    icon: <CodeXml size={48} className="text-cyan-400" />,
-    title: "Frontend Development",
-    description: "Building responsive, performant, and user-friendly interfaces using modern technologies like React, Next.js, and Tailwind CSS.",
-    detailedDescription: "I specialize in creating modern, interactive user interfaces from the ground up. By leveraging powerful libraries and frameworks like React and Next.js, I build applications that are not only fast and scalable but also provide a seamless user experience across all devices.",
-    keyPoints: [
-      "Responsive design for mobile, tablet, and desktop.",
-      "Component-based architecture with React & Next.js.",
-      "Styling with Tailwind CSS and shadcn/ui.",
-      "State management and API integration.",
-    ],
-  },
-  {
+   {
     icon: <Server size={48} className="text-cyan-400" />,
     title: "Backend Development",
     description: "Architecting robust and scalable backend systems and APIs with Node.js (NestJS, Express) and PHP (Laravel), connected to SQL or NoSQL databases.",
@@ -25,6 +13,18 @@ export const servicesData: Service[] = [
       "Expertise in Node.js (NestJS, Express) & PHP (Laravel).",
       "Database schema design (PostgreSQL, MySQL, MongoDB).",
       "Authentication and authorization (JWT, OAuth).",
+    ],
+  },
+   {
+    icon: <CodeXml size={48} className="text-cyan-400" />,
+    title: "Frontend Development",
+    description: "Building responsive, performant, and user-friendly interfaces using modern technologies like React, Next.js, and Tailwind CSS.",
+    detailedDescription: "I specialize in creating modern, interactive user interfaces from the ground up. By leveraging powerful libraries and frameworks like React and Next.js, I build applications that are not only fast and scalable but also provide a seamless user experience across all devices.",
+    keyPoints: [
+      "Responsive design for mobile, tablet, and desktop.",
+      "Component-based architecture with React & Next.js.",
+      "Styling with Tailwind CSS and shadcn/ui.",
+      "State management and API integration.",
     ],
   },
   {

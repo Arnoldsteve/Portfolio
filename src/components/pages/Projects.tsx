@@ -13,7 +13,7 @@ const projectsData = [
     github: "https://github.com/Arnoldsteve/artisan-base",
     demo: {
       storefront: "https://artisan-base-storefront.vercel.app",
-      // admin: "https://admin-url.vercel.app"
+      admin: "https://artisan-base-dashboard.vercel.app"
     }
   },
   {
@@ -47,7 +47,7 @@ export const Projects = () => {
       <h2 className="text-3xl font-bold text-center">
         Latest <span className="text-cyan-400">Projects</span>
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
         {projectsData.map((project, index) => (
           <Card key={index} className="flex flex-col overflow-hidden hover:shadow-cyan-400/20 hover:shadow-lg transition-shadow duration-300">
             <CardHeader className="p-0">
@@ -88,18 +88,18 @@ export const Projects = () => {
                     {/* Handle object-style demo links */}
                     {typeof project.demo === 'object' && project.demo.storefront && (
                       <a href={project.demo.storefront} target="_blank" rel="noopener noreferrer">
-                        <Button size="sm" className="cursor-pointer">Storefront</Button>
+                        <Button size="sm" className="cursor-pointer  bg-cyan-300 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-black">Storefront</Button>
                       </a>
                     )}
-                    {/* {typeof project.demo === 'object' && project.demo.admin && (
+                    {typeof project.demo === 'object' && project.demo.admin && (
                       <a href={project.demo.admin} target="_blank" rel="noopener noreferrer">
-                        <Button size="sm" className="cursor-pointer" variant="secondary">Admin Panel</Button>
+                        <Button size="sm" className="cursor-pointer  bg-cyan-300 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-black" variant="secondary">Admin</Button>
                       </a>
-                    )} */}
+                    )}
                     {/* Handle string-style demo links */}
                     {typeof project.demo === 'string' && (
                       <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                        <Button size="sm" className="cursor-pointer">Live Demo</Button>
+                        <Button size="sm" className="cursor-pointer bg-cyan-300 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-black">Live Demo</Button>
                       </a>
                     )}
                   </div>

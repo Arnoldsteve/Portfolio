@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 
 export const About = () => {
   return (
-    // We add an id="about" so the navbar link can jump to this section
     <section id="about" className="container mx-auto px-4 py-12 sm:py-24 bg-accent/20">
       <div className="flex flex-col md:flex-row items-center justify-center gap-x-12 gap-y-10">
         

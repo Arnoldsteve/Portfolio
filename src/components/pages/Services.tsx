@@ -14,13 +14,13 @@ export const Services = () => {
         {servicesData.map((service, index) => (
           <Card key={index} className=" border-border/50 text-center p-6 flex flex-col items-center hover:border-cyan-400 transition-colors duration-300">
             <CardHeader className="items-center w-full">
-              {service.icon}
+              <span className="">{service.icon}</span>
               <CardTitle className="mt-4">{service.title}</CardTitle>
             </CardHeader>
             <CardDescription className="mt-2 flex-grow">
               {service.description}
             </CardDescription>
-            <CardFooter className="mt-6">
+            <CardFooter className="mt-6 w-full">
               <ServiceDetails service={service} />
             </CardFooter>
           </Card>

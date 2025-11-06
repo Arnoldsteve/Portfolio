@@ -9,7 +9,6 @@ import Link from "next/link";
 export const Hero = () => {
   return (
     <section className="container mx-auto flex flex-col md:flex-row items-center justify-between px-4 py-12 sm:py-24">
-      {/* Left Column - Text Content */}
       <div className="md:w-1/2 text-center md:text-left">
         <p className="text-lg">Hello, it&apos;s me</p>
         <h1 className="text-2xl font-bold tracking-tight lg:text-4xl my-2">
@@ -18,22 +17,6 @@ export const Hero = () => {
         <h2 className="text-xl lg:text-2xl font-semibold">
           And I&apos;m a{" "}
           <span className="text-black-700"> Software Engineer</span>
-          {/* <TypeAnimation
-            sequence={[
-              "Full Stack Engineer",
-              2000,
-              "Backend Developer",
-              2000,
-              "PHP Expert",
-              2000,
-              "Node.js Specialist",
-              2000,
-            ]}
-            wrapper="span"
-            speed={50}
-            className="text-cyan-400"
-            repeat={Infinity}
-          /> */}
         </h2>
         <p className="mt-4 max-w-xl text-muted-foreground">
           Results-driven engineer building scalable and high-impact web
@@ -41,6 +24,17 @@ export const Hero = () => {
         </p>
 
         <div className="mt-6 flex flex-row h-full justify-between">
+          <div className="mt-6">
+            <Link
+              href="/SteveOtieno_SoftwareEngineer_Resume.pdf"
+              target="_blank"
+              download
+            >
+              <Button className="cursor-pointer bg-cyan-400 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-black">
+                Download CV
+              </Button>
+            </Link>
+          </div>
           <div className="mt-6 flex justify-center md:justify-start gap-x-4">
             <Button variant={"outline"}>
               <a
@@ -70,25 +64,9 @@ export const Hero = () => {
               </a>
             </Button>
           </div>
-
-          <div className="mt-6">
-            <Link
-              href="/SteveOtieno_SoftwareEngineer_Resume.pdf"
-              target="_blank"
-              download
-            >
-              <Button
-                // size="sm"
-                className="cursor-pointer bg-cyan-400 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-black"
-              >
-                Download CV
-              </Button>
-            </Link>
-          </div>
         </div>
       </div>
 
-      {/* Right Column - Image */}
       <div className="mt-10 md:mt-0 md:w-1/2 flex justify-center">
         <div className="w-80 h-80 lg:w-96 lg:h-96 relative">
           <Image

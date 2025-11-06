@@ -20,7 +20,7 @@ const projectsData = [
     image: "https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", 
     title: "SaTechs Solutions Platform",
     description: "A multi-app Next.js monorepo platform with separate public and admin views. The public side showcases services offered to users, while the admin panel manages operations and content.",
-    tags: ["Next.js", "TypeScript", "Monorepo", "Admin Panel", "Public App"],
+    tags: ["Next.js", "TypeScript", "Admin Panel", "Public App", "Mongo DB"],
     gitlab: "https://gitlab.com/satechs/satechs-monorepo",
     demo: "https://satechs-web.onrender.com/"
   },

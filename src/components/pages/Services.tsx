@@ -15,7 +15,7 @@ export const Services = () => {
           <Card key={index} className=" border-border/50 text-center p-6 flex flex-col items-center hover:border-cyan-400 transition-colors duration-300">
             <CardHeader className="items-center w-full">
               {service.icon}
-              <CardTitle className="mt-4 text-2xl">{service.title}</CardTitle>
+              <CardTitle className="mt-4">{service.title}</CardTitle>
             </CardHeader>
             <CardDescription className="mt-2 flex-grow">
               {service.description}

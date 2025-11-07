@@ -38,21 +38,24 @@ const socialLinks = [
 
 export const Hero = () => {
   return (
-    <section className="container mx-auto  items-center justify-between px-4 sm:px-12 py-4 sm:py-24">
+    <section
+      id="home"
+      className="container mx-auto items-center justify-between px-4 sm:px-12 pt-4 pb-20 sm:py-24"
+    >
       <div className="w-full md:text-left justify-between">
         <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-8 ">
           <div className="p-0">
-            <p className="text-lg">Hello, it&apos;s me</p>
+            <p className="text-base">Hello, it&apos;s me</p>
             <h1 className="text-2xl font-bold tracking-tight lg:text-4xl my-2">
               Steve Arnold
             </h1>
-            <h2 className="text-xl lg:text-2xl font-semibold">
+            <h2 className="text-xl lg:text-3xl font-semibold">
               And I&apos;m a{" "}
               <span className="text-black-700">Software Engineer</span>
             </h2>
             <p className="mt-4 max-w-xl text-muted-foreground text-justify">
-              Results-driven engineer building scalable and high-impact web
-              applications in the JavaScript, PHP and Python ecosystems.
+              Results-driven Full Stack Engineer crafting scalable, high-impact
+              web applications using JavaScript, PHP, and Python.
             </p>
           </div>
 
@@ -75,7 +78,7 @@ export const Hero = () => {
               target="_blank"
               download
             >
-              <Button className="cursor-pointer bg-cyan-400 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-black">
+              <Button className="bg-cyan-400 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-black">
                 Download CV
               </Button>
             </Link>

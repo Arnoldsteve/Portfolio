@@ -88,18 +88,18 @@ export const Projects = () => {
                     {/* Handle object-style demo links */}
                     {typeof project.demo === 'object' && project.demo.storefront && (
                       <a href={project.demo.storefront} target="_blank" rel="noopener noreferrer">
-                        <Button size="sm" className="cursor-pointer  bg-cyan-300 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-black">Storefront</Button>
+                        <Button size="sm" className=" bg-cyan-300 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-black">Storefront</Button>
                       </a>
                     )}
                     {typeof project.demo === 'object' && project.demo.admin && (
                       <a href={project.demo.admin} target="_blank" rel="noopener noreferrer">
-                        <Button size="sm" className="cursor-pointer  bg-cyan-300 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-black" variant="secondary">Admin</Button>
+                        <Button size="sm" className=" bg-cyan-300 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-black" variant="secondary">Admin</Button>
                       </a>
                     )}
                     {/* Handle string-style demo links */}
                     {typeof project.demo === 'string' && (
                       <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                        <Button size="sm" className="cursor-pointer bg-cyan-300 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-black">Live Demo</Button>
+                        <Button size="sm" className="bg-cyan-300 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-black">Live Demo</Button>
                       </a>
                     )}
                   </div>

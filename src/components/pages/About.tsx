@@ -1,20 +1,11 @@
-"use client";
-
 import Image from "next/image";
-import { useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 export const About = () => {
-  const [showFullText, setShowFullText] = useState(false);
-
-  const initialText =
-    "Results-driven Full Stack Engineer with expertise in Node.js, PHP, and Python ecosystems.";
-  const additionalText = `I have successfully built and deployed high-impact, scalable applications, including a booking engine that increased conversion rates by 30% and a secure multi-tenant invoice system that reduced vulnerabilities by 95%. Passionate about architecting robust backend systems, designing seamless user experiences, and leveraging modern technologies like Next.js, React, NestJS, and Docker to deliver production-ready software. I thrive in agile teams and enjoy mentoring junior developers to elevate overall code quality.`;
-
   return (
     <section
       id="about"
-      className="container mx-auto px-4 sm:px-12 py-4 sm:py-24"
+      className="container mx-auto  px-4 sm:px-12 py-4 sm:py-24"
     >
       <div className="flex flex-col md:flex-row items-center justify-center gap-x-12 gap-y-10">
         <div className="hidden md:flex md:w-1/3 justify-center">
@@ -35,24 +26,24 @@ export const About = () => {
           <h3 className="text-2xl font-semibold mt-2">
             Full Stack Software Engineer!
           </h3>
-
           <p className="mt-4 max-w-2xl text-muted-foreground text-justify">
-            {initialText}
+            Results-driven Full Stack Engineer with expertise in Node.js, PHP
+            and Python ecosystems. I have successfully built and deployed
+            high-impact, scalable applications, including a booking engine that
+            increased conversion rates by 30% and a secure multi-tenant invoice
+            system that reduced vulnerabilities by 95%.
           </p>
-
-          {showFullText && (
-            <p className="mt-2 max-w-2xl text-muted-foreground text-justify">
-              {additionalText}
-            </p>
-          )}
-
-          <Button
-            variant={"link"}
-            onClick={() => setShowFullText(!showFullText)}
-            className="mt-2 text-cyan-500 underline"
-          >
-            {showFullText ? "Show Less" : "Read More"}
-          </Button>
+          <div className="mt-6">
+            <a href="#projects">
+              <Button
+                variant={"outline"}
+                size="lg"
+                className="cursor-pointer  hover:bg-cyan-400 hover:shadow-cyan-400/40 transition-all text-blaxk"
+              >
+                View Projects
+              </Button>
+            </a>
+          </div>
         </div>
       </div>
     </section>

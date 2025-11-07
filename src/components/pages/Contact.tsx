@@ -65,7 +65,7 @@ export const Contact = () => {
       <Card>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="max-w-4xl mx-auto mt-10"
+          className="w-full px-4 md:px-0 max-w-4xl md:mx-auto mt-4 md:mt-10"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -115,8 +115,9 @@ export const Contact = () => {
             <Textarea
               {...register("message")}
               placeholder="Your Message"
-              rows={7}
+              className="min-h-[120px] sm:min-h-[160px]"
             />
+
             {errors.message && (
               <p className="text-red-500 text-xs mt-1">
                 {errors.message.message}

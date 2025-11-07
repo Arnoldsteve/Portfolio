@@ -7,10 +7,8 @@ import { Button } from "../ui/button";
 export const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  // This effect adds a scroll event listener to the window
   useEffect(() => {
     const toggleVisibility = () => {
-      // If the user has scrolled more than 300px, show the button
       if (window.pageYOffset > 300) {
         setIsVisible(true);
       } else {
@@ -19,12 +17,9 @@ export const ScrollToTopButton = () => {
     };
 
     window.addEventListener("scroll", toggleVisibility);
-
-    // Clean up the event listener when the component is unmounted
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
-  // This function scrolls the page to the top smoothly
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -33,11 +28,18 @@ export const ScrollToTopButton = () => {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="fixed bottom-4 right-4 z-50 group">
       {isVisible && (
-        <Button onClick={scrollToTop} size="icon">
-          <ArrowUp className="h-4 w-4" />
-        </Button>
+        <div className="relative flex items-center">
+          {/* Tooltip to the left */}
+          <span className="absolute right-full mr-2 px-2 py-1 text-xs rounded bg-gray-800 text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+            Scroll to top
+          </span>
+
+          <Button onClick={scrollToTop} size="icon">
+            <ArrowUp className="h-4 w-4" />
+          </Button>
+        </div>
       )}
     </div>
   );

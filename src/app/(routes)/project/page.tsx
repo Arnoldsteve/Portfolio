@@ -7,13 +7,14 @@ import { Github, ExternalLink, Gitlab, CheckCircle } from "lucide-react";
 import { projects } from "@/mock-data/projects-details";
 
 interface PageProps {
-  searchParams: {
+  searchParams: Promise<{
     projectId?: string;
-  };
+  }>;
 }
 
-export default function ProjectDetailsPage({ searchParams }: PageProps) {
-  const projectId = Number(searchParams?.projectId);
+export default async function ProjectDetailsPage({ searchParams }: PageProps) {
+  const params = await searchParams;
+  const projectId = Number(params?.projectId);
   const project = projects.find((p) => p.id === projectId);
 
   if (!project) {

@@ -13,7 +13,6 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { projectsData } from "@/mock-data/project-list";
 
-
 export const Projects = () => {
   return (
     <section
@@ -39,10 +38,7 @@ export const Projects = () => {
                 />
               </div>
             </CardHeader>
-            <Link
-              href={`/projects-details?projectId=${project.id}`}
-              className="block"
-            >
+            <Link href={`/project?projectId=${project.id}`} className="block">
               <CardContent className="p-6 flex-grow hover:text-blue-500 cursor-pointer">
                 <CardTitle>{project.title}</CardTitle>
                 <CardDescription className="mt-2">
@@ -68,7 +64,7 @@ export const Projects = () => {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="cursor-pointer"
+                    className="w-full text-slate-900 font-bold border border-cyan-400 hover:bg-cyan-500 hover:text-white transition-all py-2"
                   >
                     {project.github ? (
                       <Github className="mr-2 h-4 w-4" />

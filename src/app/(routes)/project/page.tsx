@@ -6,7 +6,6 @@ import { Separator } from "@/components/ui/separator";
 import { Github, ExternalLink, Gitlab, CheckCircle } from "lucide-react";
 import { projects } from "@/mock-data/projects-details";
 
-
 interface PageProps {
   searchParams: {
     projectId?: string;
@@ -17,12 +16,18 @@ export default function ProjectDetailsPage({ searchParams }: PageProps) {
   const projectId = Number(searchParams?.projectId);
   const project = projects.find((p) => p.id === projectId);
 
+  console.log("projects", project);
+
   if (!project) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center p-8">
-            <h1 className="text-2xl font-bold text-destructive mb-4">Project Not Found</h1>
-            <p className="text-muted-foreground">The project ID is invalid or the project does not exist.</p>
+          <h1 className="text-2xl font-bold text-destructive mb-4">
+            Project Not Found
+          </h1>
+          <p className="text-muted-foreground">
+            The project ID is invalid or the project does not exist.
+          </p>
         </div>
       </div>
     );
@@ -42,7 +47,9 @@ export default function ProjectDetailsPage({ searchParams }: PageProps) {
           />
         </div>
         <div>
-          <h1 className="text-3xl sm:text-4xl font-bold mb-3">{project.title}</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold mb-3">
+            {project.title}
+          </h1>
           <p className="text-muted-foreground text-base sm:text-lg mb-6">
             {project.description}
           </p>
@@ -55,16 +62,30 @@ export default function ProjectDetailsPage({ searchParams }: PageProps) {
           </div>
           <div className="flex flex-wrap gap-3">
             {project.github && (
-              <a href={project.github} target="_blank" rel="noopener noreferrer">
-                <Button variant="outline">
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button
+                  variant="outline"
+                  className="w-full text-slate-900 font-bold border border-cyan-400 hover:bg-cyan-500 hover:text-white transition-all py-2"
+                >
                   <Github className="w-4 h-4 mr-2" />
                   GitHub
                 </Button>
               </a>
             )}
             {project.gitlab && (
-              <a href={project.gitlab} target="_blank" rel="noopener noreferrer">
-                <Button variant="outline">
+              <a
+                href={project.gitlab}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button
+                  variant="outline"
+                  className="w-full text-slate-900 font-bold border border-cyan-400 rounded hover:bg-cyan-500 hover:text-white transition-all py-2"
+                >
                   <Gitlab className="w-4 h-4 mr-2" />
                   GitLab
                 </Button>
@@ -72,7 +93,7 @@ export default function ProjectDetailsPage({ searchParams }: PageProps) {
             )}
             {typeof project.demo === "string" && (
               <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                <Button>
+                <Button className=" bg-cyan-300 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-black">
                   <ExternalLink className="w-4 h-4 mr-2" />
                   Live Demo
                 </Button>
@@ -81,13 +102,28 @@ export default function ProjectDetailsPage({ searchParams }: PageProps) {
             {typeof project.demo === "object" && (
               <>
                 {project.demo.storefront && (
-                  <a href={project.demo.storefront} target="_blank" rel="noopener noreferrer">
-                    <Button>Storefront Demo</Button>
+                  <a
+                    href={project.demo.storefront}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button className=" bg-cyan-300 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-black">
+                      Storefront Demo
+                    </Button>
                   </a>
                 )}
                 {project.demo.admin && (
-                  <a href={project.demo.admin} target="_blank" rel="noopener noreferrer">
-                    <Button variant="secondary">Admin Demo</Button>
+                  <a
+                    href={project.demo.admin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button
+                      variant="secondary"
+                      className=" bg-cyan-300 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-black"
+                    >
+                      Admin Demo
+                    </Button>
                   </a>
                 )}
               </>
@@ -101,13 +137,15 @@ export default function ProjectDetailsPage({ searchParams }: PageProps) {
       {/* --- ABOUT & KEY FEATURES --- */}
       <section className="grid md:grid-cols-3 gap-8 md:gap-12">
         <div className="md:col-span-2">
-          <h2 className="text-2xl sm:text-3xl font-semibold mb-4">About This Project</h2>
+          <h2 className="text-2xl sm:text-3xl font-semibold mb-4">
+            About This Project
+          </h2>
           <p className="text-muted-foreground leading-relaxed text-base sm:text-lg whitespace-pre-wrap">
             {project.longDescription}
           </p>
         </div>
         {project.keyFeatures && project.keyFeatures.length > 0 && (
-          <Card>
+          <Card className="">
             <CardHeader>
               <CardTitle>Key Features</CardTitle>
             </CardHeader>
@@ -116,7 +154,9 @@ export default function ProjectDetailsPage({ searchParams }: PageProps) {
                 {project.keyFeatures.map((feature, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" />
-                    <span className="text-sm text-muted-foreground">{feature}</span>
+                    <span className="text-sm text-muted-foreground">
+                      {feature}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -124,23 +164,29 @@ export default function ProjectDetailsPage({ searchParams }: PageProps) {
           </Card>
         )}
       </section>
-      
+
       <Separator className="my-16 sm:my-24" />
 
       {/* --- TECH STACK SECTION --- */}
       {project.techStack && project.techStack.length > 0 && (
         <section>
-          <h2 className="text-2xl sm:text-3xl font-semibold mb-8 text-center">Technology Stack</h2>
+          <h2 className="text-2xl sm:text-3xl font-semibold mb-8 text-center">
+            Technology <span className="text-cyan-400">Stack</span>
+          </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {project.techStack.map((stack) => (
               <Card key={stack.category}>
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-center text-muted-foreground">{stack.category}</CardTitle>
+                  <CardTitle className="text-sm font-medium text-center text-muted-foreground">
+                    {stack.category}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="text-center">
                   <div className="flex flex-col gap-1">
-                    {stack.techs.map(tech => (
-                      <p key={tech} className="font-semibold text-sm">{tech}</p>
+                    {stack.techs.map((tech) => (
+                      <p key={tech} className="font-semibold text-sm">
+                        {tech}
+                      </p>
                     ))}
                   </div>
                 </CardContent>
@@ -151,20 +197,27 @@ export default function ProjectDetailsPage({ searchParams }: PageProps) {
       )}
 
       {/* Conditionally render separator only if there's a gallery */}
-      {project.gallery && project.gallery.length > 0 && <Separator className="my-16 sm:my-24" />}
-      
+      {project.gallery && project.gallery.length > 0 && (
+        <Separator className="my-16 sm:my-24" />
+      )}
+
       {/* --- PROJECT GALLERY --- */}
       {project.gallery && project.gallery.length > 0 && (
         <section>
-          <h2 className="text-2xl sm:text-3xl font-semibold mb-6">Project Gallery</h2>
+          <h2 className="text-2xl sm:text-3xl font-semibold mb-6">
+            Project <span className="text-cyan-400">Gallery</span>
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {project.gallery.map((imgSrc, index) => (
-              <div key={index} className="relative aspect-video rounded-lg overflow-hidden shadow-md group">
-                <Image 
-                  src={imgSrc} 
-                  alt={`${project.title} gallery image ${index + 1}`} 
+              <div
+                key={index}
+                className="relative aspect-video rounded-lg overflow-hidden shadow-md group"
+              >
+                <Image
+                  src={imgSrc}
+                  alt={`${project.title} gallery image ${index + 1}`}
                   fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105" 
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
             ))}

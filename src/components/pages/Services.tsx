@@ -1,7 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardFooter,
+} from "@/components/ui/card";
 import { servicesData } from "@/services/service-data";
 
 export const Services = () => {
@@ -45,12 +52,13 @@ export const Services = () => {
             )}
 
             <CardFooter className="mt-4 w-full">
-              <button
+              <Button
+                variant={"outline"}
                 onClick={() => toggleExpand(index)}
-                className="w-full text-slate-900 font-bold border border-cyan-400 rounded hover:bg-cyan-500 hover:text-white transition-all py-2"
+                className="w-full text-slate-900 font-bold border border-cyan-400  hover:bg-cyan-500 hover:text-white transition-all py-2"
               >
                 {expandedIndex === index ? "Show Less" : "Read More"}
-              </button>
+              </Button>
             </CardFooter>
           </Card>
         ))}

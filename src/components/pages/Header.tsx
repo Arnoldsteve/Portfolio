@@ -1,14 +1,21 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link"; // <-- 1. Import the Link component
-import { usePathname } from "next/navigation"; // <-- 2. Import usePathname
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 export const Header = () => {
   const [currentHash, setCurrentHash] = useState("");
-  const pathname = usePathname(); // This hook tells you the current page path (e.g., "/" or "/projects-details")
+  const [isOpen, setIsOpen] = useState(false);
+
+  const pathname = usePathname();
 
   const navLinks = [
     { href: "/#home", label: "Home" },
@@ -18,11 +25,9 @@ export const Header = () => {
     { href: "/#contact", label: "Contact" },
   ];
 
-  // This IntersectionObserver logic will only work on the homepage.
-  // We should only run it if we are on the homepage.
   useEffect(() => {
     if (pathname !== "/") {
-      setCurrentHash(""); // Reset active link if not on homepage
+      setCurrentHash("");
       return;
     }
 
@@ -30,9 +35,9 @@ export const Header = () => {
       const id = link.href.split("#")[1];
       return document.getElementById(id);
     });
-    
+
     if (!sections) return;
-    
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -43,9 +48,9 @@ export const Header = () => {
       },
       { threshold: 0.6 }
     );
-    
+
     sections.forEach((section) => section && observer.observe(section));
-    
+
     return () => {
       sections.forEach((section) => section && observer.unobserve(section));
     };
@@ -84,18 +89,20 @@ export const Header = () => {
 
         {/* Mobile Nav with Sheet */}
         <div className="md:hidden">
-          <Sheet>
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <button aria-label="Open menu">
                 <Menu size={24} />
               </button>
             </SheetTrigger>
             <SheetContent side="right">
+              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <nav className="flex flex-col gap-y-6 mt-8 ml-4">
                 {navLinks.map((link) => (
                   <Link
                     key={link.label}
                     href={link.href}
+                    onClick={() => setIsOpen(false)}
                     className={`transition-colors ${getLinkClassName(link.href)}`}
                   >
                     {link.label}

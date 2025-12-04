@@ -16,8 +16,6 @@ export default function ProjectDetailsPage({ searchParams }: PageProps) {
   const projectId = Number(searchParams?.projectId);
   const project = projects.find((p) => p.id === projectId);
 
-  console.log("projects", project);
-
   if (!project) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">

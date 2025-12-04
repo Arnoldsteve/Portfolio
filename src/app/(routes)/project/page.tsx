@@ -153,7 +153,7 @@ export default function ProjectDetailsPage({ searchParams }: PageProps) {
               <ul className="space-y-3">
                 {project.keyFeatures.map((feature, index) => (
                   <li key={index} className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-cyan-500 mt-1 flex-shrink-0" />
                     <span className="text-sm text-muted-foreground">
                       {feature}
                     </span>

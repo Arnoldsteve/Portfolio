@@ -7,7 +7,7 @@ import { Skills } from "@/components/pages/Skills";
 
 export default function Home() {
   return (
-    <main className="flex flex-col">
+    <main className="flex flex-col max-w-7xl mx-auto">
       <Hero />
       <About />
       {/* <Skills/> */}

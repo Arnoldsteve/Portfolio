@@ -1,8 +1,8 @@
 export const projectsData = [
   {
-    id:1,
+    id: 1,
     image:
-      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     title: "Multi-Tenant E-Commerce Platform",
     description:
       "A scalable e-commerce solution with a NestJS backend and distinct Next.js frontends for admins and storefronts. Features isolated databases for security.",
@@ -14,19 +14,21 @@ export const projectsData = [
     },
   },
   {
-    id:2,
+    id: 2,
     image:
-      "https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     title: "SaTechs Solutions Platform",
     description:
       "A multi-app Next.js monorepo platform with separate public and admin views. The public side showcases services offered to users, while the admin panel manages operations and content.",
-    tags: ["Next.js", "TypeScript", "Admin Panel", "Public App", "Mongo DB"],
+    tags: ["Next.js", "MongoDB", "TypeScript", "Admin Panel", "Public App"],
     gitlab: "https://gitlab.com/satechs/satechs-monorepo",
     demo: "https://satechs-solutions.vercel.app",
   },
   {
-    id:3,
-    image: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f",
+    id: 3,
+    image:
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+
     title: "Online Library Management System",
     description:
       "A comprehensive system for over 500 users, featuring role-based access control and managing a database of 10,000+ book records.",
@@ -34,8 +36,10 @@ export const projectsData = [
     github: "https://github.com/Arnoldsteve/Library-Management",
   },
   {
-    id:4,
-    image: "https://images.unsplash.com/photo-1501973801540-537f08ccae7b",
+    id: 4,
+    image:
+      "https://images.unsplash.com/photo-1592210454359-9043f067919b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+
     title: "Vanilla JS Weather Application",
     description:
       "A responsive weather app demonstrating strong core JavaScript skills and asynchronous API handling with the OpenWeatherMap API.",

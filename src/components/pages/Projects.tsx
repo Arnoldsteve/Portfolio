@@ -26,9 +26,9 @@ export const Projects = () => {
         {projectsData.map((project, index) => (
           <Card
             key={index}
-            className="flex flex-col overflow-hidden hover:shadow-cyan-400/20 hover:shadow-lg transition-shadow duration-300 pt-0"
+            className="flex flex-col justify-between overflow-hidden hover:shadow-cyan-400/20 hover:shadow-lg transition-shadow duration-300 pt-0"
           >
-            <CardHeader className="p-0 m-0 flex-none  transition-all hover:scale-105 overflow-hidden">
+            <CardHeader className="p-0 m-0 flex-none  transition-all hover:scale-102 overflow-hidden">
               <div className="aspect-video w-full relative">
                 <Image
                   src={project.image}
@@ -38,21 +38,21 @@ export const Projects = () => {
                 />
               </div>
             </CardHeader>
-            <Link href={`/project?projectId=${project.id}`} className="block">
-              <CardContent className="p-6 flex-grow hover:text-blue-500 cursor-pointer">
+            <Link href={`/project?projectId=${project.id}`} className="block flex-1">
+              <CardContent className="p-6 hover:text-blue-500 cursor-pointer">
                 <CardTitle>{project.title}</CardTitle>
-                <CardDescription className="mt-2">
+                <CardDescription className="mt-2 line-clamp-3">
                   {project.description}
                 </CardDescription>
               </CardContent>
             </Link>
             <CardFooter className="pt-0 flex flex-col items-start gap-y-6">
-              <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
+              <div className="flex flex-wrap gap-2 line-clamp-3">
+                {project.tags.slice(0, 3).map((tag) => (
                   <Badge key={tag} variant="secondary">
                     {tag}
                   </Badge>
-                ))}
+                ))}{"...."}
               </div>
 
               <div className="flex justify-between w-full gap-2">

@@ -8,7 +8,6 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Github, Gitlab } from "lucide-react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { projectsData } from "@/mock-data/project-list";

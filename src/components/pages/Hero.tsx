@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Github, Gitlab, Linkedin } from "lucide-react";
-import { TypeAnimation } from "react-type-animation";
 import Link from "next/link";
 
 const socialLinks = [

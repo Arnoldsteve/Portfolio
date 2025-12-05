@@ -49,7 +49,7 @@ export const Contact = () => {
 
       toast.success("Message sent successfully!");
       reset();
-    } catch (error) {
+    } catch (_error) {
       toast.error("Failed to send message. Please try again.");
     } finally {
       setIsSubmitting(false);

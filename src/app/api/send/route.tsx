@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
-
 import { render } from "@react-email/render";
 import { ContactFormEmail } from "@/emails/ContactFormEmail";
 
@@ -49,7 +48,7 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ message: "Email sent successfully!", data });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: "Something went wrong." }, { status: 500 });
   }
 }

@@ -11,11 +11,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-export const Header = () => {
-  const [currentHash, setCurrentHash] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
-
-  const pathname = usePathname();
 
   const navLinks = [
     { href: "/#home", label: "Home", icon: Home },
@@ -24,6 +19,11 @@ export const Header = () => {
     { href: "/#projects", label: "Projects", icon: FolderOpen },
     { href: "/#contact", label: "Contact", icon: Mail },
   ];
+
+export const Header = () => {
+  const [currentHash, setCurrentHash] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (pathname !== "/") {

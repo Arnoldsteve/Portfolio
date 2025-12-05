@@ -1,4 +1,3 @@
-import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -13,10 +12,11 @@ import {
 } from "lucide-react";
 
 interface ServicePageProps {
-  searchParams: {
+  searchParams: Promise<{
     serviceId?: string;
-  };
+  }>;
 }
+
 
 // Icon mapping
 const iconMap = {
@@ -27,16 +27,23 @@ const iconMap = {
 };
 
 export default async function ServicePage({ searchParams }: ServicePageProps) {
-  const serviceId = searchParams.serviceId;
-
-  if (!serviceId) {
-    notFound();
-  }
-
+  const params = await searchParams; // await the promise
+  const serviceId = params?.serviceId;
   const service = serviceDetails.find((s) => s.serviceId === serviceId);
 
   if (!service) {
-    notFound();
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="text-center p-8">
+          <h1 className="text-2xl font-bold text-destructive mb-4">
+            Service Not Found
+          </h1>
+          <p className="text-muted-foreground">
+            The Service ID is invalid or the Service does not exist.
+          </p>
+        </div>
+      </div>
+    );
   }
 
   const IconComponent = iconMap[service.iconName];

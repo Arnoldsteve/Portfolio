@@ -71,8 +71,8 @@ export const Hero = () => {
           </div>
         </div>
 
-        <div className="mt-6 flex flex-row h-full justify-between gap-2">
-          <div className="mt-6">
+        <div className="mt-6 flex flex-row h-full gap-2">
+          <div className="mt-6 hidden">
             <Link
               href="/SteveOtieno_SoftwareEngineer_Resume.pdf"
               target="_blank"
@@ -85,8 +85,18 @@ export const Hero = () => {
           </div>
           <div className="mt-6 flex justify-center md:justify-start gap-x-2">
             {socialLinks.map((link, index) => (
-              <Button key={index} variant="outline">
-                <a href={link.href} target="_blank" rel="noopener noreferrer">
+              <Button
+                asChild
+                key={index}
+                variant="outline"
+                className="border border-cyan-400  hover:bg-cyan-500 transition-all"
+              >
+                <a
+                  href={link.href}
+                  // className="text-cyan-600"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   {link.icon}
                 </a>
               </Button>

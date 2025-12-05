@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export const About = () => {
   return (
@@ -34,15 +35,14 @@ export const About = () => {
             system that reduced vulnerabilities by 95%.
           </p>
           <div className="mt-6">
-            <a href="#projects">
-              <Button
-                variant={"outline"}
-                size="lg"
-                className="cursor-pointer  hover:bg-cyan-400 hover:shadow-cyan-400/40 transition-all text-blaxk"
-              >
-                View Projects
-              </Button>
-            </a>
+            <Button
+              asChild
+              variant={"outline"}
+              size="lg"
+              className="cursor-pointer w-full border-cyan-400 hover:bg-cyan-400 hover:shadow-cyan-400/40 transition-all text-blaxk"
+            >
+              <Link href={`/about`}>Read More</Link>
+            </Button>
           </div>
         </div>
       </div>

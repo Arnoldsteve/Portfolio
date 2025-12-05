@@ -3,8 +3,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Github, ExternalLink, Gitlab, CheckCircle } from "lucide-react";
+import { Github, ExternalLink, Gitlab, CheckCircle, ArrowLeft } from "lucide-react";
 import { projects } from "@/mock-data/projects-details";
+import Link from "next/link";
 
 interface PageProps {
   searchParams: Promise<{
@@ -33,7 +34,17 @@ export default async function ProjectDetailsPage({ searchParams }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-background px-4 sm:px-6 py-16 sm:py-24 max-w-7xl mx-auto">
+    <div className="min-h-screen bg-background px-4 sm:px-6 py-4 sm:py-0 max-w-7xl mx-auto">
+        {/* Back Button */}
+      <div className="px-4 pt-4 pb-10">
+        <Link href="/#projects">
+          <Button variant="ghost" className="group">
+            <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+            Back to Projects
+          </Button>
+        </Link>
+      </div>
+
       {/* --- HERO SECTION --- */}
       <section className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
         <div className="relative aspect-[16/10] w-full rounded-lg overflow-hidden shadow-lg group">
@@ -46,7 +57,7 @@ export default async function ProjectDetailsPage({ searchParams }: PageProps) {
           />
         </div>
         <div>
-          <h1 className="text-3xl sm:text-4xl font-bold mb-3">
+          <h1 className="text-xl sm:text-3xl font-bold mb-3">
             {project.title}
           </h1>
           <p className="text-muted-foreground text-base sm:text-lg mb-6">
@@ -136,7 +147,7 @@ export default async function ProjectDetailsPage({ searchParams }: PageProps) {
       {/* --- ABOUT & KEY FEATURES --- */}
       <section className="grid md:grid-cols-3 gap-8 md:gap-12">
         <div className="md:col-span-2">
-          <h2 className="text-2xl sm:text-3xl font-semibold mb-4">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
             About This Project
           </h2>
           <p className="text-muted-foreground leading-relaxed text-base sm:text-lg whitespace-pre-wrap">
@@ -169,7 +180,7 @@ export default async function ProjectDetailsPage({ searchParams }: PageProps) {
       {/* --- TECH STACK SECTION --- */}
       {project.techStack && project.techStack.length > 0 && (
         <section>
-          <h2 className="text-2xl sm:text-3xl font-semibold mb-8 text-center">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-8 text-center">
             Technology <span className="text-cyan-400">Stack</span>
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -203,7 +214,7 @@ export default async function ProjectDetailsPage({ searchParams }: PageProps) {
       {/* --- PROJECT GALLERY --- */}
       {project.gallery && project.gallery.length > 0 && (
         <section>
-          <h2 className="text-2xl sm:text-3xl font-semibold mb-6">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-6">
             Project <span className="text-cyan-400">Gallery</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

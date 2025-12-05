@@ -10,14 +10,9 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { servicesData } from "@/services/service-data";
+import Link from "next/link";
 
 export const Services = () => {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-
-  const toggleExpand = (index: number) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
-  };
-
   return (
     <section id="services" className="container mx-auto px-4 py-12 sm:py-24">
       <h2 className="text-3xl font-bold text-center">
@@ -39,25 +34,15 @@ export const Services = () => {
               {service.description}
             </CardDescription>
 
-            {expandedIndex === index && (
-              <div className="mt-2 text-left text-muted-foreground">
-                <p>{service.detailedDescription}</p>
-                <h4 className="font-bold mt-2">Key Points:</h4>
-                <ul className="list-disc list-inside mt-1">
-                  {service.keyPoints.map((point, i) => (
-                    <li key={i}>{point}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
             <CardFooter className="mt-4 w-full">
               <Button
+                asChild
                 variant={"outline"}
-                onClick={() => toggleExpand(index)}
                 className="w-full text-slate-900 font-bold border border-cyan-400  hover:bg-cyan-500 hover:text-white transition-all py-2"
               >
-                {expandedIndex === index ? "Show Less" : "Read More"}
+                <Link href={`/service?serviceId=${service.serviceId}`}>
+                  Read More
+                </Link>
               </Button>
             </CardFooter>
           </Card>

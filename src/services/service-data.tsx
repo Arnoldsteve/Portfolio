@@ -1,9 +1,9 @@
-// src/services/service-data.ts
 import { Service } from "@/types/service";
 import { CodeXml, Server, CloudCog, TrendingUp } from "lucide-react";
 
 export const servicesData: Service[] = [
    {
+    serviceId: 1,
     icon: <Server size={48} className="text-cyan-400" />,
     title: "Backend Development",
     description: "Architecting robust and scalable backend systems and APIs with Node.js (NestJS, Express) and PHP (Laravel), connected to SQL or NoSQL databases.",
@@ -15,7 +15,8 @@ export const servicesData: Service[] = [
       "Authentication and authorization (JWT, OAuth).",
     ],
   },
-   {
+  {
+    serviceId:2,
     icon: <CodeXml size={48} className="text-cyan-400" />,
     title: "Frontend Development",
     description: "Building responsive, performant, and user-friendly interfaces using modern technologies like React, Next.js, and Tailwind CSS.",
@@ -28,6 +29,7 @@ export const servicesData: Service[] = [
     ],
   },
   {
+    serviceId:3,
     icon: <CloudCog size={48} className="text-cyan-400" />,
     title: "DevOps & Cloud Solutions",
     description: "Implementing CI/CD pipelines, containerizing applications with Docker, and deploying to cloud platforms like AWS, Heroku, and Render.",
@@ -40,6 +42,7 @@ export const servicesData: Service[] = [
     ],
   },
   {
+    serviceId:4,
     icon: <TrendingUp size={48} className="text-cyan-400" />,
     title: "SEO & Performance",
     description: "Optimizing applications for search engines through Server-Side Rendering, semantic HTML, fast load times, and technical SEO best practices.",

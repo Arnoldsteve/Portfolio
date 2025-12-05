@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu } from "lucide-react";
+import { Menu, Home, User, Briefcase, FolderOpen, Mail } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -18,11 +18,11 @@ export const Header = () => {
   const pathname = usePathname();
 
   const navLinks = [
-    { href: "/#home", label: "Home" },
-    { href: "/#about", label: "About" },
-    { href: "/#services", label: "Services" },
-    { href: "/#projects", label: "Projects" },
-    { href: "/#contact", label: "Contact" },
+    { href: "/#home", label: "Home", icon: Home },
+    { href: "/#about", label: "About", icon: User },
+    { href: "/#services", label: "Services", icon: Briefcase },
+    { href: "/#projects", label: "Projects", icon: FolderOpen },
+    { href: "/#contact", label: "Contact", icon: Mail },
   ];
 
   useEffect(() => {
@@ -54,11 +54,10 @@ export const Header = () => {
     return () => {
       sections.forEach((section) => section && observer.unobserve(section));
     };
-  }, [pathname]); // <-- 3. Re-run this effect when the page changes
+  }, [pathname]);
 
   // Helper to determine if a link should be "active"
   const getLinkClassName = (href: string) => {
-    // On the homepage, use the hash. On other pages, no link is active.
     const hash = href.split("#")[1];
     if (pathname === "/" && `#${hash}` === currentHash) {
       return "text-cyan-500";
@@ -67,24 +66,27 @@ export const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-background/80 backdrop-blur-sm border-b z-50">
-      <div className="container mx-auto flex justify-between items-center p-4 py-2">
-        <Link href="/#home" className="text-2xl font-bold text-cyan-400">
+    <header className="fixed top-0 left-0 w-full bg-background/100 backdrop-blur-sm border-b z-50">
+      <div className="container mx-auto flex justify-between items-center p-4 py-4">
+        <Link href="/#home" className="font-bold text-cyan-400">
           Steve Arnold
         </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex gap-x-6">
-          {navLinks.map((link) => (
-            // --- 4. Use the <Link> component ---
-            <Link
-              key={link.label}
-              href={link.href}
-              className={`transition-colors ${getLinkClassName(link.href)}`}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const Icon = link.icon;
+            return (
+              <Link
+                key={link.label}
+                href={link.href}
+                className={`transition-colors flex items-center gap-2 ${getLinkClassName(link.href)}`}
+              >
+                <Icon size={18} />
+                <span>{link.label}</span>
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Mobile Nav with Sheet */}
@@ -98,16 +100,20 @@ export const Header = () => {
             <SheetContent side="right">
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <nav className="flex flex-col gap-y-6 mt-8 ml-4">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className={`transition-colors ${getLinkClassName(link.href)}`}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                {navLinks.map((link) => {
+                  const Icon = link.icon;
+                  return (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className={`transition-colors flex items-center gap-3 ${getLinkClassName(link.href)}`}
+                    >
+                      <Icon size={20} />
+                      <span>{link.label}</span>
+                    </Link>
+                  );
+                })}
               </nav>
             </SheetContent>
           </Sheet>

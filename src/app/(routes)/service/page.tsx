@@ -17,7 +17,6 @@ interface ServicePageProps {
   }>;
 }
 
-
 // Icon mapping
 const iconMap = {
   Database: Database,
@@ -51,7 +50,7 @@ export default async function ServicePage({ searchParams }: ServicePageProps) {
   return (
     <div className="min-h-screen px-4 sm:px-6 py-4 sm:py-0 max-w-7xl mx-auto">
       {/* Back Button */}
-      <div className="px-4 ">
+      <div className="px-4 pt-4 pb-10">
         <Link href="/#services">
           <Button variant="ghost" className="group">
             <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
@@ -61,7 +60,7 @@ export default async function ServicePage({ searchParams }: ServicePageProps) {
       </div>
 
       {/* Hero Section */}
-      <section className="px-4 py-12">
+      <section className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
           <div className="flex flex-row">
             <IconComponent className="w-10 h-10 text-cyan-400 mr-5" />
@@ -74,20 +73,19 @@ export default async function ServicePage({ searchParams }: ServicePageProps) {
             {service.description}
           </p>
         </div>
-      </section>
 
-      {/* Main Content */}
-      <div className="space-y-12">
         {/* Overview */}
-        <Card className="p-8">
+        <Card className="p-4 mb-8">
           <h2 className="text-xl font-bold mb-4">Overview</h2>
           <p className="text-muted-foreground leading-relaxed">
             {service.overview}
           </p>
         </Card>
-
+      </section>
+      {/* Main Content */}
+      <div className="space-y-12">
         {/* Key Features */}
-        <Card className="p-8">
+        <Card className="p-4">
           <h2 className="text-xl font-bold mb-6">Key Features</h2>
           <div className="grid md:grid-cols-2 gap-4">
             {service.keyFeatures.map((feature, index) => (
@@ -100,7 +98,7 @@ export default async function ServicePage({ searchParams }: ServicePageProps) {
         </Card>
 
         {/* Technologies */}
-        <Card className="p-8">
+        <Card className="p-4">
           <h2 className="text-xl font-bold mb-6">Technologies & Tools</h2>
           <div className="flex flex-wrap gap-3">
             {service.technologies.map((tech, index) => (
@@ -115,7 +113,7 @@ export default async function ServicePage({ searchParams }: ServicePageProps) {
         </Card>
 
         {/* Process */}
-        <Card className="p-8">
+        <Card className="p-4">
           <h2 className="text-xl font-bold mb-6">My Process</h2>
           <div className="space-y-6">
             {service.process.map((step, index) => (
@@ -133,7 +131,7 @@ export default async function ServicePage({ searchParams }: ServicePageProps) {
         </Card>
 
         {/* Why Choose This Service */}
-        <Card className="p-8">
+        <Card className="p-4">
           <h2 className="text-xl font-bold mb-4">Why Choose This Service?</h2>
           <p className="text-muted-foreground leading-relaxed">
             {service.whyChoose}
@@ -141,7 +139,7 @@ export default async function ServicePage({ searchParams }: ServicePageProps) {
         </Card>
 
         {/* CTA Section */}
-        <Card className="p-8 bg-gradient-to-r from-cyan-400/10 to-cyan-400/5 border-cyan-400/20">
+        <Card className="p-4 bg-gradient-to-r from-cyan-400/10 to-cyan-400/5 border-cyan-400/20">
           <div className="text-center space-y-4">
             <h2 className="text-xl font-bold">Ready to Get Started?</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">

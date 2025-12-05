@@ -139,8 +139,7 @@ export default async function ServicePage({ searchParams }: ServicePageProps) {
         </Card>
 
         {/* CTA Section */}
-        <Card className="p-4 bg-gradient-to-r from-cyan-400/10 to-cyan-400/5 border-cyan-400/20">
-          <div className="text-center space-y-4">
+        <Card className="p-4 bg-gradient-to-r from-cyan-400/10 to-cyan-400/5 border-cyan-400/20 text-center ">
             <h2 className="text-xl font-bold">Ready to Get Started?</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Let's discuss how I can help bring your project to life with my{" "}
@@ -160,7 +159,6 @@ export default async function ServicePage({ searchParams }: ServicePageProps) {
                   View Related Projects
                 </Button>
               </Link>
-            </div>
           </div>
         </Card>
       </div>

@@ -211,7 +211,7 @@ export default function AboutPage() {
 
         <Card className="p-4">
           <div className="flex items-start gap-4 mb-6">
-            <div className="p-3 bg-cyan-400/10 rounded-lg">
+            <div className=" p-3 bg-cyan-400/10 rounded-lg">
               <Briefcase className="text-cyan-400" size={24} />
             </div>
             <div className="flex-1">
@@ -229,7 +229,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="space-y-3 ml-16">
+          <div className="space-y-3 ml-4 md:ml-16">
             <div className="flex items-start gap-3">
               <div className="mt-1.5 w-2 h-2 rounded-full bg-cyan-400 flex-shrink-0" />
               <p className="text-muted-foreground">
@@ -429,7 +429,7 @@ export default function AboutPage() {
           Education & <span className="text-cyan-400">Certifications</span>
         </h2>
 
-        <Card className="p-8">
+        <Card className="p-4">
           <div className="flex items-start gap-4">
             <div className="p-3 bg-cyan-400/10 rounded-lg">
               <GraduationCap className="text-cyan-400" size={24} />
@@ -536,34 +536,32 @@ export default function AboutPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="container mx-auto py-16 bg-gradient-to-r from-cyan-400/10 to-cyan-400/5">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Let's Build Something Great Together
-          </h2>
-          <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
-            I'm always interested in hearing about new projects and
-            opportunities. Whether you have a question or just want to say hi,
-            feel free to reach out!
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/#contact">
-              <Button
-                size="lg"
-                className="bg-cyan-400 hover:bg-cyan-500 text-background font-bold"
-              >
-                <Mail className="mr-2" size={18} />
-                Get in Touch
-              </Button>
-            </Link>
-            <Link href="/#projects">
-              <Button size="lg" variant="outline">
-                View My Projects
-              </Button>
-            </Link>
-          </div>
+      <Card className="p-4 bg-gradient-to-r from-cyan-400/10 to-cyan-400/5 text-center ">
+        <h2 className="text-xl font-bold mb-4">
+          Let's Build Something Great Together
+        </h2>
+        <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
+          I'm always interested in hearing about new projects and opportunities.
+          Whether you have a question or just want to say hi, feel free to reach
+          out!
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link href="/#contact">
+            <Button
+              size="lg"
+              className="bg-cyan-400 w-full hover:bg-cyan-500 text-background font-bold"
+            >
+              <Mail className="mr-2" size={18} />
+              Get in Touch
+            </Button>
+          </Link>
+          <Link href="/#projects">
+            <Button size="lg" variant="outline" className="w-full">
+              View My Projects
+            </Button>
+          </Link>
         </div>
-      </section>
+      </Card>
     </div>
   );
 }

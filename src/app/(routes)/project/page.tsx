@@ -34,7 +34,7 @@ export default async function ProjectDetailsPage({ searchParams }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-background px-4 sm:px-6 py-4 sm:py-0 max-w-7xl mx-auto">
+    <div className="min-h-screen px-4 sm:px-6 py-4 sm:py-0 max-w-7xl mx-auto">
         {/* Back Button */}
       <div className="px-4 pt-4 pb-10">
         <Link href="/#projects">

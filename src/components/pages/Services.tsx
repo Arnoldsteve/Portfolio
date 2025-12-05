@@ -24,7 +24,7 @@ export const Services = () => {
             key={index}
             className="border-border/50 text-center p-6 flex flex-col items-center hover:border-cyan-400 transition-colors duration-300"
           >
-            <CardHeader className="items-center w-full">
+            <CardHeader className="items-center w-full p-0 m-0">
               <span>{service.icon}</span>
               <CardTitle className="mt-4">{service.title}</CardTitle>
             </CardHeader>
@@ -33,9 +33,10 @@ export const Services = () => {
               {service.description}
             </CardDescription>
 
-            <CardFooter className="mt-4 w-full">
+            <CardFooter className="mt-4 w-full p-0">
               <Button
                 asChild
+                size={"sm"}
                 variant={"outline"}
                 className="w-full text-slate-900 font-bold border border-cyan-400  hover:bg-cyan-500 hover:text-white transition-all py-2"
               >

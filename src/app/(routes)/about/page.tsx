@@ -76,7 +76,6 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-background px-4 sm:px-6 py-4 sm:py-0 max-w-7xl mx-auto">
-
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-20">
         <div className="max-w-6xl mx-auto">
@@ -85,7 +84,7 @@ export default function AboutPage() {
             <div className="flex justify-center md:justify-start">
               <div className="relative w-100 h-120 rounded-lg overflow-hidden border-2 border-cyan-400/20 shadow-none">
                 <Image
-                  src="/profile-pic2.png" 
+                  src="/profile-pic2.png"
                   alt="Steve Arnold Otieno"
                   fill
                   className="object-cover"
@@ -143,10 +142,16 @@ export default function AboutPage() {
                     Get in Touch
                   </Button>
                 </Link>
-                <Button size="lg" variant="outline">
-                  <Download className="mr-2" size={18} />
-                  Download CV
-                </Button>
+                {/* <Link
+                  href={"/SteveOtieno_SoftwareEngineer_Resume.pdf"}
+                  target="_blank"
+                  download
+                >
+                  <Button size="lg" variant="outline">
+                    <Download className="mr-2" size={18} />
+                    Download CV
+                  </Button>
+                </Link> */}
               </div>
 
               {/* Social Links */}
@@ -245,9 +250,9 @@ export default function AboutPage() {
               <div className="flex items-start gap-3">
                 <div className="mt-1.5 w-2 h-2 rounded-full bg-cyan-400 flex-shrink-0" />
                 <p className="text-muted-foreground">
-                  Contributed to the main travel platform (itravelholidays.co.uk),
-                  directly resulting in a 30% increase in conversion rates and
-                  25% reduction in booking abandonment
+                  Contributed to the main travel platform
+                  (itravelholidays.co.uk), directly resulting in a 30% increase
+                  in conversion rates and 25% reduction in booking abandonment
                 </p>
               </div>
               <div className="flex items-start gap-3">
@@ -409,16 +414,21 @@ export default function AboutPage() {
                 <h3 className="text-xl font-bold">Methodologies</h3>
               </div>
               <div className="flex flex-wrap gap-2">
-                {["Agile", "Scrum", "Kanban", "TDD", "Microservices", "REST APIs"].map(
-                  (skill) => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1 bg-background border rounded-full text-sm"
-                    >
-                      {skill}
-                    </span>
-                  )
-                )}
+                {[
+                  "Agile",
+                  "Scrum",
+                  "Kanban",
+                  "TDD",
+                  "Microservices",
+                  "REST APIs",
+                ].map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-3 py-1 bg-background border rounded-full text-sm"
+                  >
+                    {skill}
+                  </span>
+                ))}
               </div>
             </Card>
           </div>
@@ -450,9 +460,7 @@ export default function AboutPage() {
                 </div>
                 <div className="flex items-center gap-2 mb-4">
                   <Award className="text-cyan-400" size={20} />
-                  <span className="font-semibold">
-                    Second Class Honours
-                  </span>
+                  <span className="font-semibold">Second Class Honours</span>
                 </div>
                 <div className="p-4 bg-muted rounded-lg">
                   <p className="text-sm font-semibold mb-2">
@@ -495,8 +503,8 @@ export default function AboutPage() {
               </div>
               <h3 className="font-bold text-lg mb-2">Full Stack Expertise</h3>
               <p className="text-muted-foreground text-sm">
-                From frontend React to backend Node.js and PHP, I build
-                complete solutions end-to-end.
+                From frontend React to backend Node.js and PHP, I build complete
+                solutions end-to-end.
               </p>
             </Card>
 

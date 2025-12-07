@@ -32,11 +32,16 @@ export const ScrollToTopButton = () => {
       {isVisible && (
         <div className="relative flex items-center">
           {/* Tooltip to the left */}
-          <span className="absolute right-full mr-2 px-2 py-1 text-xs rounded bg-gray-800 text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+          <span className="absolute right-full mr-2 px-2 py-1 text-xs rounded bg-cyan-600 text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+
             Scroll to top
           </span>
 
-          <Button onClick={scrollToTop} size="icon">
+          <Button 
+            onClick={scrollToTop} 
+            size="icon"
+            className="bg-cyan-500 hover:bg-cyan-600 text-white shadow-lg"
+          >
             <ArrowUp className="h-4 w-4" />
           </Button>
         </div>

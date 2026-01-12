@@ -41,7 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="light">
-      <body className={`${inter.className} pt-16 bg-muted/100 scroll-smooth`}>
+      <body className={`${inter.className} pt-16 bg-muted scroll-smooth`}>
         <Header />
         {children}
         <Footer />

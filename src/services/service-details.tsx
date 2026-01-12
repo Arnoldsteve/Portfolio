@@ -3,241 +3,199 @@ import { ServiceDetail } from "@/types/services-details";
 export const serviceDetails: ServiceDetail[] = [
   {
     serviceId: "1",
-    title: "Backend Development",
+    title: "SaaS Platform Architecture", 
     description:
-      "Architecting robust and scalable backend systems and APIs with Node.js (NestJS, Express) and PHP (Laravel), connected to SQL or NoSQL databases.",
-    iconName: "Database",
+      "Designing secure, multi-tenant architectures that scale. I specialize in data isolation strategies (Row-Level Security) and schema design.",
+    iconName: "Server", // Changed from Database to Server to match context
     overview:
-      "I specialize in building high-performance backend systems that power modern web applications. With expertise in Node.js and PHP frameworks, I create scalable APIs, implement complex business logic, and ensure your application's foundation is solid, secure, and maintainable.",
+      "Building a SaaS is different from building a website. It requires strict data isolation, scalable infrastructure, and complex permission systems. I architect platforms that serve thousands of tenants from a single codebase, ensuring that Client A never sees Client B's data.",
     keyFeatures: [
-      "RESTful and GraphQL API development",
-      "Database design and optimization",
-      "Authentication and authorization systems",
-      "Microservices architecture",
-      "Third-party API integrations",
-      "Comprehensive API documentation",
-      "Performance monitoring and optimization",
-      "Automated testing and CI/CD pipelines",
+      "Multi-Tenant Database Design (Schema vs. Row Level)",
+      "Permission-Based Access Control (PBAC / RBAC)",
+      "Subscription & Billing Logic Integration",
+      "Scalable Microservices & Monoliths",
+      "Data Isolation & Security Compliance",
+      "Automated Tenant Onboarding Flows",
     ],
     technologies: [
-      "Node.js",
       "NestJS",
-      "Express",
-      "PHP",
-      "Laravel",
+      "Node.js",
       "PostgreSQL",
-      "MongoDB",
-      "Redis",
+      "Prisma",
       "Docker",
       "AWS",
+      "Redis",
+      "Kubernetes",
     ],
     process: [
       {
-        title: "Requirements Analysis",
+        title: "Domain Modeling",
         description:
-          "Understanding your business needs, data models, and system requirements to design the optimal architecture.",
+          "Mapping out complex business rules and tenant relationships before writing a single line of code.",
       },
       {
-        title: "Database Design",
+        title: "Schema Design",
         description:
-          "Creating efficient database schemas with proper relationships, indexes, and optimization strategies.",
+          "Designing normalized databases with strict foreign keys and indexing strategies for multi-tenancy.",
       },
       {
-        title: "API Development",
+        title: "Security Implementation",
         description:
-          "Building robust, well-documented APIs with proper error handling, validation, and security measures.",
+          "Implementing Guards, Interceptors, and Middleware to enforce tenant isolation at the API level.",
       },
       {
-        title: "Testing & Documentation",
+        title: "Scalability Testing",
         description:
-          "Implementing comprehensive tests and creating clear API documentation for seamless integration.",
-      },
-      {
-        title: "Deployment & Monitoring",
-        description:
-          "Deploying to production with proper monitoring, logging, and performance tracking in place.",
+          "Load testing the architecture to ensure it handles concurrent tenant spikes without degradation.",
       },
     ],
     whyChoose:
-      "A solid backend is the foundation of any successful application. I focus on writing clean, maintainable code that scales with your business. With experience in both SQL and NoSQL databases, I can choose the right tools for your specific needs and ensure your backend can handle growth.",
+      "Most developers build apps that break when you add the 100th tenant. I build platforms designed to handle the 10,000th tenant from Day 1. My focus on data integrity and isolation ensures your SaaS is enterprise-ready.",
   },
   {
     serviceId: "2",
-    title: "Frontend Development",
+    title: "Fintech & Ledger Systems", // 👈 Aligned with Homepage
     description:
-      "Building responsive, performant, and user-friendly interfaces using modern technologies like React, Next.js, and Tailwind CSS.",
-    iconName: "Code2",
+      "Engineering immutable, double-entry financial ledgers. I build systems that handle money with ACID compliance and 99.8% transaction reliability.",
+    iconName: "ShieldCheck",
     overview:
-      "I create modern, responsive web interfaces that provide exceptional user experiences across all devices. Using cutting-edge technologies like React and Next.js, I build fast, accessible, and visually appealing applications that engage users and drive results.",
+      "Handling money requires zero margin for error. I specialize in building immutable financial ledgers that track every cent. Instead of relying on third-party dashboards, I build internal reconciliation engines that ensure your database always matches the bank.",
     keyFeatures: [
-      "Responsive design for all devices",
-      "Component-based architecture",
-      "State management solutions",
-      "Performance optimization",
-      "Accessibility compliance (WCAG)",
-      "Progressive Web Apps (PWA)",
-      "Animation and micro-interactions",
-      "Cross-browser compatibility",
+      "Double-Entry Ledger Architecture",
+      "Idempotent Payment Processing",
+      "Stripe / M-Pesa / PayPal Integrations",
+      "Automated Reconciliation Logic",
+      "Webhook Handling & Failure Recovery",
+      "Audit Logging & Financial Reporting",
     ],
     technologies: [
-      "React",
-      "Next.js",
+      "Node.js",
       "TypeScript",
-      "Tailwind CSS",
-      "Redux",
-      "Zustand",
-      "Framer Motion",
-      "shadcn/ui",
-      "React Query",
-      "Vite",
+      "PostgreSQL (ACID Transactions)",
+      "Stripe API",
+      "M-Pesa API",
+      "Redis (Locks)",
     ],
     process: [
       {
-        title: "Design Review",
+        title: "Transaction Modeling",
         description:
-          "Analyzing designs and specifications to ensure feasibility and optimal user experience.",
+          "Defining the flow of funds and creating immutable ledger schemas.",
       },
       {
-        title: "Component Development",
+        title: "Gateway Integration",
         description:
-          "Building reusable, maintainable components with proper type safety and documentation.",
+          "Connecting payment providers with robust error handling and idempotency keys.",
       },
       {
-        title: "State Management",
+        title: "Reconciliation Engine",
         description:
-          "Implementing efficient state management solutions for complex application logic.",
+          "Building background jobs that verify internal records against gateway settlements.",
       },
       {
-        title: "Optimization",
+        title: "Security Audit",
         description:
-          "Optimizing bundle size, load times, and runtime performance for the best user experience.",
-      },
-      {
-        title: "Testing & Launch",
-        description:
-          "Thorough testing across devices and browsers before deployment to production.",
+          "Ensuring PCI compliance logic (tokenization) and securing financial API endpoints.",
       },
     ],
     whyChoose:
-      "First impressions matter. I create interfaces that not only look great but perform exceptionally well. With a focus on user experience, accessibility, and performance, I ensure your application stands out and keeps users engaged.",
+      "I don't just 'add Stripe.' I build financial infrastructure. My systems are designed to survive network failures, duplicate webhooks, and concurrency race conditions, ensuring your revenue data is always accurate.",
   },
   {
     serviceId: "3",
-    title: "DevOps & Cloud Solutions",
+    title: "Event-Driven Systems", // 👈 Aligned with Homepage
     description:
-      "Implementing CI/CD pipelines, containerizing applications with Docker, and deploying to cloud platforms like AWS, Heroku, and Render.",
-    iconName: "Cloud",
+      "Decoupling complex business logic using Pub/Sub patterns. I ensure heavy background tasks don't slow down the user experience.",
+    iconName: "Activity",
     overview:
-      "I help teams ship faster and more reliably through modern DevOps practices and cloud infrastructure. From automated deployments to containerization and cloud architecture, I ensure your applications are scalable, secure, and easy to maintain.",
+      "Monoliths become spaghetti code when everything happens in one HTTP request. I decouple your application using Event-Driven Architecture. This allows critical tasks (like payments) to happen instantly, while side effects (emails, analytics, logs) happen asynchronously.",
     keyFeatures: [
-      "CI/CD pipeline setup and optimization",
-      "Docker containerization",
-      "Kubernetes orchestration",
-      "Cloud infrastructure setup (AWS, Azure, GCP)",
-      "Infrastructure as Code (Terraform)",
-      "Monitoring and logging solutions",
-      "Automated backup and disaster recovery",
-      "Security best practices implementation",
+      "Asynchronous Processing (Queues/Jobs)",
+      "Pub/Sub Pattern Implementation",
+      "Decoupled Microservices Communication",
+      "Background Job Management (BullMQ/Redis)",
+      "Real-time Event Broadcasting (WebSockets)",
+      "System Observability & Tracing",
     ],
     technologies: [
-      "Docker",
-      "Kubernetes",
-      "AWS",
-      "Heroku",
-      "Render",
-      "GitHub Actions",
-      "GitLab CI",
-      "Terraform",
-      "Nginx",
-      "Prometheus",
+      "NestJS Event Emitter",
+      "Redis / BullMQ",
+      "RabbitMQ / Kafka",
+      "Socket.io",
+      "Node.js",
     ],
     process: [
       {
-        title: "Infrastructure Assessment",
+        title: "Event Storming",
         description:
-          "Evaluating current infrastructure and identifying opportunities for improvement and automation.",
+          "Identifying domain events (e.g., 'UserSignedUp', 'PaymentReceived') and their side effects.",
       },
       {
-        title: "Containerization",
+        title: "Infrastructure Setup",
         description:
-          "Dockerizing applications for consistent environments across development and production.",
+          "Setting up message brokers (Redis/RabbitMQ) to handle event distribution.",
       },
       {
-        title: "Pipeline Setup",
+        title: "Consumer Implementation",
         description:
-          "Creating automated CI/CD pipelines for testing, building, and deploying code.",
+          "Writing isolated listeners that handle specific tasks without blocking the main thread.",
       },
       {
-        title: "Cloud Deployment",
+        title: "Failure Handling",
         description:
-          "Deploying to cloud platforms with proper scaling, security, and monitoring configurations.",
-      },
-      {
-        title: "Monitoring & Maintenance",
-        description:
-          "Setting up monitoring, alerting, and maintaining infrastructure for optimal performance.",
+          "Implementing Dead Letter Queues (DLQ) and retry mechanisms for robust processing.",
       },
     ],
     whyChoose:
-      "Manual deployments and infrastructure management slow down development and increase risk. I automate your deployment pipeline and set up robust cloud infrastructure so your team can focus on building features while maintaining high reliability and security.",
+      "Speed is a feature. By moving heavy tasks to the background, I ensure your API responds in milliseconds, not seconds. This architecture also makes your system easier to maintain and extend without regression.",
   },
   {
     serviceId: "4",
-    title: "SEO & Performance",
+    title: "High-Performance APIs", // 👈 Aligned with Homepage
     description:
-      "Optimizing applications for search engines through Server-Side Rendering, semantic HTML, fast load times, and technical SEO best practices.",
+      "Optimizing database queries and API endpoints. I use Redis caching and proper indexing to reduce latency by up to 45%.",
     iconName: "TrendingUp",
     overview:
-      "A great application also needs to be discoverable. I implement technical SEO strategies and performance optimizations to ensure your application ranks well in search engines, loads quickly, and provides an excellent user experience that keeps visitors engaged.",
+      "Slow APIs kill user retention. I analyze and optimize your backend to handle high traffic loads. From database indexing strategies to aggressive caching layers, I ensure your application scales efficiently without simply throwing more servers at the problem.",
     keyFeatures: [
-      "Server-Side Rendering (SSR) implementation",
-      "Core Web Vitals optimization",
-      "Semantic HTML and structured data",
-      "Image and asset optimization",
-      "Code splitting and lazy loading",
-      "Mobile-first optimization",
-      "Technical SEO audits",
-      "Performance monitoring and reporting",
+      "SQL Query Optimization (N+1 solutions)",
+      "Database Indexing Strategies",
+      "Redis Caching Implementation",
+      "Load Balancing & Horizontal Scaling",
+      "Rate Limiting & Throttling",
+      "Server-Side Response Compression",
     ],
     technologies: [
-      "Next.js",
-      "React",
-      "Lighthouse",
-      "Google Search Console",
-      "Schema.org",
-      "Sitemap generation",
-      "Web Vitals",
-      "CDN integration",
-      "Image optimization tools",
+      "PostgreSQL",
+      "Redis",
+      "Nginx",
+      "Node.js Profiling Tools",
+      "K6 (Load Testing)",
+      "Grafana / Prometheus",
     ],
     process: [
       {
-        title: "Technical Audit",
+        title: "Performance Audit",
         description:
-          "Comprehensive analysis of current performance and SEO issues using industry-standard tools.",
+          "Using profiling tools to identify slow queries and memory leaks in the current system.",
       },
       {
-        title: "SSR Implementation",
+        title: "Database Tuning",
         description:
-          "Setting up Server-Side Rendering with Next.js for improved SEO and initial load times.",
+          "Adding missing indexes, rewriting inefficient joins, and implementing query caching.",
       },
       {
-        title: "Performance Optimization",
+        title: "Caching Layer",
         description:
-          "Optimizing images, code splitting, lazy loading, and other techniques to improve load times.",
+          "Implementing Redis strategies to serve frequently accessed data instantly.",
       },
       {
-        title: "SEO Enhancement",
+        title: "Stress Testing",
         description:
-          "Implementing structured data, meta tags, sitemaps, and other SEO best practices.",
-      },
-      {
-        title: "Monitoring & Iteration",
-        description:
-          "Continuous monitoring of performance metrics and search rankings with ongoing improvements.",
+          "Simulating high traffic loads to verify stability and response times under pressure.",
       },
     ],
     whyChoose:
-      "Speed and discoverability directly impact your bottom line. I focus on technical SEO and performance optimization from day one, using Server-Side Rendering with Next.js, code splitting, and image optimization to achieve fast load times and high search rankings. Better performance means better user experience and better business results.",
+      "I don't guess; I measure. I use data-driven optimization techniques to reduce server costs and improve user experience. My track record includes reducing API response times by 45% for high-traffic platforms.",
   },
 ];

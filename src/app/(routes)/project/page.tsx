@@ -3,9 +3,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Github, ExternalLink, Gitlab, CheckCircle, ArrowLeft } from "lucide-react";
+import { Github, ExternalLink, Gitlab, CheckCircle2, ArrowLeft, Layers, Image as ImageIcon } from "lucide-react";
 import { projects } from "@/mock-data/projects-details";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 interface PageProps {
   searchParams: Promise<{
@@ -19,221 +20,186 @@ export default async function ProjectDetailsPage({ searchParams }: PageProps) {
   const project = projects.find((p) => p.id === projectId);
 
   if (!project) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="text-center p-8">
-          <h1 className="text-2xl font-bold text-destructive mb-4">
-            Project Not Found
-          </h1>
-          <p className="text-muted-foreground">
-            The project ID is invalid or the project does not exist.
-          </p>
-        </div>
-      </div>
-    );
+    redirect("/"); // Or show a 404
   }
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 py-4 sm:py-0 max-w-7xl mx-auto">
-        {/* Back Button */}
-      <div className="px-4 pt-4 pb-10">
-        <Link href="/#projects">
-          <Button variant="ghost" className="group">
-            <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-            Back to Projects
-          </Button>
-        </Link>
+    <div className="min-h-screen bg-white">
+      {/* Sticky Header for Back Button */}
+      <div className="sticky top-16 z-40 w-full bg-white/80 backdrop-blur-md border-b">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+            <Link href="/#projects">
+            <Button variant="ghost" className="group text-slate-600 hover:text-cyan-600">
+                <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+                Back to All Projects
+            </Button>
+            </Link>
+        </div>
       </div>
 
-      {/* --- HERO SECTION --- */}
-      <section className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-        <div className="relative aspect-[16/10] w-full rounded-lg overflow-hidden shadow-lg group">
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
-            priority
-          />
-        </div>
-        <div>
-          <h1 className="text-xl sm:text-3xl font-bold mb-3">
-            {project.title}
-          </h1>
-          <p className="text-muted-foreground text-base sm:text-lg mb-6">
-            {project.description}
-          </p>
-          <div className="flex flex-wrap gap-2 mb-8">
-            {project.tags.map((tag) => (
-              <Badge key={tag} variant="secondary">
-                {tag}
-              </Badge>
-            ))}
-          </div>
-          <div className="flex flex-wrap gap-3">
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button
-                  variant="outline"
-                  className="w-full text-slate-900 font-bold border border-cyan-400 hover:bg-cyan-500 hover:text-white transition-all py-2"
-                >
-                  <Github className="w-4 h-4 mr-2" />
-                  GitHub
-                </Button>
-              </a>
-            )}
-            {project.gitlab && (
-              <a
-                href={project.gitlab}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button
-                  variant="outline"
-                  className="w-full text-slate-900 font-bold border border-cyan-400 rounded hover:bg-cyan-500 hover:text-white transition-all py-2"
-                >
-                  <Gitlab className="w-4 h-4 mr-2" />
-                  GitLab
-                </Button>
-              </a>
-            )}
-            {typeof project.demo === "string" && (
-              <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                <Button className=" bg-cyan-300 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-black">
-                  <ExternalLink className="w-4 h-4 mr-2" />
-                  Live Demo
-                </Button>
-              </a>
-            )}
-            {typeof project.demo === "object" && (
-              <>
-                {project.demo.storefront && (
-                  <a
-                    href={project.demo.storefront}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Button className=" bg-cyan-300 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-black">
-                      Storefront Demo
-                    </Button>
-                  </a>
-                )}
-                {project.demo.admin && (
-                  <a
-                    href={project.demo.admin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Button
-                      variant="secondary"
-                      className=" bg-cyan-300 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-black"
-                    >
-                      Admin Demo
-                    </Button>
-                  </a>
-                )}
-              </>
-            )}
-          </div>
-        </div>
-      </section>
-
-      <Separator className="my-16 sm:my-24" />
-
-      {/* --- ABOUT & KEY FEATURES --- */}
-      <section className="grid md:grid-cols-3 gap-8 md:gap-12">
-        <div className="md:col-span-2">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4">
-            About This Project
-          </h2>
-          <p className="text-muted-foreground leading-relaxed text-base sm:text-lg whitespace-pre-wrap">
-            {project.longDescription}
-          </p>
-        </div>
-        {project.keyFeatures && project.keyFeatures.length > 0 && (
-          <Card className="">
-            <CardHeader>
-              <CardTitle>Key Features</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-3">
-                {project.keyFeatures.map((feature, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-cyan-500 mt-1 flex-shrink-0" />
-                    <span className="text-sm text-muted-foreground">
-                      {feature}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-        )}
-      </section>
-
-      <Separator className="my-16 sm:my-24" />
-
-      {/* --- TECH STACK SECTION --- */}
-      {project.techStack && project.techStack.length > 0 && (
-        <section>
-          <h2 className="text-xl sm:text-2xl font-semibold mb-8 text-center">
-            Technology <span className="text-cyan-400">Stack</span>
-          </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {project.techStack.map((stack) => (
-              <Card key={stack.category}>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-center text-muted-foreground">
-                    {stack.category}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-center">
-                  <div className="flex flex-col gap-1">
-                    {stack.techs.map((tech) => (
-                      <p key={tech} className="font-semibold text-sm">
-                        {tech}
-                      </p>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Conditionally render separator only if there's a gallery */}
-      {project.gallery && project.gallery.length > 0 && (
-        <Separator className="my-16 sm:my-24" />
-      )}
-
-      {/* --- PROJECT GALLERY --- */}
-      {project.gallery && project.gallery.length > 0 && (
-        <section>
-          <h2 className="text-xl sm:text-2xl font-semibold mb-6">
-            Project <span className="text-cyan-400">Gallery</span>
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {project.gallery.map((imgSrc, index) => (
-              <div
-                key={index}
-                className="relative aspect-video rounded-lg overflow-hidden shadow-md group"
-              >
+      <div className="max-w-7xl mx-auto px-4 py-12">
+        
+        {/* --- HERO SECTION --- */}
+        <section className="grid lg:grid-cols-2 gap-12 items-start mb-20">
+            {/* Left: Image */}
+            <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden shadow-2xl border border-slate-200">
                 <Image
-                  src={imgSrc}
-                  alt={`${project.title} gallery image ${index + 1}`}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover"
+                    priority
                 />
-              </div>
-            ))}
-          </div>
+            </div>
+
+            {/* Right: Info */}
+            <div className="space-y-6">
+                <div>
+                    <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                        {project.title}
+                    </h1>
+                    <p className="mt-4 text-lg text-slate-600 leading-relaxed">
+                        {project.description}
+                    </p>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                    <Badge key={tag} variant="secondary" className="bg-cyan-50 text-cyan-700 hover:bg-cyan-100">
+                        {tag}
+                    </Badge>
+                    ))}
+                </div>
+
+                <div className="flex flex-wrap gap-4 pt-4">
+                    {project.demo && (
+                        <div className="flex gap-3">
+                            {typeof project.demo === 'string' ? (
+                                <Button asChild className="bg-slate-900 hover:bg-slate-800">
+                                    <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                                        <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
+                                    </a>
+                                </Button>
+                            ) : (
+                                <>
+                                    <Button asChild className="bg-slate-900 hover:bg-slate-800">
+                                        <a href={project.demo.storefront} target="_blank" rel="noopener noreferrer">
+                                            <ExternalLink className="mr-2 h-4 w-4" /> Storefront
+                                        </a>
+                                    </Button>
+                                    <Button asChild variant="outline">
+                                        <a href={project.demo.admin} target="_blank" rel="noopener noreferrer">
+                                            <ExternalLink className="mr-2 h-4 w-4" /> Admin Panel
+                                        </a>
+                                    </Button>
+                                </>
+                            )}
+                        </div>
+                    )}
+
+                    {project.github && (
+                        <Button asChild variant="outline">
+                            <a href={project.github} target="_blank" rel="noopener noreferrer">
+                                <Github className="mr-2 h-4 w-4" /> Source Code
+                            </a>
+                        </Button>
+                    )}
+                    
+                    {project.gitlab && (
+                         <Button asChild variant="outline">
+                            <a href={project.gitlab} target="_blank" rel="noopener noreferrer">
+                                <Gitlab className="mr-2 h-4 w-4" /> GitLab Repo
+                            </a>
+                        </Button>
+                    )}
+                </div>
+            </div>
         </section>
-      )}
+
+        <div className="grid lg:grid-cols-3 gap-12">
+            
+            {/* --- MAIN CONTENT (Left Col) --- */}
+            <div className="lg:col-span-2 space-y-12">
+                
+                {/* About */}
+                <section>
+                    <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+                        <Layers className="h-6 w-6 text-cyan-500" /> Architectural Overview
+                    </h2>
+                    <div className="prose prose-slate max-w-none text-slate-600 whitespace-pre-wrap leading-relaxed">
+                        {project.longDescription}
+                    </div>
+                </section>
+
+                {/* Key Features */}
+                {project.keyFeatures && (
+                    <section>
+                        <h2 className="text-2xl font-bold text-slate-900 mb-6">Key Implementations</h2>
+                        <div className="grid sm:grid-cols-1 gap-4">
+                            {project.keyFeatures.map((feature, index) => (
+                                <Card key={index} className="border-l-4 border-l-cyan-400 shadow-sm hover:shadow-md transition-shadow">
+                                    <CardContent className="p-4 flex items-start gap-4">
+                                        <CheckCircle2 className="h-6 w-6 text-cyan-500 shrink-0" />
+                                        <span className="text-slate-700 font-medium">{feature}</span>
+                                    </CardContent>
+                                </Card>
+                            ))}
+                        </div>
+                    </section>
+                )}
+
+                {/* Gallery */}
+                {project.gallery && project.gallery.length > 0 && (
+                    <section>
+                         <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                            <ImageIcon className="h-6 w-6 text-cyan-500" /> System Screenshots
+                        </h2>
+                        <div className="grid sm:grid-cols-2 gap-6">
+                            {project.gallery.map((imgSrc, index) => (
+                                <div key={index} className="relative aspect-video rounded-xl overflow-hidden shadow-lg hover:scale-[1.02] transition-transform duration-300">
+                                    <Image
+                                        src={imgSrc}
+                                        alt={`Gallery ${index}`}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                )}
+            </div>
+
+            {/* --- SIDEBAR (Right Col) --- */}
+            <div className="space-y-8">
+                {project.techStack && (
+                    <Card className="bg-slate-50 border-slate-200 sticky top-32">
+                        <CardHeader>
+                            <CardTitle>Tech Stack</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-6">
+                            {project.techStack.map((stack) => (
+                                <div key={stack.category}>
+                                    <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+                                        {stack.category}
+                                    </h4>
+                                    <div className="flex flex-wrap gap-2">
+                                        {stack.techs.map((tech) => (
+                                            <span key={tech} className="px-2 py-1 bg-white border rounded text-sm font-medium text-slate-700">
+                                                {tech}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </CardContent>
+                    </Card>
+                )}
+            </div>
+
+        </div>
+
+      </div>
     </div>
   );
 }

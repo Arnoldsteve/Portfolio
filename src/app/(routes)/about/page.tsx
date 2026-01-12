@@ -5,13 +5,10 @@ import { Card } from "@/components/ui/card";
 import {
   Briefcase,
   GraduationCap,
-  Download,
   Mail,
   Linkedin,
   Github,
-  Globe,
   MapPin,
-  Phone,
   Calendar,
   Award,
   Code2,
@@ -20,68 +17,69 @@ import {
   Cloud,
   Wrench,
   Gitlab,
+  Zap,
+  ShieldCheck,
+  TrendingUp,
+  Globe,
+  Download
 } from "lucide-react";
 
 export default function AboutPage() {
   const skills = {
     languages: [
-      "JavaScript",
       "TypeScript",
+      "JavaScript (ES6+)",
       "PHP",
       "Python",
-      "Java",
-      "C#",
-      "Go",
-    ],
-    frontend: [
-      "React",
-      "Next.js",
-      "Tailwind CSS",
-      "shadcn/ui",
-      "Mantine Core",
-      "Bootstrap",
+      "SQL",
     ],
     backend: [
-      "Node.js",
       "NestJS",
+      "Node.js",
       "Express.js",
+      "CodeIgniter",
       "Laravel",
-      "Django",
       "FastAPI",
+    ],
+    frontend: [
+      "Next.js",
+      "React",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "Redux",
     ],
     databases: [
       "PostgreSQL",
-      "MySQL",
-      "MongoDB",
       "Redis",
+      "MySQL",
       "Supabase",
-      "Prisma",
+      "Prisma ORM",
     ],
     devops: [
       "Docker",
-      "Git",
       "GitHub Actions",
-      "GitLab CI/CD",
       "AWS",
-      "Heroku",
+      "CI/CD Pipelines",
+      "Vercel",
     ],
   };
 
   const stats = [
-    { label: "Years Experience", value: "2+" },
-    { label: "Projects Completed", value: "10+" },
-    { label: "Conversion Increase", value: "30%" },
-    { label: "Security Improvement", value: "95%" },
+    { label: "Payment Success Rate", value: "99.8%", icon: ShieldCheck },
+    { label: "API Optimization", value: "45%", icon: Zap },
+    { label: "Conversion Uplift", value: "30%", icon: TrendingUp },
+    { label: "Security Reduction", value: "95%", icon: Server },
   ];
 
   return (
     <div className="min-h-screen px-4 sm:px-6 py-4 sm:py-0 max-w-7xl mx-auto overflow-x-hidden">
-      {/* Hero Section */}
-      <section className="grid md:grid-cols-2 gap-8 md:gap-12 items-center pt-8">
+      
+      {/* --- HERO SECTION --- */}
+      <section className="grid md:grid-cols-2 gap-8 md:gap-12 items-center pt-12 pb-16">
         {/* Left - Image */}
-        <div className="relative  aspect-[10/10] rounded-lg overflow-hidden border-2 border-cyan-400/20 shadow-none">
+        <div className="relative aspect-[4/5] md:aspect-square w-full max-w-md mx-auto rounded-2xl overflow-hidden shadow-2xl border-4 border-white/50">
           <Image
-            src="/profile-pic2.png"
+            src="/profile-pic2.png" // Ensure this matches your file
             alt="Steve Arnold Otieno"
             fill
             className="object-cover"
@@ -90,37 +88,40 @@ export default function AboutPage() {
         </div>
 
         {/* Right - Info */}
-        <div className="space-y-6">
+        <div className="space-y-8">
           <div>
-            <h1 className="text-2xl md:text-5xl font-bold mb-2">
+            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-2 text-slate-900">
               Steve Arnold Otieno
             </h1>
-            <p className="text-xl text-cyan-400 font-semibold mb-4">
-              Full Stack Software Engineer
+            <p className="text-xl text-cyan-600 font-semibold mb-4 flex items-center gap-2">
+              Backend-Focused Full Stack Engineer
             </p>
-            <div className="flex flex-wrap gap-4 text-muted-foreground">
+            <div className="flex flex-wrap gap-6 text-slate-600">
               <div className="flex items-center gap-2">
-                <MapPin size={18} />
+                <MapPin size={18} className="text-cyan-500" />
                 <span>Mombasa, Kenya</span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone size={18} />
-                <span>+254 796 335 895</span>
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <span>Open to Remote Roles</span>
               </div>
             </div>
           </div>
 
-          {/* Quick Stats */}
-          <div className="grid grid-cols-2 gap-4 py-6">
+          {/* Quick Stats Grid */}
+          <div className="grid grid-cols-2 gap-4">
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className="text-center p-4 bg-cyan-400/10 rounded-lg border border-cyan-400/20"
+                className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm hover:border-cyan-400 transition-colors"
               >
-                <div className="text-2xl font-bold text-cyan-400">
-                  {stat.value}
+                <div className="flex items-center gap-2 mb-1">
+                    <stat.icon size={16} className="text-cyan-500" />
+                    <div className="text-2xl font-bold text-slate-900">
+                    {stat.value}
+                    </div>
                 </div>
-                <div className="text-sm text-muted-foreground">
+                <div className="text-xs font-medium text-slate-500 uppercase tracking-wide">
                   {stat.label}
                 </div>
               </div>
@@ -132,228 +133,146 @@ export default function AboutPage() {
             <Link href="/#contact">
               <Button
                 size="lg"
-                className="bg-cyan-400 hover:bg-cyan-500 text-background font-bold"
+                className="bg-slate-900 hover:bg-slate-800 text-white font-semibold px-8"
               >
                 <Mail className="mr-2" size={18} />
-                Get in Touch
+                Contact Me
               </Button>
             </Link>
-            {/* <Link
-                  href={"/SteveOtieno_SoftwareEngineer_Resume.pdf"}
+            <Link
+                  href="/SteveOtieno_SoftwareEngineer_Resume.pdf"
                   target="_blank"
                   download
                 >
-                  <Button size="lg" variant="outline">
+                  <Button size="lg" variant="outline" className="border-slate-300">
                     <Download className="mr-2" size={18} />
                     Download CV
                   </Button>
-                </Link> */}
+            </Link>
           </div>
 
           {/* Social Links */}
-          <div className="flex gap-4 pt-4">
+          <div className="flex gap-4">
             <a
               href="https://linkedin.com/in/steve-arnold-otieno"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 border rounded-lg hover:bg-cyan-400/10 hover:border-cyan-400 transition-colors"
+              className="p-2.5 bg-slate-100 rounded-lg hover:bg-cyan-50 hover:text-cyan-600 transition-colors"
             >
-              <Linkedin size={24} />
+              <Linkedin size={20} />
             </a>
             <a
               href="https://github.com/Arnoldsteve"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 border rounded-lg hover:bg-cyan-400/10 hover:border-cyan-400 transition-colors"
+              className="p-2.5 bg-slate-100 rounded-lg hover:bg-cyan-50 hover:text-cyan-600 transition-colors"
             >
-              <Github size={24} />
+              <Github size={20} />
             </a>
             <a
               href="https://gitlab.com/Arnoldsteve"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 border rounded-lg hover:bg-cyan-400/10 hover:border-cyan-400 transition-colors"
+              className="p-2.5 bg-slate-100 rounded-lg hover:bg-cyan-50 hover:text-cyan-600 transition-colors"
             >
-              <Gitlab size={24} />
+              <Gitlab size={20} />
             </a>
           </div>
         </div>
       </section>
 
-      {/* Professional Summary */}
-      <section className="container mx-auto py-16 bg-muted/30">
-        <h2 className="text-2xl font-bold mb-6 text-center">
-          My <span className="text-cyan-400">Story</span>
+      {/* --- PROFESSIONAL SUMMARY --- */}
+      <section className="container mx-auto py-16">
+        <h2 className="text-3xl font-bold mb-8">
+          The <span className="text-cyan-500">Engineer</span>
         </h2>
-        <Card className="p-4">
-          <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-            I'm a results-driven Full Stack Engineer with expertise in the
-            React, Node.js, and PHP ecosystems. My passion lies in architecting
-            robust backend systems and creating seamless user experiences that
-            drive real business results.
-          </p>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            I've demonstrated success in building and deploying high-impact,
-            scalable applications, including a booking engine that increased
-            conversion rates by 30% and a secure multi-tenant invoice system
-            that reduced vulnerabilities by 95%. I leverage agile methodologies
-            to enhance team velocity and deliver exceptional products that solve
-            real-world problems.
-          </p>
-        </Card>
-      </section>
-
-      {/* Professional Experience */}
-      <section className="container mx-auto  py-16">
-        <h2 className="text-2xl font-bold mb-8 text-center">
-          Professional <span className="text-cyan-400">Experience</span>
-        </h2>
-
-        <Card className="p-4">
-          <div className="flex items-start gap-4 mb-6">
-            <div className=" p-3 bg-cyan-400/10 rounded-lg">
-              <Briefcase className="text-cyan-400" size={24} />
-            </div>
-            <div className="flex-1">
-              <h3 className="text-xl font-bold">Full Stack Developer</h3>
-              <p className="text-cyan-400 font-semibold">
-                iTravel Holidays (UK-based)
-              </p>
-              <div className="flex items-center gap-2 text-muted-foreground mt-1">
-                <Calendar size={16} />
-                <span>March 2024 - Present</span>
-                <span>•</span>
-                <MapPin size={16} />
-                <span>Mombasa, Kenya</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-3 ml-4 md:ml-16">
-            <div className="flex items-start gap-3">
-              <div className="mt-1.5 w-2 h-2 rounded-full bg-cyan-400 flex-shrink-0" />
-              <p className="text-muted-foreground">
-                Spearheaded the development of a secure, multi-tenant invoice
-                system with isolated database architecture, reducing
-                cross-tenant vulnerabilities by 95%
-              </p>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="mt-1.5 w-2 h-2 rounded-full bg-cyan-400 flex-shrink-0" />
-              <p className="text-muted-foreground">
-                Contributed to the main travel platform (itravelholidays.co.uk),
-                directly resulting in a 30% increase in conversion rates and 25%
-                reduction in booking abandonment
-              </p>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="mt-1.5 w-2 h-2 rounded-full bg-cyan-400 flex-shrink-0" />
-              <p className="text-muted-foreground">
-                Engineered and optimized RESTful APIs, improving data flow
-                efficiency between microservices by 45%
-              </p>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="mt-1.5 w-2 h-2 rounded-full bg-cyan-400 flex-shrink-0" />
-              <p className="text-muted-foreground">
-                Implemented comprehensive Stripe payment gateway integration,
-                achieving 99.8% payment success rate across thousands of daily
-                transactions
-              </p>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="mt-1.5 w-2 h-2 rounded-full bg-cyan-400 flex-shrink-0" />
-              <p className="text-muted-foreground">
-                Co-led bi-weekly sprint planning and retrospectives, improving
-                team velocity by 25%
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-6 pt-6 border-t">
-            <p className="text-sm text-muted-foreground font-semibold mb-2">
-              Tech Stack:
+        <Card className="p-8 bg-slate-50/50 border-slate-200">
+          <div className="prose prose-lg text-slate-600 max-w-none">
+            <p>
+              I am a Backend-focused Software Engineer specializing in architecting scalable, multi-tenant SaaS platforms using <strong>Node.js (NestJS)</strong> and <strong>TypeScript</strong>. 
             </p>
-            <div className="flex flex-wrap gap-2">
-              {[
-                "Express",
-                "Fastify",
-                "NestJS",
-                "Next.js",
-                "React",
-                "TypeScript",
-                "PHP",
-                "MySQL",
-                "Docker",
-                "Stripe API",
-              ].map((tech) => (
-                <span
-                  key={tech}
-                  className="px-3 py-1 bg-cyan-400/10 text-cyan-400 rounded-full text-sm"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
+            <p>
+              I bridge the gap between legacy reliability and modern scalability. My deep expertise lies in building high-availability APIs, event-driven architectures, and immutable financial ledger systems. 
+            </p>
+            <p>
+              Unlike many developers who focus solely on features, I focus on <strong>system integrity</strong>. Whether it's ensuring 99.8% payment success rates via idempotent webhooks or implementing granular Permission-Based Access Control (PBAC), I build software that businesses can rely on.
+            </p>
           </div>
         </Card>
       </section>
 
-      {/* Technical Skills */}
-      <section className="container mx-auto  py-16 bg-muted/30">
-        <h2 className="text-2xl font-bold mb-8 text-center">
-          Technical <span className="text-cyan-400">Expertise</span>
+      {/* --- PROFESSIONAL EXPERIENCE --- */}
+      <section className="container mx-auto py-16">
+        <h2 className="text-3xl font-bold mb-8">
+          Professional <span className="text-cyan-500">Journey</span>
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Languages */}
-          <Card className="p-6">
-            <div className="flex items-center gap-3 mb-4">
-              <Code2 className="text-cyan-400" size={24} />
-              <h3 className="text-xl font-bold">Languages</h3>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {skills.languages.map((skill) => (
-                <span
-                  key={skill}
-                  className="px-3 py-1 bg-background border rounded-full text-sm"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </Card>
+        <div className="relative border-l-2 border-slate-200 ml-3 space-y-12">
+            
+            {/* Job 1 */}
+            <div className="relative pl-8">
+                {/* Timeline Dot */}
+                <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-cyan-500 border-4 border-white shadow-sm" />
+                
+                <Card className="p-6 hover:shadow-md transition-shadow">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-2">
+                        <div>
+                            <h3 className="text-xl font-bold text-slate-900">Full Stack Software Engineer</h3>
+                            <p className="text-cyan-600 font-medium">iTravel Holidays (UK-based)</p>
+                        </div>
+                        <div className="flex items-center text-sm text-slate-500 bg-slate-100 px-3 py-1 rounded-full w-fit">
+                            <Calendar size={14} className="mr-2" />
+                            March 2024 - Present
+                        </div>
+                    </div>
 
-          {/* Frontend */}
-          <Card className="p-6">
-            <div className="flex items-center gap-3 mb-4">
-              <Globe className="text-cyan-400" size={24} />
-              <h3 className="text-xl font-bold">Frontend</h3>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {skills.frontend.map((skill) => (
-                <span
-                  key={skill}
-                  className="px-3 py-1 bg-background border rounded-full text-sm"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </Card>
+                    <ul className="space-y-3 ml-4 list-disc text-slate-600 marker:text-cyan-500">
+                        <li>
+                            <strong className="text-slate-900">Platform Engineering:</strong> Collaborated with senior engineers to refactor legacy codebases, optimizing RESTful API endpoints and contributing to a <strong>30% improvement in conversion rates</strong>.
+                        </li>
+                        <li>
+                            <strong className="text-slate-900">Fintech Integration:</strong> Engineered a fault-tolerant Stripe payment gateway with webhook handlers, ensuring a <strong>99.8% transaction success rate</strong>.
+                        </li>
+                        <li>
+                            <strong className="text-slate-900">System Architecture:</strong> Independently designed a secure, multi-tenant invoice module with strict database isolation, reducing cross-tenant risks by <strong>95%</strong>.
+                        </li>
+                        <li>
+                            <strong className="text-slate-900">Performance:</strong> Identified and resolved N+1 query issues, reducing API response times by <strong>45%</strong>.
+                        </li>
+                        <li>
+                            <strong className="text-slate-900">Agile Leadership:</strong> Championed code quality through peer reviews and actively improved team deployment velocity.
+                        </li>
+                    </ul>
 
+                    <div className="mt-6 pt-4 border-t flex flex-wrap gap-2">
+                        {["Node.js", "NestJS", "React", "MySQL", "Redis", "Docker", "AWS"].map(tech => (
+                            <span key={tech} className="px-2.5 py-0.5 bg-slate-100 text-slate-600 text-xs font-medium rounded-md border border-slate-200">
+                                {tech}
+                            </span>
+                        ))}
+                    </div>
+                </Card>
+            </div>
+
+        </div>
+      </section>
+
+      {/* --- TECHNICAL EXPERTISE --- */}
+      <section className="container mx-auto py-16 bg-slate-50 -mx-4 px-4 sm:px-6">
+        <h2 className="text-3xl font-bold mb-10 text-center">
+          Technical <span className="text-cyan-500">Arsenal</span>
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {/* Backend */}
-          <Card className="p-6">
-            <div className="flex items-center gap-3 mb-4">
-              <Server className="text-cyan-400" size={24} />
-              <h3 className="text-xl font-bold">Backend</h3>
+          <Card className="p-6 border-t-4 border-t-cyan-500 shadow-sm">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-cyan-50 rounded-lg"><Server className="text-cyan-600" size={24} /></div>
+              <h3 className="text-xl font-bold">Backend Architecture</h3>
             </div>
             <div className="flex flex-wrap gap-2">
               {skills.backend.map((skill) => (
-                <span
-                  key={skill}
-                  className="px-3 py-1 bg-background border rounded-full text-sm"
-                >
+                <span key={skill} className="px-3 py-1 bg-white border border-slate-200 rounded-full text-sm font-medium text-slate-700">
                   {skill}
                 </span>
               ))}
@@ -361,60 +280,59 @@ export default function AboutPage() {
           </Card>
 
           {/* Databases */}
-          <Card className="p-6">
-            <div className="flex items-center gap-3 mb-4">
-              <Database className="text-cyan-400" size={24} />
-              <h3 className="text-xl font-bold">Databases</h3>
+          <Card className="p-6 border-t-4 border-t-purple-500 shadow-sm">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-purple-50 rounded-lg"><Database className="text-purple-600" size={24} /></div>
+              <h3 className="text-xl font-bold">Data & Storage</h3>
             </div>
             <div className="flex flex-wrap gap-2">
               {skills.databases.map((skill) => (
-                <span
-                  key={skill}
-                  className="px-3 py-1 bg-background border rounded-full text-sm"
-                >
+                <span key={skill} className="px-3 py-1 bg-white border border-slate-200 rounded-full text-sm font-medium text-slate-700">
                   {skill}
                 </span>
               ))}
             </div>
           </Card>
 
-          {/* DevOps */}
-          <Card className="p-6">
-            <div className="flex items-center gap-3 mb-4">
-              <Cloud className="text-cyan-400" size={24} />
+           {/* DevOps */}
+           <Card className="p-6 border-t-4 border-t-orange-500 shadow-sm">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-orange-50 rounded-lg"><Cloud className="text-orange-600" size={24} /></div>
               <h3 className="text-xl font-bold">DevOps & Cloud</h3>
             </div>
             <div className="flex flex-wrap gap-2">
               {skills.devops.map((skill) => (
-                <span
-                  key={skill}
-                  className="px-3 py-1 bg-background border rounded-full text-sm"
-                >
+                <span key={skill} className="px-3 py-1 bg-white border border-slate-200 rounded-full text-sm font-medium text-slate-700">
                   {skill}
                 </span>
               ))}
             </div>
           </Card>
 
-          {/* Methodologies */}
-          <Card className="p-6">
-            <div className="flex items-center gap-3 mb-4">
-              <Wrench className="text-cyan-400" size={24} />
-              <h3 className="text-xl font-bold">Methodologies</h3>
+          {/* Frontend */}
+          <Card className="p-6 border-t-4 border-t-blue-500 shadow-sm">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-blue-50 rounded-lg"><Globe className="text-blue-600" size={24} /></div>
+              <h3 className="text-xl font-bold">Frontend</h3>
             </div>
             <div className="flex flex-wrap gap-2">
-              {[
-                "Agile",
-                "Scrum",
-                "Kanban",
-                "TDD",
-                "Microservices",
-                "REST APIs",
-              ].map((skill) => (
-                <span
-                  key={skill}
-                  className="px-3 py-1 bg-background border rounded-full text-sm"
-                >
+              {skills.frontend.map((skill) => (
+                <span key={skill} className="px-3 py-1 bg-white border border-slate-200 rounded-full text-sm font-medium text-slate-700">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </Card>
+           
+           {/* Methodologies */}
+           <Card className="p-6 border-t-4 border-t-green-500 shadow-sm md:col-span-2 lg:col-span-2">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-green-50 rounded-lg"><Wrench className="text-green-600" size={24} /></div>
+              <h3 className="text-xl font-bold">Methodologies & Tools</h3>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {["Agile / Scrum", "TDD (Test Driven Dev)", "Microservices", "RESTful APIs", "System Design", "Git Flow"].map((skill) => (
+                <span key={skill} className="px-3 py-1 bg-white border border-slate-200 rounded-full text-sm font-medium text-slate-700">
                   {skill}
                 </span>
               ))}
@@ -423,40 +341,34 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Education */}
+      {/* --- EDUCATION --- */}
       <section className="container mx-auto py-16">
-        <h2 className="text-2xl font-bold mb-8 text-center">
-          Education & <span className="text-cyan-400">Certifications</span>
+        <h2 className="text-3xl font-bold mb-8">
+          Education & <span className="text-cyan-500">Foundation</span>
         </h2>
 
-        <Card className="p-4">
+        <Card className="p-6 border-l-4 border-l-slate-900">
           <div className="flex items-start gap-4">
-            <div className="p-3 bg-cyan-400/10 rounded-lg">
-              <GraduationCap className="text-cyan-400" size={24} />
+            <div className="p-3 bg-slate-100 rounded-lg hidden sm:block">
+              <GraduationCap className="text-slate-900" size={32} />
             </div>
             <div className="flex-1">
-              <h3 className="text-xl font-bold">
-                Bachelor of Science in Computer Science
-              </h3>
-              <p className="text-cyan-400 font-semibold">
+              <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-2">
+                  <h3 className="text-xl font-bold text-slate-900">
+                    Bachelor of Science (B.Sc.) - Computer Science
+                  </h3>
+                  <span className="text-sm font-medium text-slate-500">2020 - 2024</span>
+              </div>
+              <p className="text-cyan-600 font-semibold mb-4">
                 Technical University of Mombasa (TUM)
               </p>
-              <div className="flex items-center gap-2 text-muted-foreground mt-1 mb-4">
-                <Calendar size={16} />
-                <span>September 2020 - August 2024</span>
-              </div>
-              <div className="flex items-center gap-2 mb-4">
-                <Award className="text-cyan-400" size={20} />
-                <span className="font-semibold">Second Class Honours</span>
-              </div>
-              <div className="p-4 bg-muted rounded-lg">
-                <p className="text-sm font-semibold mb-2">
-                  Senior Year Project:
+              
+              <div className="p-4 bg-slate-50 rounded-lg border border-slate-100">
+                <p className="text-sm font-bold text-slate-900 mb-2">
+                  Capstone Project: Multi-Tenant Invoice Management System
                 </p>
-                <p className="text-muted-foreground">
-                  Developed a high-performance, multi-tenant invoice system,
-                  architecting a secure, isolated database structure that became
-                  a core component of a commercial platform.
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  Architected a schema-shared multi-tenant architecture using <strong>PHP (CodeIgniter)</strong>. Implemented custom session-based data isolation logic to enforce privacy between tenants. This project bridged the gap between legacy web development and modern SaaS architecture.
                 </p>
               </div>
             </div>
@@ -464,104 +376,6 @@ export default function AboutPage() {
         </Card>
       </section>
 
-      {/* What Sets Me Apart */}
-      <section className="container mx-auto  py-16 bg-muted/30">
-        <h2 className="text-2xl font-bold mb-8 text-center">
-          What Sets Me <span className="text-cyan-400">Apart</span>
-        </h2>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          <Card className="p-6 text-center">
-            <div className="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Award className="text-cyan-400" size={24} />
-            </div>
-            <h3 className="font-bold text-lg mb-2">Results-Driven</h3>
-            <p className="text-muted-foreground text-sm">
-              I focus on metrics that matter - 30% conversion increases and 95%
-              security improvements speak for themselves.
-            </p>
-          </Card>
-
-          <Card className="p-6 text-center">
-            <div className="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Code2 className="text-cyan-400" size={24} />
-            </div>
-            <h3 className="font-bold text-lg mb-2">Full Stack Expertise</h3>
-            <p className="text-muted-foreground text-sm">
-              From frontend React to backend Node.js and PHP, I build complete
-              solutions end-to-end.
-            </p>
-          </Card>
-
-          <Card className="p-6 text-center">
-            <div className="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Briefcase className="text-cyan-400" size={24} />
-            </div>
-            <h3 className="font-bold text-lg mb-2">Agile Mindset</h3>
-            <p className="text-muted-foreground text-sm">
-              I thrive in collaborative environments, improving team velocity by
-              25% through effective agile practices.
-            </p>
-          </Card>
-        </div>
-      </section>
-
-      {/* Languages */}
-      <section className="container mx-auto  py-16">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold mb-8 text-center">
-            <span className="text-cyan-400">Languages</span>
-          </h2>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <Card className="p-6">
-              <h3 className="font-bold text-xl mb-2">English</h3>
-              <p className="text-muted-foreground">
-                Professional Working Proficiency
-              </p>
-              <div className="mt-4 h-2 bg-muted rounded-full overflow-hidden">
-                <div className="h-full bg-cyan-400 w-[90%]" />
-              </div>
-            </Card>
-
-            <Card className="p-6">
-              <h3 className="font-bold text-xl mb-2">Swahili</h3>
-              <p className="text-muted-foreground">Native Proficiency</p>
-              <div className="mt-4 h-2 bg-muted rounded-full overflow-hidden">
-                <div className="h-full bg-cyan-400 w-full" />
-              </div>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <Card className="p-4 bg-gradient-to-r from-cyan-400/10 to-cyan-400/5 text-center ">
-        <h2 className="text-xl font-bold mb-4">
-          Let's Build Something Great Together
-        </h2>
-        <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
-          I'm always interested in hearing about new projects and opportunities.
-          Whether you have a question or just want to say hi, feel free to reach
-          out!
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/#contact">
-            <Button
-              size="lg"
-              className="bg-cyan-400 w-full hover:bg-cyan-500 text-background font-bold"
-            >
-              <Mail className="mr-2" size={18} />
-              Get in Touch
-            </Button>
-          </Link>
-          <Link href="/#projects">
-            <Button size="lg" variant="outline" className="w-full">
-              View My Projects
-            </Button>
-          </Link>
-        </div>
-      </Card>
     </div>
   );
 }

@@ -1,4 +1,7 @@
-export const projects = [
+import { Project } from "@/types/project-details";
+
+
+export const projects: Project[] = [
   {
     id: 1,
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
@@ -6,7 +9,6 @@ export const projects = [
     description:
       "A production-grade, multi-tenant School Management System featuring event-driven architecture and an immutable financial ledger.",
     tags: ["NestJS", "PostgreSQL", "Event-Driven", "Docker", "PBAC"],
-    // Replace with your actual repo/demo links
     github: "https://github.com/Arnoldsteve/gradehub-saas", 
     demo: "https://gradehub-demo.vercel.app", 
     longDescription:
@@ -40,7 +42,6 @@ export const projects = [
     description:
       "Architectural case study of a high-traffic travel booking engine. Focused on payment reliability and secure invoice generation.",
     tags: ["Node.js", "Stripe API", "Microservices", "Redis", "Security"],
-    // No GitHub link for professional work usually, but you can link to live site
     demo: "https://itravelholidays.co.uk", 
     longDescription:
       "As a core contributor to the iTravel platform, I focused on stability and revenue assurance. The challenge was handling global bookings with high reliability. \n\nI engineered a fault-tolerant payment layer integrating Stripe with idempotent webhook handling, achieving a 99.8% transaction success rate. Additionally, I designed a secure, isolated Invoice Generation module that eliminated cross-tenant data leakage risks, a critical compliance requirement.",

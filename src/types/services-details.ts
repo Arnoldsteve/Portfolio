@@ -2,7 +2,7 @@ export interface ServiceDetail {
   serviceId: string;
   title: string;
   description: string;
-  iconName: "Database" | "Code2" | "Cloud" | "TrendingUp";
+  iconName: "Server" | "ShieldCheck" | "Cloud" | "Activity" | "TrendingUp";
   overview: string;
   keyFeatures: string[];
   technologies: string[];

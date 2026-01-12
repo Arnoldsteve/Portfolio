@@ -2,30 +2,28 @@
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Github, Gitlab, Linkedin } from "lucide-react";
+import { Github, Gitlab, Linkedin, Download, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 const socialLinks = [
   {
     href: "https://linkedin.com/in/steve-arnold-otieno",
-    icon: (
-      <Linkedin className="h-4 w-4 hover:text-cyan-400 transition-colors" />
-    ),
+    icon: <Linkedin className="h-5 w-5" />,
   },
   {
     href: "https://github.com/Arnoldsteve",
-    icon: <Github className="h-4 w-4 hover:text-cyan-400 transition-colors" />,
+    icon: <Github className="h-5 w-5" />,
   },
   {
     href: "https://gitlab.com/Arnoldsteve",
-    icon: <Gitlab className="h-4 w-4 hover:text-cyan-400 transition-colors" />,
+    icon: <Gitlab className="h-5 w-5" />,
   },
   {
     href: "https://wa.me/254796335895",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-4 w-4 hover:text-cyan-400 transition-colors"
+        className="h-5 w-5"
         viewBox="0 0 24 24"
         fill="currentColor"
       >
@@ -37,70 +35,83 @@ const socialLinks = [
 
 export const Hero = () => {
   return (
-    <section
-      id="home"
-      className="container mx-auto items-center justify-between px-4 sm:px-12 pt-4 pb-20 sm:py-24"
-    >
-      <div className="w-full md:text-left justify-between">
-        <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-8 ">
-          <div className="p-0">
-            <p className="text-base">Hello, it&apos;s me</p>
-            <h1 className="text-2xl font-bold tracking-tight lg:text-4xl my-2">
-              Steve Arnold
-            </h1>
-            <h2 className="text-xl lg:text-3xl font-semibold">
-              And I&apos;m a{" "}
-              <span className="text-black-700">Software Engineer</span>
-            </h2>
-            <p className="mt-4 max-w-xl text-muted-foreground text-justify">
-              Results-driven Full Stack Engineer crafting scalable, high-impact
-              web applications using JavaScript, PHP, and Python.
-            </p>
-          </div>
+    <section id="home" className="relative pt-10 pb-20 lg:pt-32 overflow-hidden">
+      {/* Background Gradient Blob */}
+      <div className="absolute top-0 right-0 -z-10 translate-x-1/2 translate-y-[-20%]">
+        <div className="h-[400px] w-[400px] rounded-full bg-cyan-400/10 blur-[100px]" />
+      </div>
 
-          <div className="flex justify-center md:justify-end">
-            <div className="w-40 h-40 lg:w-52 lg:h-52 relative">
-              <Image
-                src="/profile-pic.png"
-                alt="Steve Arnold Otieno"
-                fill
-                className="rounded-full object-cover shadow-xs"
-              />
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
+          
+          {/* Text Content */}
+          <div className="flex-1 text-center lg:text-left">
+            <div className="inline-flex items-center rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-sm font-medium text-cyan-800 mb-6">
+              <span className="flex h-2 w-2 rounded-full bg-cyan-600 mr-2"></span>
+              Available for Hire
+            </div>
+            
+            <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl mb-6">
+              Building Secure, <br className="hidden lg:block" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-600">
+                Multi-Tenant SaaS Platforms
+              </span>
+            </h1>
+            
+            <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+              I am a <strong>Backend-Focused Full Stack Engineer</strong> bridging the gap between legacy reliability (PHP) and modern scalability (Node.js/NestJS). Specialized in Event-Driven Architecture and Fintech Integrations.
+            </p>
+
+            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <Link href="#projects">
+                <Button size="lg" className="bg-slate-900 text-white hover:bg-slate-800 w-full sm:w-auto h-12 px-8">
+                  View My Work <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+              
+              <Link 
+                href="/Steve_Arnold_SE_Resume.pdf" 
+                target="_blank"
+                download
+              >
+                <Button size="lg" variant="outline" className="border-slate-300 hover:bg-slate-50 w-full sm:w-auto h-12 px-8">
+                  Download CV <Download className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+
+            <div className="mt-10 flex items-center justify-center lg:justify-start gap-6">
+               <span className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Connect:</span>
+               <div className="flex gap-4">
+                 {socialLinks.map((link, index) => (
+                    <a
+                      key={index}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-400 hover:text-cyan-600 transition-colors transform hover:scale-110"
+                    >
+                      {link.icon}
+                    </a>
+                 ))}
+               </div>
             </div>
           </div>
-        </div>
 
-        <div className="mt-6 flex flex-row h-full gap-2">
-          <div className="mt-6 hidden">
-            <Link
-              href="/SteveOtieno_SoftwareEngineer_Resume.pdf"
-              target="_blank"
-              download
-            >
-              <Button className="bg-cyan-400 hover:bg-cyan-500 hover:shadow-cyan-400/40 transition-all text-black">
-                Download CV
-              </Button>
-            </Link>
+          {/* Image Content */}
+          <div className="relative flex-shrink-0">
+             <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-blue-500 rounded-full blur-2xl opacity-20 animate-pulse" />
+             <div className="relative w-64 h-64 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-white shadow-2xl">
+                <Image
+                  src="/profile-pic.png"
+                  alt="Steve Arnold Otieno"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+             </div>
           </div>
-          <div className="mt-6 flex justify-center md:justify-start gap-x-2">
-            {socialLinks.map((link, index) => (
-              <Button
-                asChild
-                key={index}
-                variant="outline"
-                className="border border-cyan-400  hover:bg-cyan-500 transition-all"
-              >
-                <a
-                  href={link.href}
-                  // className="text-cyan-600"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {link.icon}
-                </a>
-              </Button>
-            ))}
-          </div>
+
         </div>
       </div>
     </section>

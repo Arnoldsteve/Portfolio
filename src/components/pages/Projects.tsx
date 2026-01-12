@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import {
   Card,
@@ -8,67 +10,93 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { projectsData } from "@/mock-data/project-list";
+import { ArrowRight, Github, ExternalLink } from "lucide-react";
 
 export const Projects = () => {
   return (
     <section
       id="projects"
-      className="container mx-auto px-4 py-12 sm:py-24 bg-accent/20"
+      className="container mx-auto px-4 py-20 sm:py-32"
     >
-      <h2 className="text-3xl font-bold text-center">
-        Latest <span className="text-cyan-400">Projects</span>
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
+      <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+        <div className="max-w-2xl">
+          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+            Featured <span className="text-cyan-500">Engineering</span>
+          </h2>
+          <p className="text-lg text-slate-600">
+            A selection of complex systems I have architected. I focus on solving real-world problems with robust, scalable code.
+          </p>
+        </div>
+        <Link href="https://github.com/Arnoldsteve" target="_blank">
+            <Button variant="outline" className="gap-2">
+                View GitHub Profile <Github className="h-4 w-4" />
+            </Button>
+        </Link>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
         {projectsData.map((project, index) => (
           <Card
             key={index}
-            className="flex flex-col justify-between overflow-hidden hover:shadow-cyan-400/20 hover:shadow-sm transition-shadow duration-300 pt-0"
+            className="flex flex-col overflow-hidden border-slate-200 hover:border-cyan-400 hover:shadow-lg transition-all duration-300 group"
           >
-            <CardHeader className="p-0 m-0 flex-none  transition-all hover:scale-102 overflow-hidden">
-              <div className="aspect-video w-full relative">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover"
-                />
+            {/* Image Area */}
+            <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100">
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+            </div>
+
+            {/* Content Area */}
+            <CardHeader className="pb-2">
+              <div className="flex justify-between items-start gap-4">
+                <CardTitle className="text-xl font-bold text-slate-900 group-hover:text-cyan-600 transition-colors">
+                    {project.title}
+                </CardTitle>
+                {/* Optional: Add an icon or status indicator here */}
               </div>
             </CardHeader>
-            <Link
-              href={`/project?projectId=${project.id}`}
-              className="block flex-1"
-            >
-              <CardContent className="p-4 pt-0 hover:text-blue-500 cursor-pointer">
-                <CardTitle>{project.title}</CardTitle>
-                <CardDescription className="mt-2 line-clamp-3">
-                  {project.description}
-                </CardDescription>
-              </CardContent>
-            </Link>
-            <CardFooter className="pt-0 flex flex-col items-start gap-y-6">
-              <div className="flex flex-wrap gap-2 line-clamp-3">
-                {project.tags.slice(0, 3).map((tag) => (
-                  <Badge key={tag} variant="secondary">
+
+            <CardContent className="flex-grow pb-4">
+              <CardDescription className="text-base text-slate-600 leading-relaxed line-clamp-3 mb-4">
+                {project.description}
+              </CardDescription>
+              
+              {/* Tech Stack Badges */}
+              <div className="flex flex-wrap gap-2">
+                {project.tags.map((tag) => (
+                  <Badge 
+                    key={tag} 
+                    variant="secondary" 
+                    className="bg-slate-100 text-slate-700 hover:bg-cyan-50 hover:text-cyan-700 transition-colors"
+                  >
                     {tag}
                   </Badge>
                 ))}
               </div>
+            </CardContent>
 
-              <div className="flex justify-between w-full gap-2">
-                <Button
-                  asChild
-                  size="sm"
-                  variant={"outline"}
-                  className="w-full text-slate-900 font-bold border border-cyan-400 hover:bg-cyan-500 hover:text-white transition-all py-2"
-                >
-                  <Link href={`/project?projectId=${project.id}`}>
-                    View Project
-                  </Link>
-                </Button>
-              </div>
+            <CardFooter className="pt-0 pb-6 px-6 flex gap-4">
+              <Button asChild className="flex-1 bg-slate-900 hover:bg-slate-800">
+                <Link href={`/project?projectId=${project.id}`}>
+                  Case Study <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              
+              {project.demo && (typeof project.demo === 'string' ? (
+                 <Button asChild variant="outline" size="icon">
+                    <a href={project.demo} target="_blank" rel="noreferrer" title="Live Demo">
+                        <ExternalLink className="h-4 w-4" />
+                    </a>
+                 </Button>
+              ) : null)}
             </CardFooter>
           </Card>
         ))}

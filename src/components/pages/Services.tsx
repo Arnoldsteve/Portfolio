@@ -10,38 +10,48 @@ import {
 } from "@/components/ui/card";
 import { servicesData } from "@/services/service-data";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export const Services = () => {
   return (
-    <section id="services" className="container mx-auto px-4 py-12 sm:py-24">
-      <h2 className="text-3xl font-bold text-center">
-        My <span className="text-cyan-400">Services</span>
-      </h2>
+    <section id="services" className="container mx-auto px-4 py-20 sm:py-32 bg-slate-50/50">
+      <div className="text-center mb-16">
+        <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">
+          Core <span className="text-cyan-500">Competencies</span>
+        </h2>
+        <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
+          I move beyond simple CRUD applications to build systems that are secure, reliable, and scalable by design.
+        </p>
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {servicesData.map((service, index) => (
           <Card
             key={index}
-            className="border-border/50 text-center p-6 flex flex-col items-center hover:border-cyan-400 transition-colors duration-300"
+            className="border-slate-200 hover:border-cyan-400 hover:shadow-lg transition-all duration-300 group bg-white"
           >
-            <CardHeader className="items-center w-full p-0 m-0">
-              <span>{service.icon}</span>
-              <CardTitle className="mt-4">{service.title}</CardTitle>
+            <CardHeader>
+              <div className="mb-4 p-3 bg-cyan-50 w-fit rounded-xl group-hover:bg-cyan-100 transition-colors">
+                {service.icon}
+              </div>
+              <CardTitle className="text-xl font-bold text-slate-900">
+                {service.title}
+              </CardTitle>
             </CardHeader>
 
-            <CardDescription className="mt-2 flex-grow">
+            <CardDescription className="px-6 pb-6 text-slate-600 leading-relaxed">
               {service.description}
             </CardDescription>
 
-            <CardFooter className="mt-4 w-full p-0">
+            {/* Optional: If you have detailed pages, keep this. If not, remove the footer. */}
+            <CardFooter className="px-6 pb-6 pt-0">
               <Button
                 asChild
-                size={"sm"}
-                variant={"outline"}
-                className="w-full text-slate-900 font-bold border border-cyan-400  hover:bg-cyan-500 hover:text-white transition-all py-2"
+                variant="ghost"
+                className="p-0 h-auto font-semibold text-cyan-600 hover:text-cyan-700 hover:bg-transparent group/btn"
               >
-                <Link href={`/service?serviceId=${service.serviceId}`}>
-                  Read More
+                <Link href={`/service?serviceId=${service.serviceId}`} className="flex items-center gap-2">
+                  Deep Dive <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
                 </Link>
               </Button>
             </CardFooter>

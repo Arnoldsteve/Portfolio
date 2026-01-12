@@ -140,7 +140,7 @@ export default function AboutPage() {
               </Button>
             </Link>
             <Link
-                  href="/SteveOtieno_SoftwareEngineer_Resume.pdf"
+                  href="/Steve_Arnold_SE_Resume.pdf"
                   target="_blank"
                   download
                 >

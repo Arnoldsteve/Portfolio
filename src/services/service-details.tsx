@@ -3,199 +3,197 @@ import { ServiceDetail } from "@/types/services-details";
 export const serviceDetails: ServiceDetail[] = [
   {
     serviceId: "1",
-    title: "SaaS Platform Architecture", 
+    title: "SEO-Optimized Business Sites",
     description:
-      "Designing secure, multi-tenant architectures that scale. I specialize in data isolation strategies (Row-Level Security) and schema design.",
-    iconName: "Server", // Changed from Database to Server to match context
+      "Establishing global digital authority. I build high-performance, mobile-first websites engineered with advanced SEO best practices to ensure you rank on Google and attract organic leads.",
+    iconName: "Monitor",
     overview:
-      "Building a SaaS is different from building a website. It requires strict data isolation, scalable infrastructure, and complex permission systems. I architect platforms that serve thousands of tenants from a single codebase, ensuring that Client A never sees Client B's data.",
+      "Your website is your primary business asset. I don’t just design pages; I engineer a digital presence that focuses on three pillars: Speed, Conversion, and Visibility. By using modern frameworks like Next.js, I ensure your site loads in milliseconds, providing the best possible foundation for high Google rankings and a premium user experience.",
     keyFeatures: [
-      "Multi-Tenant Database Design (Schema vs. Row Level)",
-      "Permission-Based Access Control (PBAC / RBAC)",
-      "Subscription & Billing Logic Integration",
-      "Scalable Microservices & Monoliths",
-      "Data Isolation & Security Compliance",
-      "Automated Tenant Onboarding Flows",
+      "Custom UI/UX Designed for Business Conversion",
+      "Advanced Technical SEO (Schema Markup & Meta Optimization)",
+      "Mobile-First, High-Performance Architecture",
+      "Google Analytics 4 & Search Console Integration",
+      "Core Web Vitals Optimization (90+ PageSpeed Scores)",
+      "Lead Capture Systems & CRM Connectivity",
     ],
     technologies: [
-      "NestJS",
-      "Node.js",
-      "PostgreSQL",
-      "Prisma",
-      "Docker",
-      "AWS",
-      "Redis",
-      "Kubernetes",
+      "Next.js",
+      "Tailwind CSS",
+      "TypeScript",
+      "Headless CMS (Sanity/Strapi)",
+      "Google Search Console",
+      "Vercel Edge Network",
     ],
     process: [
       {
-        title: "Domain Modeling",
+        title: "Strategic Discovery",
         description:
-          "Mapping out complex business rules and tenant relationships before writing a single line of code.",
+          "Identifying your target audience and high-value search keywords before the build starts.",
       },
       {
-        title: "Schema Design",
+        title: "Design & UX Strategy",
         description:
-          "Designing normalized databases with strict foreign keys and indexing strategies for multi-tenancy.",
+          "Crafting a professional interface that reflects your brand’s authority and directs users to take action.",
       },
       {
-        title: "Security Implementation",
+        title: "SEO Engineering",
         description:
-          "Implementing Guards, Interceptors, and Middleware to enforce tenant isolation at the API level.",
+          "Building the site with clean, semantic code that search engine crawlers can index with ease.",
       },
       {
-        title: "Scalability Testing",
+        title: "Performance Tuning",
         description:
-          "Load testing the architecture to ensure it handles concurrent tenant spikes without degradation.",
+          "Optimizing every image, script, and asset for maximum loading speed across all devices.",
       },
     ],
     whyChoose:
-      "Most developers build apps that break when you add the 100th tenant. I build platforms designed to handle the 10,000th tenant from Day 1. My focus on data integrity and isolation ensures your SaaS is enterprise-ready.",
+      "I build sites that do the selling for you. While others focus purely on aesthetics, I focus on performance and searchability. I ensure that when clients look for your services, they find you first.",
   },
   {
     serviceId: "2",
-    title: "Fintech & Ledger Systems", // 👈 Aligned with Homepage
+    title: "Secure E-Commerce Solutions",
     description:
-      "Engineering immutable, double-entry financial ledgers. I build systems that handle money with ACID compliance and 99.8% transaction reliability.",
+      "Full-service online stores designed for conversion. Featuring automated inventory, global payment gateways, and M-Pesa integration—all built on a secure, hacker-proof foundation.",
     iconName: "ShieldCheck",
     overview:
-      "Handling money requires zero margin for error. I specialize in building immutable financial ledgers that track every cent. Instead of relying on third-party dashboards, I build internal reconciliation engines that ensure your database always matches the bank.",
+      "Selling online requires absolute trust and zero downtime. I build e-commerce platforms that provide a seamless checkout experience while giving you total control over your operations. Whether you are selling locally in Kenya or shipping to a global audience, I integrate the right payment and logistics systems to make your business run 24/7.",
     keyFeatures: [
-      "Double-Entry Ledger Architecture",
-      "Idempotent Payment Processing",
-      "Stripe / M-Pesa / PayPal Integrations",
-      "Automated Reconciliation Logic",
-      "Webhook Handling & Failure Recovery",
-      "Audit Logging & Financial Reporting",
+      "Seamless M-Pesa & Global Card Payment Integration",
+      "Automated Inventory & Order Management Systems",
+      "Secure Customer Account Portals & Order History",
+      "Multi-Currency Support & Automated Tax Logic",
+      "Real-Time Sales Dashboards & Analytics",
+      "PCI-DSS Compliant Security & Tokenized Payments",
     ],
     technologies: [
       "Node.js",
-      "TypeScript",
-      "PostgreSQL (ACID Transactions)",
+      "PostgreSQL",
       "Stripe API",
-      "M-Pesa API",
-      "Redis (Locks)",
+      "M-Pesa API (Daraja)",
+      "Redis Caching",
+      "Next.js Storefront",
     ],
     process: [
       {
-        title: "Transaction Modeling",
+        title: "Workflow Mapping",
         description:
-          "Defining the flow of funds and creating immutable ledger schemas.",
+          "Defining how orders move from the cart to delivery to ensure a frictionless business process.",
       },
       {
-        title: "Gateway Integration",
+        title: "Payment Architecture",
         description:
-          "Connecting payment providers with robust error handling and idempotency keys.",
+          "Setting up robust, idempotent payment handlers to prevent double-billing and handle network failures.",
       },
       {
-        title: "Reconciliation Engine",
+        title: "Storefront Engineering",
         description:
-          "Building background jobs that verify internal records against gateway settlements.",
+          "Creating a lightning-fast shopping experience that works perfectly even on slower mobile data networks.",
       },
       {
-        title: "Security Audit",
+        title: "Security Hardening",
         description:
-          "Ensuring PCI compliance logic (tokenization) and securing financial API endpoints.",
+          "Stress-testing the checkout process and hardening the server infrastructure against modern cyber threats.",
       },
     ],
     whyChoose:
-      "I don't just 'add Stripe.' I build financial infrastructure. My systems are designed to survive network failures, duplicate webhooks, and concurrency race conditions, ensuring your revenue data is always accurate.",
+      "I don't just 'install a store.' I build financial-grade commerce infrastructure. My systems are designed to survive high-traffic sales events and ensure every transaction is tracked with 100% accuracy.",
   },
   {
     serviceId: "3",
-    title: "Event-Driven Systems", // 👈 Aligned with Homepage
+    title: "Custom Web Applications (Apps)",
     description:
-      "Decoupling complex business logic using Pub/Sub patterns. I ensure heavy background tasks don't slow down the user experience.",
-    iconName: "Activity",
+      "Scalable software built to solve specific business problems. From custom management dashboards to SaaS platforms, I engineer the 'brains' that automate your daily operations.",
+    iconName: "Server",
     overview:
-      "Monoliths become spaghetti code when everything happens in one HTTP request. I decouple your application using Event-Driven Architecture. This allows critical tasks (like payments) to happen instantly, while side effects (emails, analytics, logs) happen asynchronously.",
+      "When off-the-shelf software isn't enough, you need a custom-engineered solution. I specialize in building 'The Brains' of a business—interactive web applications that handle complex logic, multi-user data, and automated workflows. These are not just websites; they are tools that eliminate manual work and solve operational bottlenecks.",
     keyFeatures: [
-      "Asynchronous Processing (Queues/Jobs)",
-      "Pub/Sub Pattern Implementation",
-      "Decoupled Microservices Communication",
-      "Background Job Management (BullMQ/Redis)",
-      "Real-time Event Broadcasting (WebSockets)",
-      "System Observability & Tracing",
+      "Multi-Tenant SaaS Architecture (Secure Data Isolation)",
+      "Secure User Authentication & Advanced RBAC (Roles)",
+      "Custom Admin Dashboards & Real-time Data Visualization",
+      "Third-Party API Integrations & Ecosystem Connectivity",
+      "Automated Business Workflows & Notification Engines",
+      "Cloud-Native Infrastructure for Infinite Scalability",
     ],
     technologies: [
-      "NestJS Event Emitter",
-      "Redis / BullMQ",
-      "RabbitMQ / Kafka",
-      "Socket.io",
-      "Node.js",
+      "NestJS",
+      "PostgreSQL",
+      "Prisma ORM",
+      "AWS / Google Cloud",
+      "Docker & Containers",
+      "React / Redux",
     ],
     process: [
       {
-        title: "Event Storming",
+        title: "Requirement Engineering",
         description:
-          "Identifying domain events (e.g., 'UserSignedUp', 'PaymentReceived') and their side effects.",
+          "Deep-diving into your business logic to map out the application's core functionality and user flows.",
       },
       {
-        title: "Infrastructure Setup",
+        title: "Architectural Planning",
         description:
-          "Setting up message brokers (Redis/RabbitMQ) to handle event distribution.",
+          "Choosing the right database and server structures to ensure the app remains fast as you add thousands of users.",
       },
       {
-        title: "Consumer Implementation",
+        title: "Agile Development",
         description:
-          "Writing isolated listeners that handle specific tasks without blocking the main thread.",
+          "Building and testing features in manageable sprints, allowing for continuous feedback and refinement.",
       },
       {
-        title: "Failure Handling",
+        title: "Deployment & Scaling",
         description:
-          "Implementing Dead Letter Queues (DLQ) and retry mechanisms for robust processing.",
+          "Launching on enterprise-grade cloud providers with automated scaling to handle business growth.",
       },
     ],
     whyChoose:
-      "Speed is a feature. By moving heavy tasks to the background, I ensure your API responds in milliseconds, not seconds. This architecture also makes your system easier to maintain and extend without regression.",
+      "As a Software Engineer, I prioritize data integrity and system reliability above all else. I build applications that handle your 10,000th user as smoothly as your first, ensuring your business stays online and efficient.",
   },
   {
     serviceId: "4",
-    title: "High-Performance APIs", // 👈 Aligned with Homepage
+    title: "Optimization & Maintenance",
     description:
-      "Optimizing database queries and API endpoints. I use Redis caching and proper indexing to reduce latency by up to 45%.",
-    iconName: "TrendingUp",
+      "I don't just launch and leave. I provide extreme speed optimization, ironclad security updates, and reliable hosting management to keep your platform running 24/7.",
+    iconName: "Zap",
     overview:
-      "Slow APIs kill user retention. I analyze and optimize your backend to handle high traffic loads. From database indexing strategies to aggressive caching layers, I ensure your application scales efficiently without simply throwing more servers at the problem.",
+      "The digital landscape moves fast, and a 'finished' site can quickly become slow or vulnerable. I provide professional-grade maintenance and performance tuning to ensure your platform stays at peak health. I act as your long-term technical partner, handling the servers, security, and speed so you can focus entirely on your business.",
     keyFeatures: [
-      "SQL Query Optimization (N+1 solutions)",
-      "Database Indexing Strategies",
-      "Redis Caching Implementation",
-      "Load Balancing & Horizontal Scaling",
-      "Rate Limiting & Throttling",
-      "Server-Side Response Compression",
+      "Extreme Speed Optimization (Core Web Vitals)",
+      "Proactive Security Audits & Patch Management",
+      "24/7 Uptime Monitoring & Instant Error Alerts",
+      "Automated Off-site Backups & Disaster Recovery",
+      "Database Health Checks & Query Tuning",
+      "Continuous Content & Feature Updates",
     ],
     technologies: [
-      "PostgreSQL",
-      "Redis",
-      "Nginx",
-      "Node.js Profiling Tools",
-      "K6 (Load Testing)",
-      "Grafana / Prometheus",
+      "Clinic.js (Diagnostics)",
+      "Redis Caching",
+      "Nginx / Reverse Proxies",
+      "Prometheus & Grafana",
+      "Vercel / AWS CloudWatch",
     ],
     process: [
       {
-        title: "Performance Audit",
+        title: "Deep System Audit",
         description:
-          "Using profiling tools to identify slow queries and memory leaks in the current system.",
+          "Identifying hidden bottlenecks and potential security vulnerabilities in the current codebase.",
       },
       {
-        title: "Database Tuning",
+        title: "Global Benchmarking",
         description:
-          "Adding missing indexes, rewriting inefficient joins, and implementing query caching.",
+          "Measuring your platform's speed and security against international industry standards.",
       },
       {
-        title: "Caching Layer",
+        title: "System Hardening",
         description:
-          "Implementing Redis strategies to serve frequently accessed data instantly.",
+          "Implementing advanced caching, script compression, and security firewalls to protect your data.",
       },
       {
-        title: "Stress Testing",
+        title: "Continuous Support",
         description:
-          "Simulating high traffic loads to verify stability and response times under pressure.",
+          "Providing monthly health reports and proactive updates to stop issues before they affect your users.",
       },
     ],
     whyChoose:
-      "I don't guess; I measure. I use data-driven optimization techniques to reduce server costs and improve user experience. My track record includes reducing API response times by 45% for high-traffic platforms.",
+      "Most developers disappear after the final payment. I offer a partnership. I treat your platform’s performance and security as my own responsibility, ensuring your digital assets remain fast, secure, and profitable year-round.",
   },
 ];

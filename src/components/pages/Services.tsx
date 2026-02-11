@@ -34,7 +34,7 @@ export const Services = () => {
               <div className="mb-4 p-3 bg-cyan-50 w-fit rounded-xl group-hover:bg-cyan-100 transition-colors">
                 {service.icon}
               </div>
-              <CardTitle className="text-xl font-bold text-slate-900">
+              <CardTitle className="font-bold text-slate-900">
                 {service.title}
               </CardTitle>
             </CardHeader>

@@ -7,7 +7,7 @@ export const Footer = () => {
         
         <div className="text-center md:text-left">
           <h3 className="text-white font-bold text-lg mb-1">Steve Arnold Otieno</h3>
-          <p className="text-sm text-slate-500">Backend-Focused Full Stack Engineer</p>
+          <p className="text-sm text-slate-500">Full-Stack Software Engineer & Solutions Architect</p>
         </div>
 
         <div className="flex gap-6">

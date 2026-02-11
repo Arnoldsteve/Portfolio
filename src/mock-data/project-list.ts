@@ -4,7 +4,7 @@ export const projectsData = [
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     title: "GradeHub - Enterprise SaaS Platform",
     description:
-      "A production-grade, multi-tenant School Management System featuring event-driven architecture, immutable financial ledgers, and RBAC security.",
+      "A comprehensive, enterprise-level Management System designed to automate complex school operations. Engineered for high security and scalability, it features automated financial tracking, secure student data isolation, and a robust administrative dashboard.",
     tags: ["NestJS", "PostgreSQL", "Event-Driven", "Docker"],
     github: "https://github.com/Arnoldsteve/gradehub-saas",
     demo: {
@@ -17,7 +17,7 @@ export const projectsData = [
     image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     title: "iTravel - High-Availability Payment System",
     description:
-      "Architectural case study of a high-traffic booking engine. Engineered a fault-tolerant payment layer achieving 99.8% transaction success rates.",
+      "A high-performance Booking & Global Payment Platform engineered for a travel agency. I developed a fault-tolerant checkout system that ensures a 99.8% transaction success rate, providing a seamless and reliable experience for international travelers.",
     tags: ["Node.js", "Stripe API", "Microservices", "Redis"],
     // Usually no GitHub for proprietary work, but demo link is good
     demo: "https://itravelholidays.co.uk",
@@ -27,7 +27,7 @@ export const projectsData = [
     image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     title: "ArtisanBase - Headless E-Commerce",
     description:
-      "A scalable, headless e-commerce solution decoupled into a NestJS backend and Next.js frontend, featuring Redis caching for high performance.",
+      "A modern, high-speed E-Commerce Platform built for high conversion and retail growth. Featuring a 'performance-first' architecture, it ensures lightning-fast product loading and a secure storefront capable of handling heavy traffic during sales.",
     tags: ["NestJS", "Next.js", "TypeScript", "Supabase"],
     github: "https://github.com/Arnoldsteve/artisan-base",
     demo: {
@@ -40,7 +40,7 @@ export const projectsData = [
     image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     title: "Legacy Library Management System",
     description:
-      "A foundational LAMP stack system handling 10,000+ records. Features custom session management and role-based access control without frameworks.",
+      "A robust Data Management System capable of handling over 10,000 records with precision. Built for long-term reliability, it provides high-security access control and efficient organization for large-scale institutional archives.",
     tags: ["PHP", "MySQL", "Legacy System", "MVC Pattern"],
     github: "https://github.com/Arnoldsteve/Library-Management",
   },

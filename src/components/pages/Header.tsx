@@ -14,7 +14,7 @@ import {
 const navLinks = [
   { href: "/#home", label: "Home", icon: Home },
   { href: "/#about", label: "About", icon: User },
-  { href: "/#services", label: "Expertise", icon: Server }, // 👈 Renamed label
+  { href: "/#services", label: "Solutions", icon: Server }, 
   { href: "/#projects", label: "Projects", icon: FolderOpen },
   { href: "/#contact", label: "Contact", icon: Mail },
 ];

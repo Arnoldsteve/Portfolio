@@ -33,24 +33,28 @@ export const About = () => {
               About <span className="text-cyan-600">Me</span>
             </h2>
             <h3 className="text-xl font-semibold mt-2 text-slate-700">
-              Systems Architect & Backend Specialist
+              Full-Stack Software Engineer & Solutions Architect
             </h3>
           </div>
 
           <p className="text-lg text-slate-600 leading-relaxed">
-            I am a software engineer who values <strong>data integrity</strong> over hype. While I build clean UIs, my true strength lies in architecting backend systems that handle money and data correctly.
+            I am a dedicated engineer who believes that a great digital product must be as reliable as it is beautiful. 
+            I don't just build websites; I architect end-to-end solutions designed to solve real business problems and drive 
+            growth for brands both in Kenya and globally.
           </p>
 
           <p className="text-lg text-slate-600 leading-relaxed">
-            With a background in Computer Science, I bridge the gap between <strong>legacy reliability (PHP)</strong> and <strong>modern scalability (NestJS)</strong>. I specialize in building multi-tenant SaaS platforms where security and isolation are non-negotiable.
+            With a background in Computer Science and a commitment to engineering excellence, I bring a global standard to every project. 
+            Whether I am crafting a high-speed corporate website or engineering a secure custom application, 
+            I focus on delivering performance, security, and long-term scalability.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
              {[
-                "Multi-Tenant Architecture",
-                "Event-Driven Systems",
-                "Fintech & Ledgers",
-                "99.8% Payment Success Rate"
+                "Full-Stack Web Development",
+                "E-commerce & Payment Systems",
+                "Custom Software Solutions",
+                "Secure & Scalable Cloud Architecture"
              ].map((item) => (
                 <div key={item} className="flex items-center gap-2 text-slate-700 font-medium">
                     <CheckCircle2 className="h-5 w-5 text-cyan-500 flex-shrink-0" />

@@ -63,8 +63,8 @@ export const Contact = () => {
           Ready to Engineer <span className="text-cyan-500">Your Next Solution?</span>
         </h2>
         <p className="text-lg text-slate-600">
-          I am currently open to <strong>Full-Time Software Engineering</strong> roles. 
-          Whether you have a question about my architecture or want to discuss a potential fit, I'd love to hear from you.
+          Whether you are a global organization looking for a lead developer or a business owner ready to launch a high-performance website, 
+           am here to help. From small business sites to complex enterprise apps, let's discuss how I can engineer the perfect solution for your vision.
         </p>
       </div>
 
@@ -115,7 +115,7 @@ export const Contact = () => {
             <div className="space-y-2">
               <Input
                 {...register("subject")}
-                placeholder="Subject (e.g. Senior Backend Engineer Opportunity)"
+                placeholder="Subject (e.g. E-commerce Site, Corporate Website, or Custom App)"
                 className="py-6 bg-slate-50 border-slate-200 focus:border-cyan-400 focus:ring-cyan-400"
               />
             </div>
@@ -123,7 +123,7 @@ export const Contact = () => {
             <div className="space-y-2">
               <Textarea
                 {...register("message")}
-                placeholder="Tell me about your team and the technical challenges you are solving..."
+                placeholder="Tell me about your project goals or the technical challenges you want to solve..."
                 className="min-h-[160px] bg-slate-50 border-slate-200 focus:border-cyan-400 focus:ring-cyan-400 resize-none"
               />
               {errors.message && (

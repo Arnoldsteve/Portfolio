@@ -17,10 +17,10 @@ export const Services = () => {
     <section id="services" className="container mx-auto px-4 py-20 sm:py-32 bg-slate-50/50">
       <div className="text-center mb-16">
         <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">
-          Core <span className="text-cyan-500">Competencies</span>
+          Core <span className="text-cyan-500">Solutions</span>
         </h2>
         <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
-          I move beyond simple CRUD applications to build systems that are secure, reliable, and scalable by design.
+          I combine deep software engineering expertise with business logic to build high-performing digital products that are secure, reliable, and engineered for growth..
         </p>
       </div>
 

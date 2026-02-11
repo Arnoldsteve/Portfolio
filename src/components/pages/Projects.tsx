@@ -24,10 +24,10 @@ export const Projects = () => {
       <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
         <div className="max-w-2xl">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-            Featured <span className="text-cyan-500">Engineering</span>
+            Selected <span className="text-cyan-500">Solutions</span>
           </h2>
           <p className="text-lg text-slate-600">
-            A selection of complex systems I have architected. I focus on solving real-world problems with robust, scalable code.
+            A showcase of high-performance websites and custom software systems I have delivered.
           </p>
         </div>
         <Link href="https://github.com/Arnoldsteve" target="_blank">
@@ -37,11 +37,11 @@ export const Projects = () => {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8">
         {projectsData.map((project, index) => (
           <Card
             key={index}
-            className="flex flex-col overflow-hidden border-slate-200 hover:border-cyan-400 hover:shadow-lg transition-all duration-300 group"
+            className="flex flex-col overflow-hidden border-slate-200 hover:border-cyan-400 hover:shadow-lg transition-all duration-300 group pt-0"
           >
             {/* Image Area */}
             <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100">
@@ -57,7 +57,7 @@ export const Projects = () => {
             {/* Content Area */}
             <CardHeader className="pb-2">
               <div className="flex justify-between items-start gap-4">
-                <CardTitle className="text-xl font-bold text-slate-900 group-hover:text-cyan-600 transition-colors">
+                <CardTitle className=" font-bold text-slate-900 group-hover:text-cyan-600 transition-colors">
                     {project.title}
                 </CardTitle>
                 {/* Optional: Add an icon or status indicator here */}

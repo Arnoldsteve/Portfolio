@@ -1,40 +1,40 @@
 import { Service } from "@/types/service";
-import { Server, ShieldCheck, Activity, Database } from "lucide-react";
+import { Server, ShieldCheck, Monitor, Zap } from "lucide-react";
 
 export const servicesData: Service[] = [
   {
     serviceId: 1,
-    icon: <Server size={48} className="text-cyan-400" />,
-    title: "SaaS Platform Architecture",
+    icon: <Monitor size={48} className="text-cyan-400" />,
+    title: "SEO-Optimized Business Sites",
     description:
-      "Designing secure, multi-tenant architectures that scale. I specialize in data isolation strategies (Row-Level Security) and schema design.",
-    detailedDescription: "", // Not used on homepage card
-    keyPoints: [], // Not used on homepage card
+      "Establishing global digital authority. I build high-performance, mobile-first websites engineered with advanced SEO best practices to ensure you rank on Google and attract organic leads.",
+    detailedDescription: "", 
+    keyPoints: [], 
   },
   {
     serviceId: 2,
     icon: <ShieldCheck size={48} className="text-cyan-400" />,
-    title: "Fintech & Ledger Systems",
+    title: "Secure E-Commerce Solutions",
     description:
-      "Engineering immutable, double-entry financial ledgers. I build systems that handle money with ACID compliance and 99.8% transaction reliability.",
+      "Full-service online stores designed for conversion. Featuring automated inventory, global payment gateways, and M-Pesa integration—all built on a secure, hacker-proof foundation.",
     detailedDescription: "",
     keyPoints: [],
   },
   {
     serviceId: 3,
-    icon: <Activity size={48} className="text-cyan-400" />,
-    title: "Event-Driven Systems",
+    icon: <Server size={48} className="text-cyan-400" />,
+    title: "Custom Web Applications (Apps)",
     description:
-      "Decoupling complex business logic using Pub/Sub patterns. I ensure heavy background tasks don't slow down the user experience.",
+      "Scalable software built to solve specific business problems. From custom management dashboards to SaaS platforms, I engineer the 'brains' that automate your daily operations.",
     detailedDescription: "",
     keyPoints: [],
   },
   {
     serviceId: 4,
-    icon: <Database size={48} className="text-cyan-400" />,
-    title: "High-Performance APIs",
+    icon: <Zap size={48} className="text-cyan-400" />,
+    title: "Optimization & Maintenance",
     description:
-      "Optimizing database queries and API endpoints. I use Redis caching and proper indexing to reduce latency by up to 45%.",
+      "I don't just launch and leave. I provide extreme speed optimization (Core Web Vitals), ironclad security updates, and reliable hosting management to keep your platform running 24/7.",
     detailedDescription: "",
     keyPoints: [],
   },

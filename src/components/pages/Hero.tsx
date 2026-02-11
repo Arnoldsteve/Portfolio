@@ -54,12 +54,12 @@ export const Hero = () => {
             <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl mb-6">
               Building Secure, <br className="hidden lg:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-600">
-                Multi-Tenant SaaS Platforms
+                Modern Web Platforms at Scale
               </span>
             </h1>
             
             <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-              I am a <strong>Backend-Focused Full Stack Engineer</strong> bridging the gap between legacy reliability (PHP) and modern scalability (Node.js/NestJS). Specialized in Event-Driven Architecture and Fintech Integrations.
+              I am a <strong>Full-Stack Software Engineer</strong> dedicated to transforming business goals into high-performing digital products. From high-converting corporate websites to complex custom applications, I build secure, scalable, and world-class solutions for a global market.
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">

@@ -70,7 +70,7 @@ export default async function ServicePage({ searchParams }: ServicePageProps) {
           <div className="inline-flex items-center justify-center p-4 bg-cyan-50 rounded-2xl mb-6">
             <IconComponent className="w-12 h-12 text-cyan-500" />
           </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-6">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-6">
             {service.title}
           </h1>
           <p className="text-xl text-slate-600 leading-relaxed">
@@ -85,7 +85,7 @@ export default async function ServicePage({ searchParams }: ServicePageProps) {
                 
                 {/* Overview */}
                 <section>
-                    <h2 className="text-2xl font-bold text-slate-900 mb-4">Strategic Approach</h2>
+                    <h2 className="text-xl font-bold text-slate-900 mb-4">Strategic Approach</h2>
                     <div className="prose prose-slate max-w-none text-slate-600 leading-relaxed text-lg">
                         {service.overview}
                     </div>
@@ -93,7 +93,7 @@ export default async function ServicePage({ searchParams }: ServicePageProps) {
 
                 {/* Key Features */}
                 <section>
-                    <h2 className="text-2xl font-bold text-slate-900 mb-6">Capabilities</h2>
+                    <h2 className="text-xl font-bold text-slate-900 mb-6">Capabilities</h2>
                     <div className="grid sm:grid-cols-2 gap-4">
                         {service.keyFeatures.map((feature, index) => (
                             <div key={index} className="flex items-start gap-3 p-4 rounded-lg bg-slate-50 border border-slate-100">
@@ -106,7 +106,7 @@ export default async function ServicePage({ searchParams }: ServicePageProps) {
 
                 {/* Process */}
                 <section>
-                    <h2 className="text-2xl font-bold text-slate-900 mb-8">Engineering Process</h2>
+                    <h2 className="text-xl font-bold text-slate-900 mb-8">Engineering Process</h2>
                     <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
                         {service.process.map((step, index) => (
                             <div key={index} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
@@ -117,7 +117,7 @@ export default async function ServicePage({ searchParams }: ServicePageProps) {
                                 
                                 {/* Content Card */}
                                 <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                                    <h3 className="font-bold text-lg text-slate-900 mb-2">{step.title}</h3>
+                                    <h3 className="font-bold text-sm text-slate-900 mb-2">{step.title}</h3>
                                     <p className="text-slate-600 text-sm">{step.description}</p>
                                 </div>
                             </div>

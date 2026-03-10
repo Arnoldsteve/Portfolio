@@ -28,7 +28,7 @@ export const Services = () => {
         {servicesData.map((service, index) => (
           <Card
             key={index}
-            className="border-slate-200 hover:border-cyan-400 hover:shadow-lg transition-all duration-300 group bg-white"
+            className="border-slate-200 hover:border-cyan-400 hover:shadow-lg transition-all duration-300 group bg-white flex flex-col h-full"
           >
             <CardHeader>
               <div className="mb-4 p-3 bg-cyan-50 w-fit rounded-xl group-hover:bg-cyan-100 transition-colors">
@@ -39,7 +39,7 @@ export const Services = () => {
               </CardTitle>
             </CardHeader>
 
-            <CardDescription className="px-6 pb-6 text-slate-600 leading-relaxed">
+            <CardDescription className="px-6 pb-6 text-slate-600 leading-relaxed flex-1">
               {service.description}
             </CardDescription>
 

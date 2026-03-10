@@ -2,11 +2,9 @@
 
 import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   ZoomIn,
   X,
@@ -29,11 +27,11 @@ export function ProjectGallery({ images, projectTitle }: ProjectGalleryProps) {
 
   const prev = useCallback(
     () => setActiveIndex((i) => (i - 1 + images.length) % images.length),
-    [images.length]
+    [images.length],
   );
   const next = useCallback(
     () => setActiveIndex((i) => (i + 1) % images.length),
-    [images.length]
+    [images.length],
   );
 
   useEffect(() => {
@@ -68,31 +66,35 @@ export function ProjectGallery({ images, projectTitle }: ProjectGalleryProps) {
               System Architecture Gallery
             </h2>
           </div>
-          <span className="text-xs font-medium text-slate-400 uppercase tracking-widest bg-slate-50 px-3 py-1 rounded-full border border-slate-100">
+          {/* shadcn Badge — count pill */}
+          <Badge variant="secondary" className="uppercase tracking-widest text-xs text-slate-400 bg-slate-50 border border-slate-100 rounded-full px-3 py-1">
             {images.length} {images.length === 1 ? "Screenshot" : "Screenshots"}
-          </span>
+          </Badge>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {images.map((imgSrc, index) => (
-            <button
+            /* shadcn Button — ghost, full card clickable area */
+            <Button
               key={index}
+              variant="ghost"
               onClick={() => openAt(index)}
-              className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-900 shadow-sm transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/10 hover:border-cyan-300/60 hover:-translate-y-1 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
+              className="group relative h-auto w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-900 p-0 shadow-sm transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/10 hover:border-cyan-300/60 hover:-translate-y-1 hover:bg-slate-900 text-left focus-visible:ring-2 focus-visible:ring-cyan-500"
             >
-              {/* Index badge */}
-              <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 bg-black/50 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10">
+              {/* shadcn Badge — index pill */}
+              <Badge
+                variant="outline"
+                className="absolute top-3 left-3 z-10 flex items-center gap-1.5 bg-black/50 backdrop-blur-md border-white/10 text-white/70 rounded-full font-mono text-xs px-2.5 py-1"
+              >
                 <Monitor className="h-3 w-3 text-cyan-400" />
-                <span className="text-xs font-mono text-white/70 tabular-nums">
-                  {String(index + 1).padStart(2, "0")} /{" "}
-                  {String(images.length).padStart(2, "0")}
-                </span>
-              </div>
+                {String(index + 1).padStart(2, "0")} /{" "}
+                {String(images.length).padStart(2, "0")}
+              </Badge>
 
-              {/* Expand icon */}
+              {/* Expand icon — plain div, no nested button */}
               <div className="absolute top-3 right-3 z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
-                <div className="bg-white/10 backdrop-blur-md p-2 rounded-lg border border-white/20">
-                  <Maximize2 className="h-3.5 w-3.5 text-white" />
+                <div className="h-8 w-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg flex items-center justify-center text-white">
+                  <Maximize2 className="h-3.5 w-3.5" />
                 </div>
               </div>
 
@@ -112,18 +114,13 @@ export function ProjectGallery({ images, projectTitle }: ProjectGalleryProps) {
                   <span className="text-sm font-medium">View Full Resolution</span>
                 </div>
               </div>
-            </button>
+            </Button>
           ))}
         </div>
       </section>
 
       {/* ─── LIGHTBOX ──────────────────────────────────────────────────── */}
       <Dialog open={open} onOpenChange={setOpen}>
-        {/*
-          Override shadcn's default centering transforms with Tailwind's ! modifier.
-          shadcn applies: left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]
-          We clobber those to get a true full-screen takeover.
-        */}
         <DialogContent
           className="
             !fixed !inset-0 !left-0 !top-0
@@ -135,11 +132,10 @@ export function ProjectGallery({ images, projectTitle }: ProjectGalleryProps) {
             [&>button]:hidden
           "
           style={{
-            background: "rgba(5, 5, 10, 0.96)",
+            background: "rgba(5, 5, 10, 0.92)",
             backdropFilter: "blur(20px) saturate(160%)",
           }}
         >
-          {/* Required by Radix for a11y — sr-only hides visually, readable by screen readers */}
           <DialogTitle className="sr-only">
             {projectTitle
               ? `${projectTitle} — Screenshot ${activeIndex + 1} of ${images.length}`
@@ -157,7 +153,7 @@ export function ProjectGallery({ images, projectTitle }: ProjectGalleryProps) {
 
           {/* ── TOP BAR ── */}
           <div className="absolute top-0 inset-x-0 flex items-center justify-between px-6 py-4 z-10 bg-gradient-to-b from-black/60 to-transparent">
-            <div className="flex items-center gap-3">
+            <div className="hidden sm:flex items-center gap-3">
               <div className="flex gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
                 <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/50" />
@@ -169,30 +165,33 @@ export function ProjectGallery({ images, projectTitle }: ProjectGalleryProps) {
               </span>
             </div>
 
-            {/* Custom close button — shadcn's default is hidden via [&>button]:hidden above */}
-            <button
+            {/* shadcn Button — close */}
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={() => setOpen(false)}
-              className="p-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-white/40 hover:text-white transition-all"
+              className="h-9 w-9 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-white/40 hover:text-white"
             >
               <X className="h-4 w-4" />
-            </button>
+            </Button>
           </div>
 
           {/* ── MAIN STAGE ── */}
-          <div className="relative flex items-center justify-center w-full h-full px-16 py-20">
-            {/* Prev */}
-            {images.length > 1 && (
-              <button
-                onClick={prev}
-                aria-label="Previous screenshot"
-                className="absolute left-4 z-10 p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white/40 hover:text-white transition-all hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-            )}
-
-            {/* Browser chrome wrapper */}
-            <div className="relative w-full max-w-5xl">
+          <div className="relative flex items-center justify-center w-full h-full px-3 py-16 sm:px-10 md:px-16 md:py-20">
+            {/* Browser chrome wrapper — prev/next overlap it */}
+            <div className="relative w-full max-w-full md:max-w-5xl">
+              {/* shadcn Button — prev */}
+              {images.length > 1 && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={prev}
+                  aria-label="Previous screenshot"
+                  className="absolute -left-3 md:-left-6 top-1/2 -translate-y-1/2 z-10 h-8 w-8 md:h-12 md:w-12 rounded-xl border border-white/10 bg-black/40 hover:bg-white/10 text-white/60 hover:text-white hover:scale-110 transition-all"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </Button>
+              )}
               {/* Chrome bar */}
               <div className="flex items-center gap-3 bg-[#18181f] border border-white/[0.06] border-b-0 rounded-t-xl px-4 py-2.5">
                 <div className="flex gap-1.5 shrink-0">
@@ -229,33 +228,36 @@ export function ProjectGallery({ images, projectTitle }: ProjectGalleryProps) {
                   onLoad={() => setIsImageLoaded(true)}
                 />
               </div>
+              {/* shadcn Button — next */}
+              {images.length > 1 && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={next}
+                  aria-label="Next screenshot"
+                  className="absolute -right-3 md:-right-6 top-1/2 -translate-y-1/2 z-10 h-8 w-8 md:h-12 md:w-12 rounded-xl border border-white/10 bg-black/40 hover:bg-white/10 text-white/60 hover:text-white hover:scale-110 transition-all"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </Button>
+              )}
             </div>
-
-            {/* Next */}
-            {images.length > 1 && (
-              <button
-                onClick={next}
-                aria-label="Next screenshot"
-                className="absolute right-4 z-10 p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white/40 hover:text-white transition-all hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
-            )}
           </div>
 
           {/* ── BOTTOM STRIP ── */}
           <div className="absolute bottom-0 inset-x-0 flex flex-col items-center gap-3 pb-5 pt-12 bg-gradient-to-t from-black/60 to-transparent z-10">
+            {/* Thumbnail strip — shadcn Button outline per thumb */}
             {images.length > 1 && (
               <div className="flex items-center gap-2">
                 {images.map((imgSrc, i) => (
-                  <button
+                  <Button
                     key={i}
+                    variant="outline"
                     onClick={() => setActiveIndex(i)}
                     aria-label={`Go to screenshot ${i + 1}`}
-                    className={`relative overflow-hidden rounded-lg transition-all duration-300 border-2 focus:outline-none ${
+                    className={`relative overflow-hidden rounded-lg p-0 transition-all duration-300 border-2 ${
                       i === activeIndex
-                        ? "w-[72px] h-11 border-cyan-500 opacity-100 scale-110 shadow-lg shadow-cyan-500/30"
-                        : "w-14 h-9 border-white/10 opacity-30 hover:opacity-60 hover:border-white/25"
+                        ? "w-[72px] h-11 border-cyan-500 opacity-100 scale-110 shadow-lg shadow-cyan-500/30 hover:border-cyan-500"
+                        : "w-14 h-9 border-white/10 opacity-30 hover:opacity-60 hover:border-white/25 bg-transparent"
                     }`}
                   >
                     <Image
@@ -264,26 +266,26 @@ export function ProjectGallery({ images, projectTitle }: ProjectGalleryProps) {
                       fill
                       className="object-cover"
                     />
-                  </button>
+                  </Button>
                 ))}
               </div>
             )}
 
-            <div className="flex items-center gap-4 text-white/20 text-[11px] font-mono select-none">
+            {/* Keyboard hints — shadcn Badge outline */}
+            <div className="hidden sm:flex items-center gap-3">
               {images.length > 1 && (
                 <>
-                  <div className="flex items-center gap-1.5">
-                    <kbd className="px-1.5 py-0.5 rounded border border-white/10 bg-white/5">←</kbd>
-                    <kbd className="px-1.5 py-0.5 rounded border border-white/10 bg-white/5">→</kbd>
-                    <span>navigate</span>
-                  </div>
-                  <span className="opacity-40">·</span>
+                  <Badge variant="outline" className="gap-1.5 border-white/10 bg-white/5 text-white/20 font-mono text-[11px] rounded-md">
+                    <span>←</span>
+                    <span>→</span>
+                    <span className="ml-1">navigate</span>
+                  </Badge>
+                  <span className="text-white/10 text-xs">·</span>
                 </>
               )}
-              <div className="flex items-center gap-1.5">
-                <kbd className="px-1.5 py-0.5 rounded border border-white/10 bg-white/5">esc</kbd>
-                <span>close</span>
-              </div>
+              <Badge variant="outline" className="border-white/10 bg-white/5 text-white/20 font-mono text-[11px] rounded-md">
+                esc · close
+              </Badge>
             </div>
           </div>
         </DialogContent>

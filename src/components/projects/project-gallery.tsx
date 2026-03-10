@@ -2,7 +2,11 @@
 
 import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
-import * as Dialog from "@radix-ui/react-dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import {
   ZoomIn,
   X,
@@ -114,161 +118,176 @@ export function ProjectGallery({ images, projectTitle }: ProjectGalleryProps) {
       </section>
 
       {/* ─── LIGHTBOX ──────────────────────────────────────────────────── */}
-      <Dialog.Root open={open} onOpenChange={setOpen}>
-        <Dialog.Portal>
-          {/* Overlay: true full-screen backdrop */}
-          <Dialog.Overlay
-            className="fixed inset-0 z-50"
+      <Dialog open={open} onOpenChange={setOpen}>
+        {/*
+          Override shadcn's default centering transforms with Tailwind's ! modifier.
+          shadcn applies: left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]
+          We clobber those to get a true full-screen takeover.
+        */}
+        <DialogContent
+          className="
+            !fixed !inset-0 !left-0 !top-0
+            !translate-x-0 !translate-y-0
+            !w-screen !h-screen !max-w-none !max-h-none
+            !rounded-none !border-none !p-0 !shadow-none
+            flex flex-col items-center justify-center
+            overflow-hidden outline-none
+            [&>button]:hidden
+          "
+          style={{
+            background: "rgba(5, 5, 10, 0.96)",
+            backdropFilter: "blur(20px) saturate(160%)",
+          }}
+        >
+          {/* Required by Radix for a11y — sr-only hides visually, readable by screen readers */}
+          <DialogTitle className="sr-only">
+            {projectTitle
+              ? `${projectTitle} — Screenshot ${activeIndex + 1} of ${images.length}`
+              : `Screenshot ${activeIndex + 1} of ${images.length}`}
+          </DialogTitle>
+
+          {/* Ambient glow */}
+          <div
+            className="pointer-events-none absolute inset-0"
             style={{
-              background: "rgba(5, 5, 10, 0.96)",
-              backdropFilter: "blur(20px) saturate(160%)",
+              background:
+                "radial-gradient(ellipse 60% 40% at 50% 48%, rgba(6,182,212,0.12) 0%, transparent 70%)",
             }}
           />
 
-          {/* Content: raw primitive — no shadcn wrapper, no translate(-50%,-50%) */}
-          <Dialog.Content
-            className="fixed inset-0 z-50 flex flex-col items-center justify-center outline-none"
-            aria-describedby={undefined}
-          >
-            {/* Ambient glow */}
-            <div
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(ellipse 60% 40% at 50% 48%, rgba(6,182,212,0.12) 0%, transparent 70%)",
-              }}
-            />
-
-            {/* ── TOP BAR ── */}
-            <div className="absolute top-0 inset-x-0 flex items-center justify-between px-6 py-4 z-10 bg-gradient-to-b from-black/60 to-transparent">
-              <div className="flex items-center gap-3">
-                <div className="flex gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/50" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-green-400/50" />
-                </div>
-                <div className="h-3.5 w-px bg-white/10" />
-                <span className="text-xs font-mono text-white/25 tracking-widest uppercase select-none">
-                  {projectTitle ?? "Preview"} — {activeIndex + 1} of {images.length}
-                </span>
+          {/* ── TOP BAR ── */}
+          <div className="absolute top-0 inset-x-0 flex items-center justify-between px-6 py-4 z-10 bg-gradient-to-b from-black/60 to-transparent">
+            <div className="flex items-center gap-3">
+              <div className="flex gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
+                <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/50" />
+                <div className="w-2.5 h-2.5 rounded-full bg-green-400/50" />
               </div>
-
-              <Dialog.Close className="p-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-white/40 hover:text-white transition-all">
-                <X className="h-4 w-4" />
-              </Dialog.Close>
+              <div className="h-3.5 w-px bg-white/10" />
+              <span className="text-xs font-mono text-white/25 tracking-widest uppercase select-none">
+                {projectTitle ?? "Preview"} — {activeIndex + 1} of {images.length}
+              </span>
             </div>
 
-            {/* ── MAIN STAGE ── */}
-            <div className="relative flex items-center justify-center w-full h-full px-16 py-20">
-              {/* Prev */}
-              {images.length > 1 && (
-                <button
-                  onClick={prev}
-                  aria-label="Previous screenshot"
-                  className="absolute left-4 z-10 p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white/40 hover:text-white transition-all hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
-                >
-                  <ChevronLeft className="h-5 w-5" />
-                </button>
-              )}
+            {/* Custom close button — shadcn's default is hidden via [&>button]:hidden above */}
+            <button
+              onClick={() => setOpen(false)}
+              className="p-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-white/40 hover:text-white transition-all"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
 
-              {/* Browser chrome wrapper */}
-              <div className="relative w-full max-w-5xl">
-                {/* Chrome bar */}
-                <div className="flex items-center gap-3 bg-[#18181f] border border-white/[0.06] border-b-0 rounded-t-xl px-4 py-2.5">
-                  <div className="flex gap-1.5 shrink-0">
-                    <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-                    <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
-                    <div className="w-3 h-3 rounded-full bg-[#28c840]" />
-                  </div>
-                  <div className="flex-1 bg-[#1c1c23] rounded-md h-6 flex items-center px-3 min-w-0">
-                    <span className="text-[11px] text-white/20 font-mono truncate select-none">
-                      app.{projectTitle?.toLowerCase().replace(/\s+/g, "") ?? "project"}.io
-                    </span>
-                  </div>
-                  <ExternalLink className="h-3.5 w-3.5 text-white/10 shrink-0" />
-                </div>
+          {/* ── MAIN STAGE ── */}
+          <div className="relative flex items-center justify-center w-full h-full px-16 py-20">
+            {/* Prev */}
+            {images.length > 1 && (
+              <button
+                onClick={prev}
+                aria-label="Previous screenshot"
+                className="absolute left-4 z-10 p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white/40 hover:text-white transition-all hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+            )}
 
-                {/* Screenshot */}
-                <div
-                  className="relative w-full rounded-b-xl border border-white/[0.06] border-t-0 overflow-hidden bg-slate-900"
-                  style={{ aspectRatio: "16/10" }}
-                >
-                  {!isImageLoaded && (
-                    <div className="absolute inset-0 bg-slate-800 animate-pulse" />
-                  )}
-                  <Image
-                    key={activeIndex}
-                    src={images[activeIndex]}
-                    alt={`Screenshot ${activeIndex + 1}${projectTitle ? ` — ${projectTitle}` : ""}`}
-                    fill
-                    className={`object-cover transition-opacity duration-500 ${
-                      isImageLoaded ? "opacity-100" : "opacity-0"
-                    }`}
-                    quality={100}
-                    priority
-                    onLoad={() => setIsImageLoaded(true)}
-                  />
+            {/* Browser chrome wrapper */}
+            <div className="relative w-full max-w-5xl">
+              {/* Chrome bar */}
+              <div className="flex items-center gap-3 bg-[#18181f] border border-white/[0.06] border-b-0 rounded-t-xl px-4 py-2.5">
+                <div className="flex gap-1.5 shrink-0">
+                  <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
+                  <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
+                  <div className="w-3 h-3 rounded-full bg-[#28c840]" />
                 </div>
+                <div className="flex-1 bg-[#1c1c23] rounded-md h-6 flex items-center px-3 min-w-0">
+                  <span className="text-[11px] text-white/20 font-mono truncate select-none">
+                    app.{projectTitle?.toLowerCase().replace(/\s+/g, "") ?? "project"}.io
+                  </span>
+                </div>
+                <ExternalLink className="h-3.5 w-3.5 text-white/10 shrink-0" />
               </div>
 
-              {/* Next */}
-              {images.length > 1 && (
-                <button
-                  onClick={next}
-                  aria-label="Next screenshot"
-                  className="absolute right-4 z-10 p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white/40 hover:text-white transition-all hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
-                >
-                  <ChevronRight className="h-5 w-5" />
-                </button>
-              )}
-            </div>
-
-            {/* ── BOTTOM STRIP ── */}
-            <div className="absolute bottom-0 inset-x-0 flex flex-col items-center gap-3 pb-5 pt-12 bg-gradient-to-t from-black/60 to-transparent z-10">
-              {images.length > 1 && (
-                <div className="flex items-center gap-2">
-                  {images.map((imgSrc, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setActiveIndex(i)}
-                      aria-label={`Go to screenshot ${i + 1}`}
-                      className={`relative overflow-hidden rounded-lg transition-all duration-300 border-2 focus:outline-none ${
-                        i === activeIndex
-                          ? "w-[72px] h-11 border-cyan-500 opacity-100 scale-110 shadow-lg shadow-cyan-500/30"
-                          : "w-14 h-9 border-white/10 opacity-30 hover:opacity-60 hover:border-white/25"
-                      }`}
-                    >
-                      <Image
-                        src={imgSrc}
-                        alt={`Thumbnail ${i + 1}`}
-                        fill
-                        className="object-cover"
-                      />
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              <div className="flex items-center gap-4 text-white/20 text-[11px] font-mono select-none">
-                {images.length > 1 && (
-                  <>
-                    <div className="flex items-center gap-1.5">
-                      <kbd className="px-1.5 py-0.5 rounded border border-white/10 bg-white/5">←</kbd>
-                      <kbd className="px-1.5 py-0.5 rounded border border-white/10 bg-white/5">→</kbd>
-                      <span>navigate</span>
-                    </div>
-                    <span className="opacity-40">·</span>
-                  </>
+              {/* Screenshot */}
+              <div
+                className="relative w-full rounded-b-xl border border-white/[0.06] border-t-0 overflow-hidden bg-slate-900"
+                style={{ aspectRatio: "16/10" }}
+              >
+                {!isImageLoaded && (
+                  <div className="absolute inset-0 bg-slate-800 animate-pulse" />
                 )}
-                <div className="flex items-center gap-1.5">
-                  <kbd className="px-1.5 py-0.5 rounded border border-white/10 bg-white/5">esc</kbd>
-                  <span>close</span>
-                </div>
+                <Image
+                  key={activeIndex}
+                  src={images[activeIndex]}
+                  alt={`Screenshot ${activeIndex + 1}${projectTitle ? ` — ${projectTitle}` : ""}`}
+                  fill
+                  className={`object-cover transition-opacity duration-500 ${
+                    isImageLoaded ? "opacity-100" : "opacity-0"
+                  }`}
+                  quality={100}
+                  priority
+                  onLoad={() => setIsImageLoaded(true)}
+                />
               </div>
             </div>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
+
+            {/* Next */}
+            {images.length > 1 && (
+              <button
+                onClick={next}
+                aria-label="Next screenshot"
+                className="absolute right-4 z-10 p-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white/40 hover:text-white transition-all hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            )}
+          </div>
+
+          {/* ── BOTTOM STRIP ── */}
+          <div className="absolute bottom-0 inset-x-0 flex flex-col items-center gap-3 pb-5 pt-12 bg-gradient-to-t from-black/60 to-transparent z-10">
+            {images.length > 1 && (
+              <div className="flex items-center gap-2">
+                {images.map((imgSrc, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveIndex(i)}
+                    aria-label={`Go to screenshot ${i + 1}`}
+                    className={`relative overflow-hidden rounded-lg transition-all duration-300 border-2 focus:outline-none ${
+                      i === activeIndex
+                        ? "w-[72px] h-11 border-cyan-500 opacity-100 scale-110 shadow-lg shadow-cyan-500/30"
+                        : "w-14 h-9 border-white/10 opacity-30 hover:opacity-60 hover:border-white/25"
+                    }`}
+                  >
+                    <Image
+                      src={imgSrc}
+                      alt={`Thumbnail ${i + 1}`}
+                      fill
+                      className="object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
+
+            <div className="flex items-center gap-4 text-white/20 text-[11px] font-mono select-none">
+              {images.length > 1 && (
+                <>
+                  <div className="flex items-center gap-1.5">
+                    <kbd className="px-1.5 py-0.5 rounded border border-white/10 bg-white/5">←</kbd>
+                    <kbd className="px-1.5 py-0.5 rounded border border-white/10 bg-white/5">→</kbd>
+                    <span>navigate</span>
+                  </div>
+                  <span className="opacity-40">·</span>
+                </>
+              )}
+              <div className="flex items-center gap-1.5">
+                <kbd className="px-1.5 py-0.5 rounded border border-white/10 bg-white/5">esc</kbd>
+                <span>close</span>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

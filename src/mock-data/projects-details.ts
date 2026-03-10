@@ -28,7 +28,7 @@ export const projects: Project[] = [
       },
       { category: "Frontend", techs: ["Next.js", "React Query", "Shadcn UI", "Tailwind"] },
       { category: "Architecture", techs: ["Event Emitter", "Repository Pattern", "PBAC"] },
-      { category: "DevOps", techs: ["Docker", "GitHub Actions", "Vercel"] },
+      { category: "DevOps", techs: [ "AWS - EC2","Docker", "GitHub Actions", "Vercel"] },
     ],
     gallery: [
       "/images/projects/gradehub-finance.png",

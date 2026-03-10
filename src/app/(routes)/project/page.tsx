@@ -198,7 +198,7 @@ export default async function ProjectDetailsPage({ searchParams }: PageProps) {
               </section>
             )}
 
-            <ProjectGallery images={project.gallery ?? []} />
+            <ProjectGallery images={project.gallery ?? []} projectTitle={project.title} />
           </div>
 
           {/* --- SIDEBAR (Right Col) --- */}

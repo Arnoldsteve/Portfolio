@@ -4,13 +4,14 @@ import { Project } from "@/types/project-details";
 export const projects: Project[] = [
   {
     id: 1,
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    // image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    image: "/images/projects/gradehub-hero.png",
     title: "GradeHub - Enterprise SaaS Platform",
     description:
       "A production-grade, multi-tenant School Management System featuring event-driven architecture and an immutable financial ledger.",
     tags: ["NestJS", "PostgreSQL", "Event-Driven", "Docker", "PBAC"],
-    github: "https://github.com/Arnoldsteve/gradehub-saas", 
-    demo: "https://gradehub-demo.vercel.app", 
+    github: "mailto:stevearnold9e@gmail.com?subject=Access Request: GradeHub Source Code&body=Hi Steve, I saw your portfolio and would like to request access to review the architecture of GradeHub.", 
+    demo: "https://grade-hub-two.vercel.app/", 
     longDescription:
       "GradeHub is an enterprise-level SaaS platform designed to manage complex educational operations. Unlike standard CRUD applications, GradeHub solves critical data integrity problems using advanced patterns. \n\nI architected a double-entry ledger system to track student fees with ACID compliance, ensuring zero calculation drift. I also decoupled the business logic using an Event-Driven Architecture (Pub/Sub), allowing heavy operations like PDF generation and Activity Logging to happen asynchronously without blocking the user interface.",
     keyFeatures: [
@@ -31,8 +32,8 @@ export const projects: Project[] = [
       { category: "DevOps", techs: ["Docker", "GitHub Actions", "Vercel"] },
     ],
     gallery: [
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+      "/images/projects/gradehub-finance.png",
+      "/images/projects/gradehub-gradebook.png",
     ],
   },
   {

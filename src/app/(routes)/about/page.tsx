@@ -34,10 +34,10 @@ export default function AboutPage() {
   };
  //PostgreSQL, Redis, MySQL, M-Pesa API, Stripe.
   const stats = [
-    { label: "99.8% (M-Pesa & Global Card Success)", value: "99.8%", icon: ShieldCheck },
-    { label: "+45% (Faster load times = Better SEO)", value: "45%", icon: Zap },
-    { label: "+30% (Turning visitors into customers)", value: "30%", icon: TrendingUp },
-    { label: "100% Data Isolation (Bank-grade protection)", value: "95%", icon: Server },
+    { label: "(M-Pesa & Global Card Success)", value: "99.8%", icon: ShieldCheck },
+    { label: "Faster load times = Better SEO)", value: "45%", icon: Zap },
+    { label: "(Turning visitors into customers)", value: "30%", icon: TrendingUp },
+    { label: "Data Isolation (Bank-grade protection)", value: "95%", icon: Server },
   ];
 
   return (
@@ -58,10 +58,10 @@ export default function AboutPage() {
         {/* Right - Info */}
         <div className="space-y-8">
           <div>
-            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-2 text-slate-900">
+            <h1 className="text-2xl md:text-5xl font-extrabold tracking-tight mb-2 text-slate-900">
               Steve Arnold Otieno
             </h1>
-            <p className="text-xl text-cyan-600 font-semibold mb-4 flex items-center gap-2">
+            <p className="text-sm text-cyan-600 font-semibold mb-4 flex items-center gap-2">
               Full-Stack Software Engineer & Solutions Architect
             </p>
             <div className="flex flex-wrap gap-6 text-slate-600">
@@ -91,7 +91,7 @@ export default function AboutPage() {
                     {stat.value}
                   </div>
                 </div>
-                <div className="text-xs font-medium text-slate-500 uppercase tracking-wide">
+                <div className="text-xs font-medium text-slate-500 tracking-wide">
                   {stat.label}
                 </div>
               </div>
@@ -149,7 +149,7 @@ export default function AboutPage() {
 
       {/* --- PROFESSIONAL SUMMARY --- */}
       <section className="container mx-auto py-16">
-        <h2 className="text-3xl font-bold mb-8">
+        <h2 className="text-2xl font-bold mb-8">
           The <span className="text-cyan-500">Engineer</span>
         </h2>
         <Card className="p-8 bg-slate-50/50 border-slate-200">
@@ -166,7 +166,7 @@ export default function AboutPage() {
 
       {/* --- PROFESSIONAL EXPERIENCE --- */}
       <section className="container mx-auto py-16">
-        <h2 className="text-3xl font-bold mb-8">
+        <h2 className="text-2xl font-bold mb-8">
           Professional <span className="text-cyan-500">Journey</span>
         </h2>
 
@@ -254,7 +254,7 @@ export default function AboutPage() {
 
       {/* --- TECHNICAL EXPERTISE --- */}
       <section className="container mx-auto py-16 bg-slate-50 -mx-4 px-4 sm:px-6">
-        <h2 className="text-3xl font-bold mb-10 text-center">
+        <h2 className="text-2xl font-bold mb-10 ">
           Technical <span className="text-cyan-500">Arsenal</span>
         </h2>
 
@@ -265,7 +265,7 @@ export default function AboutPage() {
               <div className="p-2 bg-cyan-50 rounded-lg">
                 <Server className="text-cyan-600" size={24} />
               </div>
-              <h3 className="text-xl font-bold">Websites & Interfaces</h3>
+              <h3 className="text-ld font-bold">Websites & Interfaces</h3>
             </div>
             <div className="flex flex-wrap gap-2">
               {skills.frontend.map((skill) => (
@@ -285,7 +285,7 @@ export default function AboutPage() {
               <div className="p-2 bg-purple-50 rounded-lg">
                 <Database className="text-purple-600" size={24} />
               </div>
-              <h3 className="text-xl font-bold">Backend & Systems</h3>
+              <h3 className="text-lg font-bold">Backend & Systems</h3>
             </div>
             <div className="flex flex-wrap gap-2">
               {skills.backend.map((skill) => (
@@ -305,7 +305,7 @@ export default function AboutPage() {
               <div className="p-2 bg-orange-50 rounded-lg">
                 <Cloud className="text-orange-600" size={24} />
               </div>
-              <h3 className="text-xl font-bold">Data & Payments</h3>
+              <h3 className="text-lg font-bold">Data & Payments</h3>
             </div>
             <div className="flex flex-wrap gap-2">
               {skills.databases.map((skill) => (
@@ -325,7 +325,7 @@ export default function AboutPage() {
               <div className="p-2 bg-blue-50 rounded-lg">
                 <Globe className="text-blue-600" size={24} />
               </div>
-              <h3 className="text-xl font-bold">Infrastructure & SEO</h3>
+              <h3 className="text-lg font-bold">Infrastructure & SEO</h3>
             </div>
             <div className="flex flex-wrap gap-2">
               {skills.infrastructure.map((skill) => (
@@ -345,7 +345,7 @@ export default function AboutPage() {
               <div className="p-2 bg-green-50 rounded-lg">
                 <Wrench className="text-green-600" size={24} />
               </div>
-              <h3 className="text-xl font-bold">Methodologies & Tools</h3>
+              <h3 className="text-lg font-bold">Methodologies & Tools</h3>
             </div>
             <div className="flex flex-wrap gap-2">
               
@@ -364,7 +364,7 @@ export default function AboutPage() {
 
       {/* --- EDUCATION --- */}
       <section className="container mx-auto py-16">
-        <h2 className="text-3xl font-bold mb-8">
+        <h2 className="text-2xl font-bold mb-8">
           Education & <span className="text-cyan-500">Foundation</span>
         </h2>
 

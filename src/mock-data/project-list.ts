@@ -1,7 +1,7 @@
 export const projectsData = [
   {
     id: 1,
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    image: "/images/projects/gradehub-hero.png",
     title: "GradeHub - Enterprise SaaS Platform",
     description:
       "A comprehensive, enterprise-level Management System designed to automate complex school operations. Engineered for high security and scalability, it features automated financial tracking, secure student data isolation, and a robust administrative dashboard.",

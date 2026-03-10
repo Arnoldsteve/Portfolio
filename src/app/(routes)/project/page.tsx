@@ -15,6 +15,7 @@ import {
 import { projects } from "@/mock-data/projects-details";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { ProjectGallery } from "@/components/projects/project-gallery";
 
 interface PageProps {
   searchParams: Promise<{
@@ -197,30 +198,7 @@ export default async function ProjectDetailsPage({ searchParams }: PageProps) {
               </section>
             )}
 
-            {/* Gallery */}
-            {project.gallery && project.gallery.length > 0 && (
-              <section>
-                <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-                  <ImageIcon className="h-6 w-6 text-cyan-500" /> System
-                  Screenshots
-                </h2>
-                <div className="grid sm:grid-cols-2 gap-6">
-                  {project.gallery.map((imgSrc, index) => (
-                    <div
-                      key={index}
-                      className="relative aspect-video rounded-xl overflow-hidden shadow-lg hover:scale-[1.02] transition-transform duration-300"
-                    >
-                      <Image
-                        src={imgSrc}
-                        alt={`Gallery ${index}`}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
+            <ProjectGallery images={project.gallery ?? []} />
           </div>
 
           {/* --- SIDEBAR (Right Col) --- */}

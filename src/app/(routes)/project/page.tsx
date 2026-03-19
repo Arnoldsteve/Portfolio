@@ -34,20 +34,6 @@ export default async function ProjectDetailsPage({ searchParams }: PageProps) {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Sticky Header for Back Button */}
-      <div className="sticky top-16 z-40 w-full bg-white/80 backdrop-blur-md border-b">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <Link href="/#projects">
-            <Button
-              variant="ghost"
-              className="group text-slate-600 hover:text-cyan-600"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-              Back to All Projects
-            </Button>
-          </Link>
-        </div>
-      </div>
 
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* --- HERO SECTION --- */}
@@ -66,7 +52,7 @@ export default async function ProjectDetailsPage({ searchParams }: PageProps) {
           {/* Right: Info */}
           <div className="space-y-6">
             <div>
-              <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+              <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
                 {project.title}
               </h1>
               <p className="mt-4 text-lg text-slate-600 leading-relaxed">
@@ -165,9 +151,8 @@ export default async function ProjectDetailsPage({ searchParams }: PageProps) {
           <div className="lg:col-span-2 space-y-12">
             {/* About */}
             <section>
-              <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
-                <Layers className="h-6 w-6 text-cyan-500" /> Architectural
-                Overview
+              <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+                <Layers className="h-6 w-6 text-cyan-500" /> Architectural Overview
               </h2>
               <div className="prose prose-slate max-w-none text-slate-600 whitespace-pre-wrap leading-relaxed">
                 {project.longDescription}
@@ -177,7 +162,7 @@ export default async function ProjectDetailsPage({ searchParams }: PageProps) {
             {/* Key Features */}
             {project.keyFeatures && (
               <section>
-                <h2 className="text-2xl font-bold text-slate-900 mb-6">
+                <h2 className="text-xl font-bold text-slate-900 mb-6">
                   Key Implementations
                 </h2>
                 <div className="grid sm:grid-cols-1 gap-4">

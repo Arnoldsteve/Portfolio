@@ -6,9 +6,9 @@ export const serviceDetails: ServiceDetail[] = [
     title: "SEO-Optimized Business Sites",
     description:
       "Establishing global digital authority. I build high-performance, mobile-first websites engineered with advanced SEO best practices to ensure you rank on Google and attract organic leads.",
-    iconName: "Monitor",
+    iconName: "Globe",
     overview:
-      "Your website is your primary business asset. I don’t just design pages; I engineer a digital presence that focuses on three pillars: Speed, Conversion, and Visibility. By using modern frameworks like Next.js, I ensure your site loads in milliseconds, providing the best possible foundation for high Google rankings and a premium user experience.",
+      "Your website is your primary business asset. I don't just design pages; I engineer a digital presence that focuses on three pillars: Speed, Conversion, and Visibility. By using modern frameworks like Next.js, I ensure your site loads in milliseconds, providing the best possible foundation for high Google rankings and a premium user experience.",
     keyFeatures: [
       "Custom UI/UX Designed for Business Conversion",
       "Advanced Technical SEO (Schema Markup & Meta Optimization)",
@@ -104,7 +104,7 @@ export const serviceDetails: ServiceDetail[] = [
     title: "Custom Web Applications (Apps)",
     description:
       "Scalable software built to solve specific business problems. From custom management dashboards to SaaS platforms, I engineer the 'brains' that automate your daily operations.",
-    iconName: "Server",
+    iconName: "AppWindow",
     overview:
       "When off-the-shelf software isn't enough, you need a custom-engineered solution. I specialize in building 'The Brains' of a business—interactive web applications that handle complex logic, multi-user data, and automated workflows. These are not just websites; they are tools that eliminate manual work and solve operational bottlenecks.",
     keyFeatures: [
@@ -119,7 +119,7 @@ export const serviceDetails: ServiceDetail[] = [
       "NestJS",
       "PostgreSQL",
       "Prisma ORM",
-      "AWS / Google Cloud",
+      "AWS",
       "Docker & Containers",
       "React / Redux",
     ],
@@ -167,8 +167,6 @@ export const serviceDetails: ServiceDetail[] = [
     technologies: [
       "Clinic.js (Diagnostics)",
       "Redis Caching",
-      "Nginx / Reverse Proxies",
-      "Prometheus & Grafana",
       "Vercel / AWS CloudWatch",
     ],
     process: [

@@ -17,23 +17,21 @@ import { ArrowRight, Github, ExternalLink } from "lucide-react";
 
 export const Projects = () => {
   return (
-    <section
-      id="projects"
-      className="container mx-auto px-4 py-20 sm:py-32"
-    >
+    <section id="projects" className="container mx-auto px-4 py-20 sm:py-32">
       <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
         <div className="max-w-2xl">
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
             Selected <span className="text-cyan-500">Solutions</span>
           </h2>
           <p className="text-lg text-slate-600">
-            A showcase of high-performance websites and custom software systems I have delivered.
+            A showcase of high-performance websites and custom software systems
+            I have delivered.
           </p>
         </div>
         <Link href="https://github.com/Arnoldsteve" target="_blank">
-            <Button variant="outline" className="gap-2">
-                View GitHub Profile <Github className="h-4 w-4" />
-            </Button>
+          <Button variant="outline" className="gap-2">
+            View GitHub Profile <Github className="h-4 w-4" />
+          </Button>
         </Link>
       </div>
 
@@ -58,7 +56,7 @@ export const Projects = () => {
             <CardHeader className="pb-2">
               <div className="flex justify-between items-start gap-4">
                 <CardTitle className=" font-bold text-slate-900 group-hover:text-cyan-600 transition-colors">
-                    {project.title}
+                  {project.title}
                 </CardTitle>
                 {/* Optional: Add an icon or status indicator here */}
               </div>
@@ -68,13 +66,13 @@ export const Projects = () => {
               <CardDescription className="text-base text-slate-600 leading-relaxed line-clamp-3 mb-4">
                 {project.description}
               </CardDescription>
-              
+
               {/* Tech Stack Badges */}
               <div className="flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
-                  <Badge 
-                    key={tag} 
-                    variant="secondary" 
+                  <Badge
+                    key={tag}
+                    variant="secondary"
                     className="bg-slate-100 text-slate-700 hover:bg-cyan-50 hover:text-cyan-700 transition-colors"
                   >
                     {tag}
@@ -84,19 +82,27 @@ export const Projects = () => {
             </CardContent>
 
             <CardFooter className="pt-0 pb-6 px-6 flex gap-4">
-              <Button asChild className="flex-1 bg-slate-900 hover:bg-slate-800">
+              <Button
+                asChild
+                className="flex-1 bg-slate-900 hover:bg-slate-800"
+              >
                 <Link href={`/project?projectId=${project.id}`}>
                   Case Study <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              
-              {project.demo && (typeof project.demo === 'string' ? (
-                 <Button asChild variant="outline" size="icon">
-                    <a href={project.demo} target="_blank" rel="noreferrer" title="Live Demo">
-                        <ExternalLink className="h-4 w-4" />
+
+              {project.demo &&
+                (typeof project.demo === "string" ? (
+                  <Button
+                    asChild
+                    variant="ghost"
+                    className="flex-1 text-cyan-600 hover:text-cyan-700 hover:bg-cyan-50"
+                  >
+                    <a href={project.demo} target="_blank" rel="noreferrer">
+                      Live Preview <ExternalLink className="ml-2 h-4 w-4" />
                     </a>
-                 </Button>
-              ) : null)}
+                  </Button>
+                ) : null)}
             </CardFooter>
           </Card>
         ))}

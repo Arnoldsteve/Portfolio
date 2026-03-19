@@ -10,8 +10,6 @@ import {
   Github,
   MapPin,
   Calendar,
-  Award,
-  Code2,
   Server,
   Database,
   Cloud,
@@ -20,17 +18,21 @@ import {
   Zap,
   ShieldCheck,
   TrendingUp,
-  Globe,
   Download,
+  Monitor,
+  Plug,
+  Layers,
 } from "lucide-react";
 
 export default function AboutPage() {
-  const skills = {
-    frontend: ["Next.js", "React", "Tailwind CSS", "shadcn/ui", "Redux"],
-    backend: ["Node.js (NestJS, ExpressJs)", "PHP (Laravel, CodeIgniter)","Python(FastAPI)",  ],
-    databases: ["PostgreSQL", "Redis", "MySQL", "Supabase", "ORM", "M-Pesa API", "Stripe"],
-    infrastructure : ["Docker", "AWS", "Vercel", "Advanced SEO Strategy", "Security Auditing"],
-    methodologies: ["Agile/Scrum", "System Design", "TDD", "Global Industry Standards"],
+ const skills = {
+    frontend: ["Next.js", "React", "TypeScript", "Tailwind CSS", "shadcn/ui", "Mantine UI", "Redux", "React Query"],
+    backend: ["Node.js (NestJS, Express.js)", "TypeScript", "PHP (Laravel, CodeIgniter)", "Python (Django)", "Java (Core)", "Rust"],
+    databases: ["PostgreSQL", "MySQL", "MongoDB", "Prisma ORM", "TypeORM", "Redis (Caching & Queues)", "Supabase"],
+    integrations: ["Stripe", "M-Pesa API", "PayPal", "Twilio", "Resend", "SendGrid", "Webhooks"], 
+    infrastructure: ["Docker", "AWS", "Vercel", "Render", "Railway", "CI/CD (GitHub Actions)", "Linux/Unix", "Security Auditing (OWASP)"],
+    architecture: ["Multi-tenancy", "Event-Driven Architecture", "ACID Compliance", "PBAC/RBAC", "Microservices"], 
+    methodologies: ["Agile/Scrum", "System Design", "TDD", "AI-Assisted Development (Cursor/Claude/Kiro)"], 
   };
  //PostgreSQL, Redis, MySQL, M-Pesa API, Stripe.
   const stats = [
@@ -67,7 +69,7 @@ export default function AboutPage() {
             <div className="flex flex-wrap gap-6 text-slate-600">
               <div className="flex items-center gap-2">
                 <MapPin size={18} className="text-cyan-500" />
-                <span> Based in Nairobi, Kenya (Serving Global Markets)</span>
+                <span> Based in Kenya (Serving Global Markets)</span>
               </div>
               <div className="flex items-center gap-2">
                 <Briefcase size={18} className="text-green-500" />
@@ -235,9 +237,10 @@ export default function AboutPage() {
                   "NestJS",
                   "React",
                   "MySQL",
+                  "PostgreSQL",
+                  "MongoDB",
                   "Redis",
                   "Docker",
-                  "AWS",
                 ].map((tech) => (
                   <span
                     key={tech}
@@ -263,9 +266,9 @@ export default function AboutPage() {
           <Card className="p-6 border-t-4 border-t-cyan-500 shadow-sm">
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2 bg-cyan-50 rounded-lg">
-                <Server className="text-cyan-600" size={24} />
+                <Monitor className="text-cyan-600" size={24} />
               </div>
-              <h3 className="text-ld font-bold">Websites & Interfaces</h3>
+              <h3 className="text-lg font-bold">Frontend</h3>
             </div>
             <div className="flex flex-wrap gap-2">
               {skills.frontend.map((skill) => (
@@ -279,13 +282,12 @@ export default function AboutPage() {
             </div>
           </Card>
 
-          {/* Databases */}
           <Card className="p-6 border-t-4 border-t-purple-500 shadow-sm">
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2 bg-purple-50 rounded-lg">
-                <Database className="text-purple-600" size={24} />
+                <Server className="text-purple-600" size={24} />
               </div>
-              <h3 className="text-lg font-bold">Backend & Systems</h3>
+              <h3 className="text-lg font-bold">Backend</h3>
             </div>
             <div className="flex flex-wrap gap-2">
               {skills.backend.map((skill) => (
@@ -299,13 +301,12 @@ export default function AboutPage() {
             </div>
           </Card>
 
-          {/* DevOps */}
           <Card className="p-6 border-t-4 border-t-orange-500 shadow-sm">
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2 bg-orange-50 rounded-lg">
-                <Cloud className="text-orange-600" size={24} />
+                <Database className="text-orange-600" size={24} />
               </div>
-              <h3 className="text-lg font-bold">Data & Payments</h3>
+              <h3 className="text-lg font-bold">Databases</h3>
             </div>
             <div className="flex flex-wrap gap-2">
               {skills.databases.map((skill) => (
@@ -319,13 +320,31 @@ export default function AboutPage() {
             </div>
           </Card>
 
-          {/* Frontend */}
+          <Card className="p-6 border-t-4 border-t-rose-500 shadow-sm">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-rose-50 rounded-lg">
+                <Plug className="text-rose-600" size={24} />
+              </div>
+              <h3 className="text-lg font-bold">Integrations</h3>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {skills.integrations.map((skill) => (
+                <span
+                  key={skill}
+                  className="px-3 py-1 bg-white border border-slate-200 rounded-full text-sm font-medium text-slate-700"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </Card>
+
           <Card className="p-6 border-t-4 border-t-blue-500 shadow-sm">
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2 bg-blue-50 rounded-lg">
-                <Globe className="text-blue-600" size={24} />
+                <Cloud className="text-blue-600" size={24} />
               </div>
-              <h3 className="text-lg font-bold">Infrastructure & SEO</h3>
+              <h3 className="text-lg font-bold">Infrastructure</h3>
             </div>
             <div className="flex flex-wrap gap-2">
               {skills.infrastructure.map((skill) => (
@@ -339,8 +358,26 @@ export default function AboutPage() {
             </div>
           </Card>
 
-          {/* Methodologies */}
-          <Card className="p-6 border-t-4 border-t-green-500 shadow-sm md:col-span-2 lg:col-span-2">
+          <Card className="p-6 border-t-4 border-t-indigo-500 shadow-sm">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-indigo-50 rounded-lg">
+                <Layers className="text-indigo-600" size={24} />
+              </div>
+              <h3 className="text-lg font-bold">Architecture</h3>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {skills.architecture.map((skill) => (
+                <span
+                  key={skill}
+                  className="px-3 py-1 bg-white border border-slate-200 rounded-full text-sm font-medium text-slate-700"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </Card>
+
+          <Card className="p-6 border-t-4 border-t-green-500 shadow-sm md:col-span-2 lg:col-span-3">
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2 bg-green-50 rounded-lg">
                 <Wrench className="text-green-600" size={24} />

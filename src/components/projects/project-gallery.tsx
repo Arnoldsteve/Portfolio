@@ -62,7 +62,7 @@ export function ProjectGallery({ images, projectTitle }: ProjectGalleryProps) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="h-8 w-1 bg-cyan-500 rounded-full" />
-            <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
+            <h2 className="text-xl font-bold text-slate-900 tracking-tight">
               System Architecture Gallery
             </h2>
           </div>

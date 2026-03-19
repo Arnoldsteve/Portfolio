@@ -51,26 +51,12 @@ export default async function ServicePage({ searchParams }: ServicePageProps) {
 
   return (
     <div className="min-h-screen bg-white">
-       {/* Sticky Header for Back Button */}
-       <div className="sticky top-16 z-40 w-full bg-white/80 backdrop-blur-md border-b">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-            <Link href="/#services">
-            <Button variant="ghost" className="group text-slate-600 hover:text-cyan-600">
-                <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-                Back to Expertise
-            </Button>
-            </Link>
-        </div>
-      </div>
 
       <div className="max-w-7xl mx-auto px-4 py-12 sm:py-20">
         
         {/* --- HERO SECTION --- */}
-        <section className="text-center max-w-4xl mx-auto mb-20">
-          <div className="inline-flex items-center justify-center p-4 bg-cyan-50 rounded-2xl mb-6">
-            <IconComponent className="w-12 h-12 text-cyan-500" />
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-6">
+        <section className="text-start  mx-auto mb-20">
+          <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight mb-6">
             {service.title}
           </h1>
           <p className="text-xl text-slate-600 leading-relaxed">

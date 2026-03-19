@@ -2,7 +2,7 @@ export interface ServiceDetail {
   serviceId: string;
   title: string;
   description: string;
-  iconName: "Server" | "ShieldCheck" | "Zap" | "Monitor";
+  iconName: "Globe" | "ShieldCheck" | "Zap" | "AppWindow" ;
   overview: string;
   keyFeatures: string[];
   technologies: string[];

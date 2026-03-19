@@ -53,9 +53,10 @@ export const projects: Project[] = [
       "High-Availability Booking Engine Logic",
     ],
     techStack: [
-      { category: "Backend", techs: ["Node.js", "Express", "MySQL", "Redis"] },
-      { category: "Integrations", techs: ["Stripe API", "SendGrid", "Twilio"] },
-      { category: "DevOps", techs: ["AWS EC2", "Jenkins", "Docker"] },
+      { category: "Backend", techs: ["Node.js", "Express", "MySQL", "Redis", "SWR"] },
+      { category: "Frontend", techs: ["Next.js", "TypeScript", "Mantine Core", "Tailwind CSS"] },
+      { category: "Integrations", techs: ["Stripe API", "SendGrid", "Resend"] },
+      { category: "DevOps", techs: ["AWS EC2", "Docker"] },
     ],
     gallery: [
       "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
@@ -85,13 +86,10 @@ export const projects: Project[] = [
       "Type-Safe Database Access with Prisma",
     ],
     techStack: [
-      {
-        category: "Frontend",
-        techs: ["Next.js", "TypeScript", "Tailwind CSS", "React Query"],
-      },
       { category: "Backend", techs: ["NestJS", "TypeScript", "Prisma"] },
+      { category: "Frontend", techs: ["Next.js", "TypeScript", "Tailwind CSS", "React Query"] },
       { category: "Database", techs: ["PostgreSQL (Supabase)", "Redis"] },
-      { category: "DevOps", techs: ["Vercel", "Railway"] },
+      { category: "DevOps", techs: ["Vercel", "Render"] },
     ],
     gallery: [
       "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",

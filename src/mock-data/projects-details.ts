@@ -37,6 +37,49 @@ export const projects: Project[] = [
   },
   {
     id: 2,
+    image: "/images/projects/kyc-vault-hero.png",
+    title: "KYC Vault Africa - Sovereign Identity Infrastructure",
+    description:
+      "A decentralized, hardware-secured identity ecosystem designed to eliminate data breaches and restore data sovereignty to 1.4 billion people.",
+    tags: ["Rust", "Next.js", "ZKP", "AWS Fargate", "Web Crypto API"],
+    github: "mailto:stevearnold9e@gmail.com?subject=Access Request: KYC Vault Africa Architecture %26 Source Code&body=Hi Steve, I encountered your portfolio and was impressed by the decentralized architecture of KYC Vault Africa. I would like to request access to review the implementation of the hardware-bound sovereign identity and the Rust backend security logic.",
+    demo: "https://kyc-vault-africa.vercel.app",
+    longDescription:
+      "KYC Vault Africa is a Top 0.1% architectural response to the vulnerabilities of centralized identity databases. Built for the African digital economy, it shifts the 'Root of Trust' from a central server to the user's physical device hardware.\n\nI engineered this system using Rust for the backend to ensure memory safety and high-performance encryption at scale. The core innovation is a 'Zero-Copy' handshake protocol that allows banks to verify citizen data via hardware-attested signatures. By utilizing the browser's Web Crypto API (SubtleCrypto), I ensured that private keys are generated in the device's Secure Enclave and never transmitted to the cloud, making the vault mathematically unhackable from a central point.",
+    keyFeatures: [
+      "Self-Sovereign Identity (SSI) with hardware-bound P-256 ECDSA keys",
+      "Privacy-Preserving Zero-Knowledge Proof (ZKP) attestations",
+      "Asynchronous 'WhatsApp Web' style B2B handshake relay",
+      "Application-Layer Encryption using AES-256-GCM for all vaulted PII",
+      "Immutable, cryptographically linked Audit Trail for regulatory compliance",
+      "Offline-first PWA dashboard with cross-tab state synchronization",
+    ],
+    techStack: [
+      {
+        category: "Backend",
+        techs: ["Rust", "Axum", "Tokio (Async)", "SQLx", "PostgreSQL (Neon)"],
+      },
+      { 
+        category: "Frontend", 
+        techs: ["Next.js 15", "TypeScript", "Zustand Persistence", "Shadcn UI", "Tailwind"] 
+      },
+      { 
+        category: "Security", 
+        techs: ["Web Crypto API", "ECDSA P-256", "AES-256-GCM", "Argon2id", "ZKP"] 
+      },
+      { 
+        category: "DevOps", 
+        techs: ["AWS App Runner", "Fargate", "GitHub Actions", "ECR", "Docker"] 
+      },
+    ],
+    gallery: [
+      // "/images/projects/kyc-enrollment.png",
+      "/images/projects/kyc-handshake.png",
+      "/images/projects/kyc-audit.png",
+    ],
+  },
+  {
+    id: 3,
     image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     title: "iTravel - High-Availability Payment System",
     description:
@@ -64,7 +107,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 3,
+    id: 4,
     image:
       "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     title: "ArtisanBase - Headless E-Commerce",
@@ -97,7 +140,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 4,
+    id: 5,
     image:
       "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     title: "Legacy Library Management System",

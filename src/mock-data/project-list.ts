@@ -14,6 +14,16 @@ export const projectsData = [
   },
   {
     id: 2,
+    image: "/images/projects/kyc-vault-hero.png",
+    title: "KYC Vault Africa - Sovereign Identity Infrastructure",
+    description:
+      "A production-grade, decentralized KYC ecosystem built for the African digital economy. It leverages hardware-bound cryptographic keys and Zero-Knowledge Proof (ZKP) attestations to enable secure, audited identity handshakes between citizens and banks without exposing raw PII.",
+    tags: ["Rust", "Next.js", "Web Crypto API", "AWS Fargate"],
+    github: "https://github.com/Arnoldsteve/kyc_vault",
+    demo: "https://kyc-vault-africa.vercel.app",
+  },
+  {
+    id: 3,
     image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     title: "iTravel - High-Availability Payment System",
     description:
@@ -23,7 +33,7 @@ export const projectsData = [
     demo: "https://itravelholidays.co.uk",
   },
   {
-    id: 3,
+    id: 4,
     image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     title: "ArtisanBase - Headless E-Commerce",
     description:
@@ -36,7 +46,7 @@ export const projectsData = [
     },
   },
   {
-    id: 4,
+    id: 5,
     image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     title: "Legacy Library Management System",
     description:

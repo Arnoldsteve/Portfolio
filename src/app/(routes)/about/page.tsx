@@ -23,23 +23,88 @@ import {
   Plug,
   Layers,
 } from "lucide-react";
+import { SocialDock } from "@/components/shared/social-dock";
 
 export default function AboutPage() {
- const skills = {
-    frontend: ["Next.js", "React", "TypeScript", "Tailwind CSS", "shadcn/ui", "Mantine UI", "Redux", "React Query"],
-    backend: ["Node.js (NestJS, Express.js)", "TypeScript", "PHP (Laravel, CodeIgniter)", "Python (Django)", "Java (Core)", "Rust"],
-    databases: ["PostgreSQL", "MySQL", "MongoDB", "Prisma ORM", "TypeORM", "Redis (Caching & Queues)", "Supabase"],
-    integrations: ["Stripe", "M-Pesa API", "PayPal", "Twilio", "Resend", "SendGrid", "Webhooks"], 
-    infrastructure: ["Docker", "AWS", "Vercel", "Render", "Railway", "CI/CD (GitHub Actions)", "Linux/Unix", "Security Auditing (OWASP)"],
-    architecture: ["Multi-tenancy", "Event-Driven Architecture", "ACID Compliance", "PBAC/RBAC", "Microservices"], 
-    methodologies: ["Agile/Scrum", "System Design", "TDD", "AI-Assisted Development (Cursor/Claude/Kiro)"], 
+  const skills = {
+    frontend: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "Mantine UI",
+      "Redux",
+      "React Query",
+    ],
+    backend: [
+      "Node.js (NestJS, Express.js)",
+      "TypeScript",
+      "PHP (Laravel, CodeIgniter)",
+      "Python (Django)",
+      "Java (Core)",
+      "Rust",
+    ],
+    databases: [
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "Prisma ORM",
+      "TypeORM",
+      "Redis (Caching & Queues)",
+      "Supabase",
+    ],
+    integrations: [
+      "Stripe",
+      "M-Pesa API",
+      "PayPal",
+      "Twilio",
+      "Resend",
+      "SendGrid",
+      "Webhooks",
+    ],
+    infrastructure: [
+      "Docker",
+      "AWS",
+      "Vercel",
+      "Render",
+      "Railway",
+      "CI/CD (GitHub Actions)",
+      "Linux/Unix",
+      "Security Auditing (OWASP)",
+    ],
+    architecture: [
+      "Multi-tenancy",
+      "Event-Driven Architecture",
+      "ACID Compliance",
+      "PBAC/RBAC",
+      "Microservices",
+    ],
+    methodologies: [
+      "Agile/Scrum",
+      "System Design",
+      "TDD",
+      "AI-Assisted Development (Cursor/Claude/Kiro)",
+    ],
   };
- //PostgreSQL, Redis, MySQL, M-Pesa API, Stripe.
+  //PostgreSQL, Redis, MySQL, M-Pesa API, Stripe.
   const stats = [
-    { label: "(M-Pesa & Global Card Success)", value: "99.8%", icon: ShieldCheck },
+    {
+      label: "(M-Pesa & Global Card Success)",
+      value: "99.8%",
+      icon: ShieldCheck,
+    },
     { label: "Faster load times = Better SEO)", value: "45%", icon: Zap },
-    { label: "(Turning visitors into customers)", value: "30%", icon: TrendingUp },
-    { label: "Data Isolation (Bank-grade protection)", value: "95%", icon: Server },
+    {
+      label: "(Turning visitors into customers)",
+      value: "30%",
+      icon: TrendingUp,
+    },
+    {
+      label: "Data Isolation (Bank-grade protection)",
+      value: "95%",
+      icon: Server,
+    },
   ];
 
   return (
@@ -101,50 +166,35 @@ export default function AboutPage() {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-wrap gap-4">
-            <Link href="/#contact">
+          <div className="flex flex-row w-full lg:w-fit gap-4">
+            <Link href="/#contact" className="flex-1 lg:flex-none">
               <Button
                 size="lg"
-                className="bg-slate-900 hover:bg-slate-800 text-white font-semibold px-8"
+                className="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold px-8"
               >
                 <Mail className="mr-2" size={18} />
                 Contact Me
               </Button>
             </Link>
-            <Link href="/Steve_Arnold_SE_Resume.pdf" target="_blank" download>
-              <Button size="lg" variant="outline" className="border-slate-300">
+            <Link
+              href="/Steve_Arnold_SE_Resume.pdf"
+              className="flex-1 lg:flex-none"
+              target="_blank"
+              download
+            >
+              <Button
+                size="lg"
+                variant="outline"
+                className="w-full border-slate-300"
+              >
                 <Download className="mr-2" size={18} />
                 Download CV
               </Button>
             </Link>
           </div>
-
           {/* Social Links */}
           <div className="flex gap-4">
-            <a
-              href="https://linkedin.com/in/steve-arnold-otieno"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2.5 bg-slate-100 rounded-lg hover:bg-cyan-50 hover:text-cyan-600 transition-colors"
-            >
-              <Linkedin size={20} />
-            </a>
-            <a
-              href="https://github.com/Arnoldsteve"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2.5 bg-slate-100 rounded-lg hover:bg-cyan-50 hover:text-cyan-600 transition-colors"
-            >
-              <Github size={20} />
-            </a>
-            <a
-              href="https://gitlab.com/Arnoldsteve"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2.5 bg-slate-100 rounded-lg hover:bg-cyan-50 hover:text-cyan-600 transition-colors"
-            >
-              <Gitlab size={20} />
-            </a>
+            <SocialDock />
           </div>
         </div>
       </section>
@@ -157,10 +207,17 @@ export default function AboutPage() {
         <Card className="p-8 bg-slate-50/50 border-slate-200">
           <div className="prose prose-lg text-slate-600 max-w-none">
             <p>
-              I am a Software Engineer who builds for growth. I bridge the gap between complex technical architecture and practical business needs. Whether I am crafting a sleek corporate website for a local brand or engineering a multi-tenant SaaS platform for a global startup, my focus remains the same: System Integrity.
+              I am a Software Engineer who builds for growth. I bridge the gap
+              between complex technical architecture and practical business
+              needs. Whether I am crafting a sleek corporate website for a local
+              brand or engineering a multi-tenant SaaS platform for a global
+              startup, my focus remains the same: System Integrity.
             </p>
             <p>
-             I believe that a digital product is only as good as its foundation. My work is secure by design, optimized for search engines (SEO), and engineered to scale as your business grows. I build software that businesses can rely on 24/7.
+              I believe that a digital product is only as good as its
+              foundation. My work is secure by design, optimized for search
+              engines (SEO), and engineered to scale as your business grows. I
+              build software that businesses can rely on 24/7.
             </p>
           </div>
         </Card>
@@ -385,7 +442,6 @@ export default function AboutPage() {
               <h3 className="text-lg font-bold">Methodologies & Tools</h3>
             </div>
             <div className="flex flex-wrap gap-2">
-              
               {skills.methodologies.map((skill) => (
                 <span
                   key={skill}
@@ -428,7 +484,11 @@ export default function AboutPage() {
                   Capstone Project: Multi-Tenant Invoice Management System
                 </p>
                 <p className="text-sm text-slate-600 leading-relaxed">
-                  For my final project, I architected a secure invoicing system for multiple businesses. This project set the foundation for my career, teaching me how to enforce strict data privacy and security—skills I now use to build professional-grade software for clients worldwide.
+                  For my final project, I architected a secure invoicing system
+                  for multiple businesses. This project set the foundation for
+                  my career, teaching me how to enforce strict data privacy and
+                  security—skills I now use to build professional-grade software
+                  for clients worldwide.
                 </p>
               </div>
             </div>

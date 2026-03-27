@@ -6,6 +6,7 @@ import { Header } from "@/components/pages/Header";
 import { Footer } from "@/components/pages/Footer";
 import { ScrollToTopButton } from "@/components/feature/ScrollToTopButton";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { TechnicalTwin } from "@/components/ai/technical-twin";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -53,8 +54,9 @@ export default function RootLayout({
         <TooltipProvider delayDuration={0}>
           <Header />
           <main>{children}</main>
+          <TechnicalTwin />
           <Footer />
-          <ScrollToTopButton />
+          {/* <ScrollToTopButton /> */}
           <Toaster richColors position="top-center" />
         </TooltipProvider>
       </body>

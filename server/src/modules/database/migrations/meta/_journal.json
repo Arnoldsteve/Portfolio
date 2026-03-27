@@ -8,6 +8,13 @@
       "when": 1774601162600,
       "tag": "0000_outgoing_falcon",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1774606187634,
+      "tag": "0001_majestic_genesis",
+      "breakpoints": true
     }
   ]
 }

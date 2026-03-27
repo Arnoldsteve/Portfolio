@@ -1,9 +1,10 @@
-import { Controller, Post, Body, Res, Header, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Body, Res, Header, HttpStatus, UseGuards } from '@nestjs/common';
 import { ChatService } from './chat.service';
 import { Response } from 'express';
 import { ApiTags, ApiOperation, ApiBody } from '@nestjs/swagger';
+import { AppThrottlerGuard } from 'src/common/guards/throttler.guard';
 
-@ApiTags('Chat') // Grouping for Scalar/Swagger
+@ApiTags('Chat')
 @Controller('chat')
 export class ChatController {
   constructor(private readonly chatService: ChatService) {}
@@ -13,6 +14,7 @@ export class ChatController {
    * This endpoint manages the HTTP lifecycle for the AI stream.
    * Using @Header decorators ensures NestJS handles the response metadata correctly.
    */
+  @UseGuards(AppThrottlerGuard)
   @Post('stream')
   @Header('Content-Type', 'text/event-stream')
   @Header('Cache-Control', 'no-cache')

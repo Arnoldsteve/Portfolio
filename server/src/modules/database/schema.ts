@@ -1,4 +1,4 @@
-import { pgTable, serial, text, jsonb, timestamp, customType } from 'drizzle-orm/pg-core';
+import { pgTable, serial, text, jsonb, timestamp, varchar, customType } from 'drizzle-orm/pg-core';
 
 /**
  * SOLID: Explicit Vector Type for pgvector
@@ -23,11 +23,24 @@ export const vector = customType<{ data: number[] }>({
 export const documentSections = pgTable('document_sections', {
   id: serial('id').primaryKey(),
   content: text('content').notNull(),
-  source: text('source').notNull(),
-  metadata: jsonb('metadata'),
+  
+  // NEW: Tracking external sources
+  source: varchar('source', { length: 50 }).notNull(),   // e.g., 'github', 'linkedin'
+  sourceId: varchar('source_id', { length: 255 }),      // e.g., 'repo-12345'
+  
+  // NEW: Performance & Synchronization
+  checksum: varchar('checksum', { length: 64 }),        // SHA-256 hash to detect changes
+  
+  // Standardized metadata for Links (e.g., { "url": "https://github.com/...", "stars": 50 })
+  metadata: jsonb('metadata').$type<{ url?: string; [key: string]: any }>(),
+  
   embedding: vector('embedding').notNull(),
   createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
 });
+
+
+
 
 export const chatSessions = pgTable('chat_sessions', {
   id: serial('id').primaryKey(),

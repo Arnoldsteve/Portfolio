@@ -7,6 +7,8 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { ChatService } from './chat.service';
+import { UseGuards } from '@nestjs/common';
+import { AppThrottlerGuard } from 'src/common/guards/throttler.guard';
 
 /**
  * OOP: The Gateway encapsulates all real-time communication.
@@ -26,6 +28,7 @@ export class ChatGateway {
    * SOLID: Single Responsibility
    * This handles the "message" event from the recruiter.
    */
+  @UseGuards(AppThrottlerGuard)
   @SubscribeMessage('send_message')
   async handleMessage(
     @MessageBody() data: { text: string },

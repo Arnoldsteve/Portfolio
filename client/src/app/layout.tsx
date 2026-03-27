@@ -6,7 +6,8 @@ import { Header } from "@/components/pages/Header";
 import { Footer } from "@/components/pages/Footer";
 import { ScrollToTopButton } from "@/components/feature/ScrollToTopButton";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { TechnicalTwin } from "@/components/ai/technical-twin";
+import { TechnicalTwin } from "@/components/ai/TechnicalTwin";
+// import { TechnicalTwin } from "@/components/ai/technical-twin";
 
 const inter = Inter({ subsets: ["latin"] });
 

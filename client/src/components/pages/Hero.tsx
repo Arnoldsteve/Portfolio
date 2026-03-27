@@ -2,7 +2,14 @@
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Github, Gitlab, Linkedin, Download, ArrowRight } from "lucide-react";
+import {
+  Github,
+  Gitlab,
+  Linkedin,
+  Download,
+  ArrowRight,
+  Sparkles,
+} from "lucide-react";
 import Link from "next/link";
 import {
   Tooltip,
@@ -10,6 +17,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { SocialDock } from "../shared/social-dock";
+import { useProactiveTrigger } from "@/hooks/use-proactive-trigger";
 
 const socialLinks = [
   {
@@ -52,6 +60,8 @@ const socialLinks = [
 ];
 
 export const Hero = () => {
+    const { triggerTopic } = useProactiveTrigger();
+
   return (
     <section
       id="home"
@@ -91,6 +101,11 @@ export const Hero = () => {
                 <Button
                   size="lg"
                   className="bg-slate-900 text-white hover:bg-slate-800 w-full h-12 px-8"
+                  onClick={() =>
+                    triggerTopic(
+                      "Steve's role in flagship projects like GradeHub",
+                    )
+                  }
                 >
                   View My Work <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -101,6 +116,10 @@ export const Hero = () => {
                 className="flex-1 lg:flex-none"
                 target="_blank"
                 download
+                // V3 Logic: When they download the CV, AI summarizes core competencies
+                onClick={() =>
+                  triggerTopic("30-second summary of Steve's technical resume")
+                }
               >
                 <Button
                   size="lg"
@@ -118,9 +137,16 @@ export const Hero = () => {
           </div>
 
           {/* Image Content */}
-          <div className="relative flex-shrink-0">
-            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-blue-500 rounded-full blur-2xl opacity-20 animate-pulse" />
-            <div className="relative w-64 h-64 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-white shadow-2xl">
+          <div
+            className="relative flex-shrink-0 group cursor-pointer"
+            onClick={() =>
+              triggerTopic(
+                "Steve's engineering philosophy and why he built this AI twin",
+              )
+            }
+          >
+            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-blue-500 rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-opacity" />
+            <div className="relative w-64 h-64 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-white shadow-2xl transition-transform group-hover:scale-[1.02]">
               <Image
                 src="/profile-pic.png"
                 alt="Steve Arnold Otieno"
@@ -128,6 +154,11 @@ export const Hero = () => {
                 className="object-cover"
                 priority
               />
+              {/* V3 UI: Subtle indicator that the photo is interactive */}
+              <div className="absolute bottom-4 right-1/2 translate-x-1/2 bg-white/80 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold text-cyan-700 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 shadow-sm">
+                <Sparkles className="h-3 w-3" />
+                ASK MY TWIN
+              </div>
             </div>
           </div>
         </div>

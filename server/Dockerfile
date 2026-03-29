@@ -43,11 +43,19 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3001
 
+# 1. Copy the clean production node_modules from the deploy folder
 COPY --from=builder /app/out/node_modules ./node_modules
-COPY --from=builder /app/out/dist ./dist
-COPY --from=builder /app/out/package.json ./package.json
+
+# 2. THE FIX: Copy 'dist' from the main builder folder (/app/dist) 
+# instead of the deployment folder (/app/out/dist)
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package.json ./package.json
+
+# 3. Copy AI Models from Stage 2
 COPY --from=model-downloader /models/Xenova ./models/Xenova
 
 USER node
 EXPOSE 3001
+
+# Start the application
 CMD ["node", "dist/src/main.js"]

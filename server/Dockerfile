@@ -4,10 +4,16 @@
 FROM node:22-slim AS model-downloader
 WORKDIR /app
 RUN npm install @xenova/transformers
-# This script downloads the model into /app/models
-RUN node -e "const { pipeline, env } = require('@xenova/transformers'); \
-    env.localModelPath = './models'; \
-    pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');"
+
+# THE CRITICAL FIX: We wrap the download in an async function 
+# so Docker waits for the 80MB model to finish downloading.
+RUN node -e "(async () => { \
+    const { pipeline, env } = require('@xenova/transformers'); \
+    env.cacheDir = './models'; \
+    console.log('Starting AI download...'); \
+    await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2'); \
+    console.log('Download complete!'); \
+    })()"
 
 # --------------------------------------------------------
 # STAGE 2: The Build Machine
@@ -51,8 +57,9 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 
-# 2. Copy the AI models from Stage 1 (Simplified path)
-COPY --from=model-downloader /app/models ./models
+# 2. Copy the AI models from Stage 1
+# We copy from the cacheDir we set: /app/models
+COPY --from=model-downloader /app/models /app/models
 
 USER node
 EXPOSE 3001

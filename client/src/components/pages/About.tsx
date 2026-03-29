@@ -67,7 +67,7 @@ export const About = () => {
             <Button
               asChild
               size="lg"
-              className="bg-slate-900 text-white hover:bg-slate-800 px-8"
+              className="bg-slate-900 text-white hover:bg-slate-800 px-8 w-full sm:w-auto"
             >
               <Link href={`/about`} className="flex items-center gap-2">
                 Read My Story <ArrowRight className="h-4 w-4" />

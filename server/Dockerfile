@@ -16,7 +16,7 @@ RUN corepack enable && corepack prepare pnpm@10.15.1 --activate
 
 WORKDIR /app
 
-# 2. FIX: Force pnpm to accept Linux x64 and download the missing sub-package
+# 2. Force pnpm to be ready for Linux binaries
 RUN pnpm config set supportedArchitectures --json '{"os": ["linux"], "cpu": ["x64"]}'
 
 COPY package.json pnpm-lock.yaml ./
@@ -24,9 +24,10 @@ COPY package.json pnpm-lock.yaml ./
 # 3. Install dependencies
 RUN pnpm install --frozen-lockfile
 
-# 4. THE CRITICAL FIX: Manually add the Linux-specific Sharp binary package
-# This solves the "Cannot find module sharp-linux-x64.node" error
-RUN pnpm add @img/sharp-linux-x64
+# 4. THE ATOMIC FIX: 
+# We force-install the latest sharp and its Linux engine. 
+# This overrides the old 0.32.6 version that is causing the crash.
+RUN pnpm add sharp@0.33.5 @img/sharp-linux-x64
 
 COPY . .
 
@@ -35,7 +36,8 @@ RUN npx drizzle-kit generate
 RUN pnpm build
 
 # 6. PRE-DOWNLOAD THE AI MODEL
-# Now that sharp is "Force-Linked" for Linux, this won't crash
+# We set an environment variable to tell Sharp to be quiet during this step
+ENV SHARP_IGNORE_GLOBAL_LIBVIPS=1
 RUN node -e "const { pipeline, env } = require('@xenova/transformers'); \
     env.localModelPath = './models/'; \
     pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');"

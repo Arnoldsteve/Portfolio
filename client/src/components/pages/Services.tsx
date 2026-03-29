@@ -67,7 +67,7 @@ export const Services = () => {
               </Button>
 
               {/* V3 UI: Explicit AI Chat Trigger */}
-              <Button
+              {/* <Button
                 variant="outline"
                 size="sm"
                 className="rounded-full border-cyan-200 text-cyan-600 hover:bg-cyan-50 gap-2 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -75,7 +75,7 @@ export const Services = () => {
               >
                 <BotMessageSquare className="h-4 w-4" />
                 Ask AI
-              </Button>
+              </Button> */}
             </CardFooter>
           </Card>
         ))}

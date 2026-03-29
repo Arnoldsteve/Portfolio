@@ -3,7 +3,7 @@
 # --------------------------------------------------------
 FROM node:22-slim AS builder
 
-# 1. Install build tools for native modules
+# 1. Install build tools
 RUN apt-get update && apt-get install -y \
     python3 \
     make \
@@ -16,25 +16,26 @@ RUN corepack enable && corepack prepare pnpm@10.15.1 --activate
 
 WORKDIR /app
 
-# 2. THE SECRET SAUCE: Tell pnpm to support Linux x64 binaries
-# This prevents the "Cannot find module sharp-linux-x64.node" error
+# 2. FIX: Force pnpm to accept Linux x64 and download the missing sub-package
 RUN pnpm config set supportedArchitectures --json '{"os": ["linux"], "cpu": ["x64"]}'
 
-# 3. Copy dependency files
 COPY package.json pnpm-lock.yaml ./
 
-# 4. Install dependencies (frozen-lockfile ensures consistency)
+# 3. Install dependencies
 RUN pnpm install --frozen-lockfile
 
-# 5. Copy the rest of the source code
+# 4. THE CRITICAL FIX: Manually add the Linux-specific Sharp binary package
+# This solves the "Cannot find module sharp-linux-x64.node" error
+RUN pnpm add @img/sharp-linux-x64
+
 COPY . .
 
-# 6. Generate Drizzle schema and build NestJS
+# 5. Build process
 RUN npx drizzle-kit generate 
 RUN pnpm build
 
-# 7. PRE-DOWNLOAD THE AI MODEL
-# We run this in a clean environment to avoid dependency clashes
+# 6. PRE-DOWNLOAD THE AI MODEL
+# Now that sharp is "Force-Linked" for Linux, this won't crash
 RUN node -e "const { pipeline, env } = require('@xenova/transformers'); \
     env.localModelPath = './models/'; \
     pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');"

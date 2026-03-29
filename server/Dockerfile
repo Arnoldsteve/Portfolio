@@ -2,11 +2,11 @@
 # STAGE 1: AI Model Downloader (The Clean Room)
 # --------------------------------------------------------
 FROM node:22-slim AS model-downloader
-WORKDIR /models
+WORKDIR /app
 RUN npm install @xenova/transformers
-# This stage has NO project code, so it cannot crash on sharp/playwright
+# This script downloads the model into /app/models
 RUN node -e "const { pipeline, env } = require('@xenova/transformers'); \
-    env.localModelPath = './'; \
+    env.localModelPath = './models'; \
     pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');"
 
 # --------------------------------------------------------
@@ -15,7 +15,7 @@ RUN node -e "const { pipeline, env } = require('@xenova/transformers'); \
 FROM node:22-slim AS builder
 WORKDIR /app
 
-# Install build tools for native modules
+# Install build tools
 RUN apt-get update && apt-get install -y python3 make g++ curl && rm -rf /var/lib/apt/lists/*
 
 # Enable pnpm 10
@@ -26,8 +26,7 @@ RUN pnpm config set supportedArchitectures --json '{"os": ["linux"], "cpu": ["x6
 
 COPY package.json pnpm-lock.yaml ./
 
-# THE FIX: We use --no-frozen-lockfile to allow pnpm to fix the 'sharp' 
-# mismatch for Linux during the build.
+# Allow pnpm to resolve the 'sharp' binary mismatch
 RUN pnpm install --no-frozen-lockfile
 
 COPY . .
@@ -47,13 +46,16 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3001
 
-# Copy only what is necessary
+# 1. Copy app code
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
-# Bring in the AI models from the "Clean Room" stage
-COPY --from=model-downloader /models/Xenova ./models/Xenova
+
+# 2. Copy the AI models from Stage 1 (Simplified path)
+COPY --from=model-downloader /app/models ./models
 
 USER node
 EXPOSE 3001
+
+# Start the application
 CMD ["node", "dist/src/main.js"]

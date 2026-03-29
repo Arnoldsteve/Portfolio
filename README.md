@@ -4,7 +4,7 @@
 
 > **v3.0 represents a fundamental shift** — from a static portfolio to an **Autonomous Technical Twin**. Built on an enterprise-grade speed stack, it features a proactive AI agent that conducts real-time technical screenings, explains architectural decisions, and surfaces direct evidence from my GitHub, LinkedIn, and live production environments.
 
-### [➡️ View Live Agent & Portfolio](https://portfolio-sand-beta-k0qdjldsy3.vercel.app/)
+### [➡️ View Live Agent & Portfolio](https://steve-arnold.vercel.app/)
 
 ---
 

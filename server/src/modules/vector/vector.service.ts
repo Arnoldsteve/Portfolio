@@ -2,7 +2,7 @@ import { Injectable, Inject, OnModuleInit } from '@nestjs/common';
 import { DRIZZLE_TOKEN } from '../database/database.module';
 import { documentSections } from '../database/schema';
 import { sql } from 'drizzle-orm';
-import { pipeline } from '@xenova/transformers';
+import { pipeline, env } from '@xenova/transformers';
 
 @Injectable()
 export class VectorService implements OnModuleInit {
@@ -11,6 +11,13 @@ export class VectorService implements OnModuleInit {
   constructor(@Inject(DRIZZLE_TOKEN) private db: any) {}
 
   async onModuleInit() {
+
+    // 2. CONFIGURE ENVIRONMENT BEFORE LOADING PIPELINE
+    // Disable remote downloading to protect your 1GB RAM
+    env.allowRemoteModels = false; 
+    
+    // Point to the folder we created in the Dockerfile
+    env.localModelPath = './models/'; 
     // Load the model into memory once when the server starts
     this.extractor = await pipeline(
       'feature-extraction',

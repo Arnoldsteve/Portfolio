@@ -101,11 +101,6 @@ export const Hero = () => {
                 <Button
                   size="lg"
                   className="bg-slate-900 text-white hover:bg-slate-800 w-full h-12 px-8"
-                  onClick={() =>
-                    triggerTopic(
-                      "Steve's role in flagship projects like GradeHub",
-                    )
-                  }
                 >
                   View My Work <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -116,10 +111,6 @@ export const Hero = () => {
                 className="flex-1 lg:flex-none"
                 target="_blank"
                 download
-                // V3 Logic: When they download the CV, AI summarizes core competencies
-                onClick={() =>
-                  triggerTopic("30-second summary of Steve's technical resume")
-                }
               >
                 <Button
                   size="lg"

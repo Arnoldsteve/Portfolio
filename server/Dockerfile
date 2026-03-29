@@ -4,23 +4,19 @@
 FROM node:22-slim AS builder
 WORKDIR /app
 
-# Install build tools
 RUN apt-get update && apt-get install -y python3 make g++ curl && rm -rf /var/lib/apt/lists/*
-
 RUN npm install -g pnpm@10.15.1
 RUN pnpm config set supportedArchitectures --json '{"os": ["linux"], "cpu": ["x64"]}'
 
 COPY package.json pnpm-lock.yaml ./
-# Install ALL dependencies for building
 RUN pnpm install --frozen-lockfile
 
 COPY . .
 RUN npx drizzle-kit generate 
 RUN pnpm build
 
-# THE PRO MOVE: Create a self-contained production bundle in /app/out
-# This fixes the broken 'sharp' symlinks automatically
-RUN pnpm deploy --filter=server --prod /app/out
+# THE FIX: Added the --legacy flag for pnpm v10 compatibility
+RUN pnpm deploy --filter=server --prod --legacy /app/out
 
 # --------------------------------------------------------
 # STAGE 2: AI Model Downloader
@@ -47,12 +43,9 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3001
 
-# Copy the clean, flattened production folder from Stage 1
 COPY --from=builder /app/out/node_modules ./node_modules
 COPY --from=builder /app/out/dist ./dist
 COPY --from=builder /app/out/package.json ./package.json
-
-# Copy AI Models from Stage 2
 COPY --from=model-downloader /models/Xenova ./models/Xenova
 
 USER node

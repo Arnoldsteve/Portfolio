@@ -22,11 +22,16 @@ COPY package.json pnpm-lock.yaml ./
 # Install dependencies (including devDeps for the build)
 RUN pnpm install --frozen-lockfile
 
+# NEW: Explicitly rebuild sharp for the current Linux environment
+RUN pnpm rebuild sharp
+
 # Copy the rest of the source code
 COPY . .
 
-# Generate Drizzle schema (if needed) and build NestJS
-RUN pnpm db:generate
+# Generate Drizzle schema
+RUN npx drizzle-kit generate 
+
+# Build NestJS
 RUN pnpm build
 
 # PRE-DOWNLOAD THE AI MODEL

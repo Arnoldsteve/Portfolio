@@ -3,7 +3,7 @@
 # --------------------------------------------------------
 FROM node:22-slim AS builder
 
-# Install build tools for 'sharp' and other native modules
+# 1. Install build tools for native modules
 RUN apt-get update && apt-get install -y \
     python3 \
     make \
@@ -16,26 +16,25 @@ RUN corepack enable && corepack prepare pnpm@10.15.1 --activate
 
 WORKDIR /app
 
-# Copy dependency files
+# 2. THE SECRET SAUCE: Tell pnpm to support Linux x64 binaries
+# This prevents the "Cannot find module sharp-linux-x64.node" error
+RUN pnpm config set supportedArchitectures --json '{"os": ["linux"], "cpu": ["x64"]}'
+
+# 3. Copy dependency files
 COPY package.json pnpm-lock.yaml ./
 
-# Install dependencies (including devDeps for the build)
+# 4. Install dependencies (frozen-lockfile ensures consistency)
 RUN pnpm install --frozen-lockfile
 
-# NEW: Explicitly rebuild sharp for the current Linux environment
-RUN pnpm rebuild sharp
-
-# Copy the rest of the source code
+# 5. Copy the rest of the source code
 COPY . .
 
-# Generate Drizzle schema
+# 6. Generate Drizzle schema and build NestJS
 RUN npx drizzle-kit generate 
-
-# Build NestJS
 RUN pnpm build
 
-# PRE-DOWNLOAD THE AI MODEL
-# This ensures the 80MB model is baked into the image disk, not downloaded at runtime.
+# 7. PRE-DOWNLOAD THE AI MODEL
+# We run this in a clean environment to avoid dependency clashes
 RUN node -e "const { pipeline, env } = require('@xenova/transformers'); \
     env.localModelPath = './models/'; \
     pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');"

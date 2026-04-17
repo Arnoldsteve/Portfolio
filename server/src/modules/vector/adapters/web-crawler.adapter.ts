@@ -35,13 +35,23 @@ export class WebCrawlerAdapter implements IKnowledgeAdapter {
         console.log(`🌐 Scraping [${page.label}]...`);
         const { data: html } = await axios.get(page.url, { timeout: 10000 });
         const content = this.extractCleanText(html, page.label);
+        
+        // Extract demo/live links for projects
+        const demoLinks = page.sourceId.startsWith('project') 
+          ? this.extractProjectLinks(html) 
+          : [];
 
         if (content.length > 100) {
+          // Append demo links to content if found
+          const enrichedContent = demoLinks.length > 0
+            ? `${content}\n\nLive Demo: ${demoLinks.join(', ')}`
+            : content;
+
           results.push({
             source: 'web-portfolio',
             sourceId: page.sourceId,
             url: page.url,
-            content,
+            content: enrichedContent,
             metadata: {
               label: page.label,
               type: page.sourceId.startsWith('project') ? 'project'
@@ -51,9 +61,10 @@ export class WebCrawlerAdapter implements IKnowledgeAdapter {
               priority: ['project-1', 'project-2', 'project-3', 'project-4'].includes(page.sourceId)
                 ? 'high'
                 : 'normal',
+              demoLinks: demoLinks.length > 0 ? demoLinks : undefined,
             },
           });
-          console.log(`✅ [${page.label}] — ${content.length} chars captured.`);
+          console.log(`✅ [${page.label}] — ${content.length} chars captured${demoLinks.length > 0 ? ` + ${demoLinks.length} demo link(s)` : ''}.`);
         } else {
           console.warn(`⚠️ [${page.label}] — content too short, skipping.`);
         }
@@ -88,6 +99,35 @@ export class WebCrawlerAdapter implements IKnowledgeAdapter {
       .trim();
 
     return `[PAGE: ${label}]\n${rawText}`;
+  }
+
+  /**
+   * Extracts demo/live preview links from project pages
+   */
+  private extractProjectLinks(html: string): string[] {
+    const $ = cheerio.load(html);
+    const links: string[] = [];
+
+    // Look for links with text containing "Live", "Demo", "Preview", "Visit"
+    $('a').each((_, el) => {
+      const href = $(el).attr('href');
+      const text = $(el).text().toLowerCase();
+      
+      if (href && (
+        text.includes('live') || 
+        text.includes('demo') || 
+        text.includes('preview') ||
+        text.includes('visit') ||
+        text.includes('case study')
+      )) {
+        // Only include external links (not portfolio internal links)
+        if (href.startsWith('http') && !href.includes('steve-arnold.vercel.app')) {
+          links.push(href);
+        }
+      }
+    });
+
+    return [...new Set(links)]; // Remove duplicates
   }
 
   /**

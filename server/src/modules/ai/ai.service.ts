@@ -49,7 +49,9 @@ export class AiService {
 
         ## SOURCE LINKS
         - NEVER mention the portfolio link (https://steve-arnold.vercel.app) in your responses since the user is already on that website.
-        - If a specific project URL/Link is present in the context (like a live demo or GitHub repo), include it naturally at the end as: "You can explore this live at: [URL]" or "Source: [URL]"
+        - If the context contains "Live Demo:" followed by a URL, ALWAYS include it at the very end of your response as: "You can explore this live at: [URL]"
+        - If a specific project GitHub repo or other external link is present in the context, include it naturally.
+        - If NO specific URL is found in the context, DO NOT include any placeholder text like "[insert link]" or "You can explore this at...". Simply end the response without mentioning a link.
 
         ## CONTEXT DATA
         ---

@@ -1,46 +1,147 @@
+// C:\Users\USER\Documents\personal-work\Portfolio\server\src\modules\vector\adapters\web-crawler.adapter.ts
+
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { IKnowledgeAdapter, ProcessedKnowledge } from '../interfaces/knowledge-adapter.interface';
 
+const BASE_URL = 'https://steve-arnold.vercel.app';
+
+// All known pages to crawl
+const PAGES_TO_CRAWL = [
+  { url: `${BASE_URL}/`,                      sourceId: 'home',         label: 'Homepage & Hero' },
+  { url: `${BASE_URL}/about`,                 sourceId: 'about',        label: 'About & Professional Journey' },
+  { url: `${BASE_URL}/service?serviceId=1`,   sourceId: 'service-1',    label: 'Service: SEO-Optimized Business Sites' },
+  { url: `${BASE_URL}/service?serviceId=2`,   sourceId: 'service-2',    label: 'Service: Secure E-Commerce Solutions' },
+  { url: `${BASE_URL}/service?serviceId=3`,   sourceId: 'service-3',    label: 'Service: Custom Web Applications' },
+  { url: `${BASE_URL}/service?serviceId=4`,   sourceId: 'service-4',    label: 'Service: Optimization & Maintenance' },
+  { url: `${BASE_URL}/project?projectId=1`,   sourceId: 'project-1',    label: 'Project: GradeHub' },
+  { url: `${BASE_URL}/project?projectId=2`,   sourceId: 'project-2',    label: 'Project: KYC Vault Africa' },
+  { url: `${BASE_URL}/project?projectId=3`,   sourceId: 'project-3',    label: 'Project: iTravel' },
+  { url: `${BASE_URL}/project?projectId=4`,   sourceId: 'project-4',    label: 'Project: ArtisanBase' },
+  { url: `${BASE_URL}/project?projectId=5`,   sourceId: 'project-5',    label: 'Project: Legacy Library System' },
+];
+
 export class WebCrawlerAdapter implements IKnowledgeAdapter {
-  private readonly baseUrl = 'https://steve-arnold.vercel.app';
 
   async fetchAndProcess(): Promise<ProcessedKnowledge[]> {
     const results: ProcessedKnowledge[] = [];
 
-    try {
-      // 1. Fetch the HTML
-      const { data: html } = await axios.get(this.baseUrl);
-      const $ = cheerio.load(html);
+    // 1. Optionally grab the PDF CV
+    await this.extractPdfResume(results);
 
-      // 2. Identify logical sections (Enterprise Logic: Semantic Scraping)
-      // We look for sections, articles, or main content areas
-      $('section, article, main').each((index, element) => {
-        const sectionId = $(element).attr('id') || `section-${index}`;
-        const sectionTitle = $(element).find('h1, h2, h3').first().text().trim();
-        
-        // Clean the text: remove extra whitespace and newlines
-        const rawContent = $(element).text().replace(/\s\s+/g, ' ').trim();
+    // 2. Scrape every known page
+    for (const page of PAGES_TO_CRAWL) {
+      try {
+        console.log(`🌐 Scraping [${page.label}]...`);
+        const { data: html } = await axios.get(page.url, { timeout: 10000 });
+        const content = this.extractCleanText(html, page.label);
 
-        // 3. Noise Filter: Only ingest if there is meaningful content (> 100 chars)
-        if (rawContent.length > 100) {
+        if (content.length > 100) {
           results.push({
             source: 'web-portfolio',
-            sourceId: `page-home-${sectionId}`,
-            url: `${this.baseUrl}/#${sectionId}`,
-            content: `Topic: ${sectionTitle || 'Portfolio Info'}\nContext from Live Site: ${rawContent}`,
+            sourceId: page.sourceId,
+            url: page.url,
+            content,
             metadata: {
-              componentId: sectionId,
-              crawledAt: new Date().toISOString()
-            }
+              label: page.label,
+              type: page.sourceId.startsWith('project') ? 'project'
+                  : page.sourceId.startsWith('service') ? 'service'
+                  : page.sourceId === 'about' ? 'about'
+                  : 'home',
+              priority: ['project-1', 'project-2', 'project-3', 'project-4'].includes(page.sourceId)
+                ? 'high'
+                : 'normal',
+            },
           });
+          console.log(`✅ [${page.label}] — ${content.length} chars captured.`);
+        } else {
+          console.warn(`⚠️ [${page.label}] — content too short, skipping.`);
         }
-      });
-
-    } catch (error) {
-      console.error('❌ Web Crawler failed:', error.message);
+      } catch (err) {
+        console.error(`❌ Failed to scrape [${page.label}]:`, err.message);
+      }
     }
 
     return results;
+  }
+
+  /**
+   * Strips nav, footer, scripts, and image alt text noise.
+   * Returns clean readable text from the page body.
+   */
+  private extractCleanText(html: string, label: string): string {
+    const $ = cheerio.load(html);
+
+    // Remove noise
+    $('nav, footer, script, style, noscript, button, [aria-hidden="true"]').remove();
+    $('img').each((_, el) => {
+      // Remove img tags but keep alt text if meaningful
+      const alt = $(el).attr('alt') || '';
+      $(el).replaceWith(alt.length > 5 ? `` : '');
+    });
+
+    // Get clean text
+    const rawText = $('body')
+      .text()
+      .replace(/\s{2,}/g, ' ')   // collapse whitespace
+      .replace(/\n{2,}/g, '\n')  // collapse newlines
+      .trim();
+
+    return `[PAGE: ${label}]\n${rawText}`;
+  }
+
+  /**
+   * Attempts to download and parse the PDF CV.
+   * Failure here is non-fatal — main scraping continues regardless.
+   */
+  private async extractPdfResume(results: ProcessedKnowledge[]): Promise<void> {
+    const pdfUrl = `${BASE_URL}/Steve_Arnold_SE_Resume.pdf`;
+    try {
+      console.log(`📄 Fetching PDF Resume...`);
+      const response = await axios.get(pdfUrl, {
+        responseType: 'arraybuffer',
+        timeout: 15000,
+      });
+
+      // 1. Load the module
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const pdfParserModule = require('pdf-parse');
+      const dataBuffer = Buffer.from(response.data);
+      
+      let pdfData: any;
+
+      try {
+        // Tactic A: Try standard function call (Works for 90% of versions)
+        const pdfParser = pdfParserModule.default ?? pdfParserModule;
+        pdfData = await pdfParser(dataBuffer);
+      } catch (err) {
+        if (err.message.includes("invoked without 'new'")) {
+          // Tactic B: If it's a Class (what your error showed), use 'new'
+          console.log("🛠️ Detected Class constructor, using 'new' keyword...");
+          const Constructor = pdfParserModule.PDFParse || pdfParserModule;
+          // Note: Standard pdf-parse doesn't usually use 'new', 
+          // but if your specific build requires it, this handles it.
+          const instance = new Constructor(dataBuffer);
+          pdfData = await instance; 
+        } else {
+          throw err;
+        }
+      }
+
+      if (pdfData && pdfData.text) {
+        results.push({
+          source: 'web-portfolio',
+          sourceId: 'official-cv',
+          url: pdfUrl,
+          content: `[SOURCE: OFFICIAL CV/RESUME — HIGH PRIORITY]\n${pdfData.text.trim()}`,
+          metadata: { type: 'resume', priority: 'high' },
+        });
+        console.log(`✅ PDF CV extracted — ${pdfData.text.length} chars.`);
+      }
+
+    } catch (err) {
+      console.warn(`⚠️ PDF extraction skipped: ${err.message}`);
+      // Main scraping continues
+    }
   }
 }

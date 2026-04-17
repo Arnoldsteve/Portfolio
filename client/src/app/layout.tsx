@@ -11,11 +11,11 @@ import { TechnicalTwin } from "@/components/ai/technical-twin";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Steve Arnold Otieno | Full Stack Engineer",
+  title: "Steve Arnold Otieno | Full Stack Software Engineer",
   description:
-    "Expert Full Stack Engineer specializing in NestJS, React, and high-scale SaaS architectures. Building secure, data-driven solutions with 99.8% reliability.",
+    "Expert Full Stack Software Engineer specializing in NestJS, React, and high-scale SaaS architectures. Building secure, data-driven solutions with 99.8% reliability.",
   openGraph: {
-    title: "Steve Arnold | Software Architect & Full Stack Engineer",
+    title: "Steve Arnold | Software Architect & Full Stack Software Engineer",
     description:
       "Explore the portfolio of Steve Arnold Otieno, featuring GradeHub and high-performance enterprise systems.",
     url: "https://steve-arnold.vercel.app",

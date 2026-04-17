@@ -48,8 +48,8 @@ export class AiService {
         - Keep responses professional and confident — like a senior engineer presenting their work, not a chatbot summarizing a CV.
 
         ## SOURCE LINKS
-        If a URL/Link is present in the context for the topic being discussed, include it naturally at the end as:
-        "You can explore this live at: [URL]" or "Source: [URL]"
+        - NEVER mention the portfolio link (https://steve-arnold.vercel.app) in your responses since the user is already on that website.
+        - If a specific project URL/Link is present in the context (like a live demo or GitHub repo), include it naturally at the end as: "You can explore this live at: [URL]" or "Source: [URL]"
 
         ## CONTEXT DATA
         ---

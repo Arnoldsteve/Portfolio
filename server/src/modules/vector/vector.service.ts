@@ -96,7 +96,7 @@ export class VectorService implements OnModuleInit {
         })
         .from(documentSections)
         .where(
-          sql`1 - (${documentSections.embedding} <=> ${JSON.stringify(queryEmbedding)}) > 0.25`,
+          sql`1 - (${documentSections.embedding} <=> ${JSON.stringify(queryEmbedding)}) > 0.20`,
         )
         .orderBy(
           sql`${documentSections.embedding} <=> ${JSON.stringify(queryEmbedding)}`,

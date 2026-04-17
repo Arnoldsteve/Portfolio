@@ -96,6 +96,8 @@ export class WebCrawlerAdapter implements IKnowledgeAdapter {
    */
   private async extractPdfResume(results: ProcessedKnowledge[]): Promise<void> {
     const pdfUrl = `${BASE_URL}/Steve_Arnold_SE_Resume.pdf`;
+    let parser: any = null;
+    
     try {
       console.log(`📄 Fetching PDF Resume...`);
       const response = await axios.get(pdfUrl, {
@@ -103,45 +105,37 @@ export class WebCrawlerAdapter implements IKnowledgeAdapter {
         timeout: 15000,
       });
 
-      // 1. Load the module
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const pdfParserModule = require('pdf-parse');
+      // pdf-parse v2.x uses class-based API
+      const { PDFParse } = require('pdf-parse');
       const dataBuffer = Buffer.from(response.data);
       
-      let pdfData: any;
+      // Initialize parser with buffer data
+      parser = new PDFParse({ data: dataBuffer });
+      
+      // Extract text using v2 API
+      const result = await parser.getText();
+      const extractedText = result.text || '';
 
-      try {
-        // Tactic A: Try standard function call (Works for 90% of versions)
-        const pdfParser = pdfParserModule.default ?? pdfParserModule;
-        pdfData = await pdfParser(dataBuffer);
-      } catch (err) {
-        if (err.message.includes("invoked without 'new'")) {
-          // Tactic B: If it's a Class (what your error showed), use 'new'
-          console.log("🛠️ Detected Class constructor, using 'new' keyword...");
-          const Constructor = pdfParserModule.PDFParse || pdfParserModule;
-          // Note: Standard pdf-parse doesn't usually use 'new', 
-          // but if your specific build requires it, this handles it.
-          const instance = new Constructor(dataBuffer);
-          pdfData = await instance; 
-        } else {
-          throw err;
-        }
-      }
-
-      if (pdfData && pdfData.text) {
+      if (extractedText.trim().length > 100) {
         results.push({
           source: 'web-portfolio',
           sourceId: 'official-cv',
           url: pdfUrl,
-          content: `[SOURCE: OFFICIAL CV/RESUME — HIGH PRIORITY]\n${pdfData.text.trim()}`,
+          content: `[SOURCE: OFFICIAL CV/RESUME — HIGH PRIORITY METRICS]\n${extractedText.trim()}`,
           metadata: { type: 'resume', priority: 'high' },
         });
-        console.log(`✅ PDF CV extracted — ${pdfData.text.length} chars.`);
+        console.log(`✅ PDF CV successfully parsed — ${extractedText.length} chars.`);
+      } else {
+        console.warn(`⚠️ PDF extraction failed to find text content.`);
       }
 
     } catch (err) {
-      console.warn(`⚠️ PDF extraction skipped: ${err.message}`);
-      // Main scraping continues
+      console.warn(`❌ PDF extraction failed: ${err.message}`);
+    } finally {
+      // Always destroy parser to free memory
+      if (parser && typeof parser.destroy === 'function') {
+        await parser.destroy();
+      }
     }
   }
 }

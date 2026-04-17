@@ -13,36 +13,69 @@ export class VectorService implements OnModuleInit {
   async onModuleInit() {
     const isProd = process.env.NODE_ENV === 'production';
 
-    if (isProd) {
-      // 2. CONFIGURE ENVIRONMENT BEFORE LOADING PIPELINE
-      // Disable remote downloading to protect your 1GB RAM
-      env.allowRemoteModels = false;
+    try {
+      if (isProd) {
+        // 2. CONFIGURE ENVIRONMENT BEFORE LOADING PIPELINE
+        // Disable remote downloading to protect your 1GB RAM
+        env.allowRemoteModels = false;
 
-      // Point to the folder we created in the Dockerfile
-      env.localModelPath = './models/';
-      // Load the model into memory once when the server starts
-    } else {
-      // Local dev: download and cache the model automatically
-      env.allowRemoteModels = true;
-      env.localModelPath = './models/'; // will create & cache here on first run
+        // Point to the folder we created in the Dockerfile
+        env.localModelPath = './models/';
+        // Load the model into memory once when the server starts
+      } else {
+        // Local dev: download and cache the model automatically
+        env.allowRemoteModels = true;
+        env.localModelPath = './models/'; // will create & cache here on first run
+      }
+      console.log(
+        `🔄 Loading embedding model (${isProd ? 'local' : 'remote download'})...`,
+      );
+
+      this.extractor = await pipeline(
+        'feature-extraction',
+        'Xenova/all-MiniLM-L6-v2',
+      );
+      
+      // Validate the model loaded correctly
+      if (!this.extractor) {
+        throw new Error('Pipeline returned null/undefined');
+      }
+      
+      // Test embedding generation
+      const testEmbedding = await this.generateEmbedding('test');
+      if (!testEmbedding || testEmbedding.length !== 384) {
+        throw new Error(`Invalid embedding dimension: ${testEmbedding?.length || 0}, expected 384`);
+      }
+      
+      console.log('✅ Embedding model ready (384d vectors validated)');
+    } catch (error) {
+      console.error('❌ CRITICAL: Failed to load embedding model:', error);
+      throw error; // Fail fast - don't start the server with broken embeddings
     }
-    console.log(
-      `Loading embedding model (${isProd ? 'local' : 'remote download'})...`,
-    );
-
-    this.extractor = await pipeline(
-      'feature-extraction',
-      'Xenova/all-MiniLM-L6-v2',
-    );
-    console.log('Embedding model ready ✅');
   }
 
   async generateEmbedding(text: string): Promise<number[]> {
-    const output = await this.extractor(text, {
-      pooling: 'mean',
-      normalize: true,
-    });
-    return Array.from(output.data);
+    if (!this.extractor) {
+      throw new Error('Embedding model not initialized. Call onModuleInit first.');
+    }
+    
+    try {
+      const output = await this.extractor(text, {
+        pooling: 'mean',
+        normalize: true,
+      });
+      const embedding = Array.from(output.data) as number[];
+      
+      // Validate output
+      if (!embedding || embedding.length !== 384) {
+        throw new Error(`Invalid embedding generated: ${embedding?.length || 0} dimensions`);
+      }
+      
+      return embedding;
+    } catch (error) {
+      console.error('❌ Embedding generation failed:', error);
+      throw error;
+    }
   }
 
   /**
@@ -70,6 +103,8 @@ export class VectorService implements OnModuleInit {
         )
         .limit(limit);
 
+      console.log(`🔍 Vector search for "${query.substring(0, 50)}..." found ${results.length} results`);
+
       if (!results || results.length === 0) return [];
 
       // Return structured data for the ChatService to format
@@ -78,7 +113,7 @@ export class VectorService implements OnModuleInit {
         url: r.metadata?.url,
       }));
     } catch (error) {
-      console.error('Vector Search Error:', error);
+      console.error('❌ Vector Search Error:', error);
       return [];
     }
   }

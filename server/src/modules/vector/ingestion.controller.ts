@@ -49,18 +49,25 @@ export class IngestionController {
 
 @Post('web-app')
 @ApiOperation({ summary: 'Crawl and sync memory from the live portfolio website' })
-async syncWebApp(@Headers('x-sync-secret') secret: string) {
+async syncWebApp(
+  @Headers('x-sync-secret') secret: string,
+  @Headers('x-force-refresh') forceRefresh?: string,
+) {
   this.validateSecret(secret);
 
   const adapter = new WebCrawlerAdapter();
   
   this.logger.log('🌐 Starting Live Web App Crawl...');
   
-  this.ingestionService.sync(adapter).catch(err => {
+  const shouldForce = forceRefresh === 'true';
+  this.ingestionService.sync(adapter, shouldForce).catch(err => {
       this.logger.error('❌ Web Sync Failed:', err);
   });
 
-  return { message: 'Web app crawling started in background.' };
+  return { 
+    message: 'Web app crawling started in background.',
+    forceRefresh: shouldForce 
+  };
 }
 
 

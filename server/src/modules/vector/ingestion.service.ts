@@ -19,7 +19,7 @@ export class IngestionService {
    * SOLID: The Ingestion logic is decoupled from data sources.
    * Now handles priority weighting and deep metadata storage.
    */
-  async sync(adapter: IKnowledgeAdapter) {
+  async sync(adapter: IKnowledgeAdapter, forceRefresh = false) {
     const rawData = await adapter.fetchAndProcess();
     this.logger.log(`🔄 Syncing ${rawData.length} items from ${adapter.constructor.name}...`);
 
@@ -44,15 +44,16 @@ export class IngestionService {
 
       const record = existing[0];
 
-      // 3. Efficiency Layer: Skip if content is identical
-      if (record && record.checksum === currentChecksum) {
+      // 3. Efficiency Layer: Skip if content is identical (unless force refresh)
+      if (record && record.checksum === currentChecksum && !forceRefresh) {
         this.logger.log(`⏭️ Skipping ${item.sourceId} - content unchanged.`);
         continue;
       }
 
       // 4. Vectorize new or updated content
       const priorityTag = item.metadata?.priority === 'high' ? ' [HIGH PRIORITY] ' : '';
-      this.logger.log(`✨ Vectorizing${priorityTag}: ${item.sourceId}...`);
+      const forceTag = forceRefresh ? ' [FORCE REFRESH] ' : '';
+      this.logger.log(`✨ Vectorizing${priorityTag}${forceTag}: ${item.sourceId}...`);
       
       const embedding = await this.vectorService.generateEmbedding(item.content);
 

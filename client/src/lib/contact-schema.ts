@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "@/lib/zod";
 import { contactPage, contactRoutes, type RouteId } from "@/content/site";
 
 export const routeIds = Object.keys(contactRoutes) as RouteId[];

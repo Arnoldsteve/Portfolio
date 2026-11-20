@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "@/lib/zod";
 import { booking } from "@/content/site";
 import { daysBetween, todayIn } from "@/lib/dates";
 

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { contactPage as c, faq, person, seo, ui } from "@/content/site";
 import { ContactRouter } from "@/components/contact/contact-router";
 import { ButtonLink } from "@/components/ui/button";
-import { Container, Fact, Label, ShotWell } from "@/components/ui/primitives";
+import { Container, Fact, Label } from "@/components/ui/primitives";
 import { isRouteId } from "@/lib/contact-schema";
-import { isPlaceholder, linkOr } from "@/lib/utils";
+import { linkOr } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: { absolute: seo.contact.title },
@@ -21,7 +21,6 @@ const textLink = "font-semibold text-jacaranda underline-offset-3 hover:underlin
 export default async function ContactPage({ searchParams }: Props) {
   const { route } = await searchParams;
   const initialRoute = isRouteId(route) ? route : "build";
-  const hasBooking = !isPlaceholder(person.links.booking);
   const whatsapp = linkOr(person.links.whatsapp, `mailto:${person.email}`);
 
   return (
@@ -42,14 +41,11 @@ export default async function ContactPage({ searchParams }: Props) {
             <Label as="span" className="text-on-band-ochre">
               {c.talkEyebrow}
             </Label>
-            {hasBooking ? (
-              <a href={person.links.booking} {...ext} className="text-lg leading-[1.25] font-semibold text-on-band sm:text-[22px]">
-                {c.talkHeading} <span className="text-on-band-jacaranda">→</span>
-              </a>
-            ) : (
-              <span className="text-lg leading-[1.25] font-semibold sm:text-[22px]">{c.talkHeading}</span>
-            )}
-            {!hasBooking && <ShotWell label={c.bookingEmbed} onBand className="hidden aspect-[4/3] border-dashed sm:flex" />}
+            <span className="text-lg leading-[1.25] font-semibold sm:text-[22px]">{c.talkHeading}</span>
+            <span className="text-[15px] leading-[1.55] text-on-band-muted">{c.talkText}</span>
+            <ButtonLink href={linkOr(person.links.booking, ui.bookCall.href)} variant="onBand" block>
+              {c.talkCta}
+            </ButtonLink>
           </div>
 
           {/* Phone: WhatsApp and Email as two buttons. */}

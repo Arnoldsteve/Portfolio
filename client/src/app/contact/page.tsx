@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { contactPage as c, faq, person, seo, ui } from "@/content/site";
 import { ContactRouter } from "@/components/contact/contact-router";
+import { Booking } from "@/components/contact/booking";
 import { ButtonLink } from "@/components/ui/button";
 import { Container, Fact, Label } from "@/components/ui/primitives";
 import { isRouteId } from "@/lib/contact-schema";
@@ -37,16 +38,7 @@ export default async function ContactPage({ searchParams }: Props) {
         </div>
 
         <aside className="grid flex-[1_1_300px] content-start gap-3 sm:mt-10 sm:gap-4">
-          <div className="grid gap-3.5 rounded-lg bg-ink-band p-[18px] text-on-band sm:p-7">
-            <Label as="span" className="text-on-band-ochre">
-              {c.talkEyebrow}
-            </Label>
-            <span className="text-lg leading-[1.25] font-semibold sm:text-[22px]">{c.talkHeading}</span>
-            <span className="text-[15px] leading-[1.55] text-on-band-muted">{c.talkText}</span>
-            <ButtonLink href={linkOr(person.links.booking, ui.bookCall.href)} variant="onBand" block>
-              {c.talkCta}
-            </ButtonLink>
-          </div>
+          <Booking />
 
           {/* Phone: WhatsApp and Email as two buttons. */}
           <div className="grid grid-cols-2 gap-2.5 sm:hidden">

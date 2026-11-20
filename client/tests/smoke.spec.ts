@@ -29,11 +29,18 @@ for (const route of routes) {
   }
 }
 
-test("remaining placeholders render visibly, never invented", async ({ page }) => {
-  await page.goto("/");
-  // Image slots stay as labelled wells until real screenshots exist.
-  await expect(page.getByText("[Marketplace + creator dashboard]")).toBeVisible();
-  await expect(page.getByText("Taking on 1 new engagement now")).toBeVisible();
+test("no placeholders render; every image loads; illustrations are labelled", async ({ page }) => {
+  for (const path of ["/", "/work/umoja", "/work/jaza-wifi", "/about"]) {
+    await page.goto(path);
+    await expect(page.locator("main")).not.toContainText(/\[[^\]]+\]/);
+    const images = page.locator("main img:visible");
+    for (const img of await images.all()) {
+      await img.scrollIntoViewIfNeeded();
+      await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0), { message: path }).toBe(true);
+    }
+  }
+  await page.goto("/work/jaza-wifi");
+  await expect(page.getByText("Illustration").locator("visible=true").first()).toBeVisible();
 });
 
 test("theme toggle persists without a flash on reload", async ({ page }) => {

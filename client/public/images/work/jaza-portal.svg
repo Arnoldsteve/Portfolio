@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 640" font-family="Geist, Inter, system-ui, sans-serif">
+  <!-- Illustration of the Jaza WiFi captive portal (not a screenshot). No real prices. -->
+  <rect width="360" height="640" rx="36" fill="#FBFAF6"/>
+  <rect x="140" y="18" width="80" height="8" rx="4" fill="#D9D2C3"/>
+  <circle cx="44" cy="74" r="14" fill="#1B1815"/>
+  <path d="M37 76a10 10 0 0 1 14 0M40.5 79.5a5 5 0 0 1 7 0" stroke="#FBFAF6" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <text x="68" y="80" font-size="18" font-weight="600" fill="#1B1815">Jaza WiFi</text>
+  <text x="30" y="132" font-size="24" font-weight="600" fill="#1B1815">Get online in</text>
+  <text x="30" y="162" font-size="24" font-weight="600" fill="#1B1815">under a minute</text>
+  <text x="30" y="192" font-size="14" fill="#57504A">Pick a plan, pay with M-Pesa.</text>
+  <g font-size="15">
+    <rect x="24" y="220" width="312" height="64" rx="14" fill="#FFFFFF" stroke="#D9D2C3"/>
+    <text x="44" y="258" font-weight="600" fill="#1B1815">1 hour</text>
+    <rect x="236" y="242" width="80" height="20" rx="6" fill="#EAE5DA"/>
+    <rect x="24" y="296" width="312" height="64" rx="14" fill="#ECE6F6" stroke="#5B3E96" stroke-width="2"/>
+    <text x="44" y="334" font-weight="600" fill="#1B1815">1 day</text>
+    <rect x="236" y="318" width="80" height="20" rx="6" fill="#D6CCEB"/>
+    <rect x="24" y="372" width="312" height="64" rx="14" fill="#FFFFFF" stroke="#D9D2C3"/>
+    <text x="44" y="410" font-weight="600" fill="#1B1815">1 week</text>
+    <rect x="236" y="394" width="80" height="20" rx="6" fill="#EAE5DA"/>
+  </g>
+  <text x="30" y="476" font-size="13" font-weight="500" fill="#1B1815">M-Pesa number</text>
+  <rect x="24" y="488" width="312" height="48" rx="12" fill="#FFFFFF" stroke="#D9D2C3"/>
+  <text x="42" y="518" font-size="15" fill="#6B645C">07XX XXX XXX</text>
+  <rect x="24" y="556" width="312" height="52" rx="12" fill="#2E6B4E"/>
+  <text x="180" y="588" font-size="16" font-weight="600" fill="#FFFFFF" text-anchor="middle">Pay with M-Pesa</text>
+</svg>

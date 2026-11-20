@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { caseStudyUi as t, statusLabels, ui, type CaseStudy as Data } from "@/content/site";
-import { Container, Label, MarkerList, ShotWell, Stat } from "@/components/ui/primitives";
+import { Container, Label, MarkerList, Stat } from "@/components/ui/primitives";
+import { Screenshot } from "@/components/ui/screenshot";
+import { Diagram } from "./diagram";
 import { cn } from "@/lib/utils";
 import { Toc } from "./toc";
 
@@ -67,8 +69,13 @@ export function CaseStudy({ cs }: { cs: Data }) {
 
       <Container as="section" aria-label="Showcase">
         <div className="flex flex-wrap justify-center gap-6 rounded-[20px] bg-ink-band p-5 sm:rounded-xl sm:p-10">
-          <ShotWell label={cs.showcase.dashboard} onBand className="hidden aspect-[16/10] flex-[2_1_480px] sm:flex" />
-          <ShotWell label={cs.showcase.phone} onBand className="aspect-[9/16] w-[200px] rounded-[22px] sm:max-h-[420px] sm:w-auto sm:flex-[1_1_200px] sm:rounded-xl" />
+          <Screenshot shot={cs.showcase.wide} onBand sizes="(min-width: 1024px) 760px, 100vw" className="hidden aspect-[16/10] flex-[2_1_480px] sm:block" />
+          <Screenshot
+            shot={cs.showcase.phone}
+            onBand
+            sizes="240px"
+            className="aspect-[9/16] w-[200px] rounded-[22px] sm:w-[236px] sm:flex-none sm:self-center sm:rounded-xl"
+          />
         </div>
         {cs.results.length > 0 && (
           <ul className="m-0 mt-3 grid list-none gap-2.5 p-0 sm:mt-6 sm:grid-cols-[repeat(auto-fit,minmax(220px,1fr))] sm:gap-4">
@@ -130,7 +137,7 @@ export function CaseStudy({ cs }: { cs: Data }) {
               );
             })}
           </ol>
-          <ShotWell label={cs.diagram} className="mt-4 hidden aspect-[16/7] sm:flex" />
+          <Diagram data={cs.diagram} className="mt-6 overflow-x-auto" />
 
           <h2 id="decision" className={cn(h2, "mt-9 sm:mt-14")}>
             {s.decision.title}

@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { flagship, projects, ui, workSection } from "@/content/site";
 import { StatusBadge } from "@/components/ui/badge";
-import { Container, Label, MarkerList, SectionHeader, ShotWell } from "@/components/ui/primitives";
+import { Container, Label, MarkerList, SectionHeader } from "@/components/ui/primitives";
+import { Screenshot } from "@/components/ui/screenshot";
 import { isExternal } from "@/lib/utils";
 
 const external = { target: "_blank", rel: "noopener noreferrer" } as const;
@@ -13,9 +14,10 @@ export function Flagship() {
       <SectionHeader eyebrow={workSection.eyebrow} title={workSection.heading} className="[&_h2]:max-w-[22ch]" />
       <article className="mt-6 flex flex-wrap gap-3.5 rounded-[20px] bg-ink-band p-5 text-on-band sm:mt-10 sm:gap-10 sm:rounded-xl sm:p-10">
         {/* Phone: screenshot first. */}
-        <ShotWell
-          label={flagship.shot}
+        <Screenshot
+          shot={flagship.shot}
           onBand
+          sizes="(min-width: 1024px) 620px, 100vw"
           className="order-first aspect-[16/10] min-w-0 flex-[1_1_100%] rounded-md sm:order-last sm:flex-[1.2_1_400px] sm:rounded-lg"
         />
         <div className="grid min-w-0 flex-[1_1_340px] content-start gap-3.5 sm:gap-4">
@@ -48,13 +50,11 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
   const body = (
     <>
       {project.shot && (
-        <div
-          className="flex aspect-[16/9] items-end bg-sunken p-3 sm:aspect-[16/10] sm:p-4"
-          // Product tint is content (the product's own colour), not a brand token.
-          style={project.productTint ? { background: project.productTint } : undefined}
-        >
-          <span className="rounded-sm bg-surface/90 px-2 py-1 text-xs text-ink sm:px-2.5 sm:py-1.5 sm:text-[13px]">{project.shot}</span>
-        </div>
+        <Screenshot
+          shot={project.shot}
+          sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
+          className="aspect-[16/9] rounded-none sm:aspect-[16/10]"
+        />
       )}
       <div className="grid flex-1 gap-2 p-[18px] sm:gap-3 sm:p-6">
         <div className="flex flex-wrap items-center justify-between gap-2">

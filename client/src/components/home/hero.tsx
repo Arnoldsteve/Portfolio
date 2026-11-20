@@ -1,7 +1,8 @@
 import { ArrowRight } from "lucide-react";
 import { hero, person, ui } from "@/content/site";
 import { ButtonLink } from "@/components/ui/button";
-import { AvailabilityPill, Container, Label, ShotWell } from "@/components/ui/primitives";
+import { AvailabilityPill, Container, Label } from "@/components/ui/primitives";
+import { Screenshot } from "@/components/ui/screenshot";
 
 function CurrentlyText() {
   return (
@@ -33,7 +34,7 @@ export function Hero() {
 
         {/* Phone: the "Currently" card becomes a row with a small round photo. */}
         <div className="mt-5 flex items-center gap-3 rounded-[14px] border border-line bg-surface p-3 sm:hidden">
-          <ShotWell label={hero.photo} className="size-13 shrink-0 rounded-full p-0 text-[10px]" />
+          <Screenshot shot={hero.portrait} sizes="52px" position="center" className="size-13 shrink-0 rounded-full" />
           <div className="grid gap-0.5">
             <CurrentlyText />
           </div>
@@ -51,7 +52,7 @@ export function Hero() {
       </div>
 
       <div className="relative hidden max-w-[420px] min-w-0 flex-[1_1_340px] sm:block">
-        <ShotWell label={hero.portrait} className="aspect-[4/5] rounded-xl" />
+        <Screenshot shot={hero.portrait} sizes="420px" position="center" className="aspect-[4/5] rounded-xl" />
         <div className="absolute bottom-8 -left-6 grid gap-1 rounded-lg border border-line bg-surface px-[18px] py-4 shadow-lift">
           <CurrentlyText />
         </div>

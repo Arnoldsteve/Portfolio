@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { about, education, experience, habits, languages, person, seo, stack, ui } from "@/content/site";
 import { ButtonLink } from "@/components/ui/button";
-import { Container, Fact, Label, SectionHeader, ShotWell } from "@/components/ui/primitives";
+import { Container, Fact, Label, SectionHeader } from "@/components/ui/primitives";
+import { Screenshot } from "@/components/ui/screenshot";
 import { StickyCta } from "@/components/layout/sticky-cta";
-import { cn, linkOr } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: { absolute: seo.about.title },
@@ -12,14 +13,14 @@ export const metadata: Metadata = {
   openGraph: { title: seo.about.title, description: seo.about.description, url: "/about" },
 };
 
-const bookHref = linkOr(person.links.booking, ui.bookCall.href);
+const bookHref = ui.bookCall.href;
 const card = "rounded-[14px] border border-line bg-surface p-[18px] sm:rounded-lg sm:p-6";
 
 export default function AboutPage() {
   return (
     <>
       <Container as="section" className="flex flex-wrap items-end gap-6 pt-6 sm:gap-14 sm:pt-14">
-        <ShotWell label={about.portrait} className="aspect-square w-full rounded-[20px] sm:max-w-[420px] sm:flex-[1_1_320px] sm:rounded-xl" />
+        <Screenshot shot={about.portrait} sizes="(min-width: 640px) 420px, 100vw" position="center" className="aspect-square w-full rounded-[20px] sm:max-w-[420px] sm:flex-[1_1_320px] sm:rounded-xl" />
         <div className="min-w-0 flex-[999_1_520px]">
           <Label>{about.eyebrow}</Label>
           <h1 className="mt-2 text-[38px] leading-[1.05] font-semibold tracking-[-0.035em] sm:mt-3 sm:text-[clamp(40px,5vw,64px)]">

@@ -63,21 +63,6 @@ export function AvailabilityPill({ children }: { children: ReactNode }) {
   );
 }
 
-/** Labelled empty screenshot well: "a labelled empty well beats a stock photo". */
-export function ShotWell({ label, className, onBand = false }: { label: string; className?: string; onBand?: boolean }) {
-  return (
-    <div
-      className={cn(
-        "flex items-center justify-center rounded-lg p-4 text-center text-sm",
-        onBand ? "border border-band-line bg-band-well text-on-band-muted" : "bg-sunken text-ink-faint",
-        className,
-      )}
-    >
-      {label}
-    </div>
-  );
-}
-
 /** List with small ochre square markers (proof). */
 export function MarkerList({ items, className, onBand = false }: { items: string[]; className?: string; onBand?: boolean }) {
   return (

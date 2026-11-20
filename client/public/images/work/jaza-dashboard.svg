@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" font-family="Geist, Inter, system-ui, sans-serif">
+  <!-- Illustration of the Jaza WiFi operator live view (not a screenshot). No real figures. -->
+  <rect width="960" height="600" rx="20" fill="#F4F1EA"/>
+  <rect width="200" height="600" rx="20" fill="#1B1815"/>
+  <rect x="180" width="20" height="600" fill="#1B1815"/>
+  <text x="28" y="52" font-size="18" font-weight="600" fill="#F1ECE3">Jaza WiFi</text>
+  <g font-size="14" fill="#B5ADA2">
+    <rect x="16" y="84" width="168" height="36" rx="8" fill="#2A2522"/>
+    <text x="32" y="107" fill="#F1ECE3">Live view</text>
+    <text x="32" y="155">Plans</text>
+    <text x="32" y="195">Payments</text>
+    <text x="32" y="235">Sites</text>
+    <text x="32" y="275">Alerts</text>
+  </g>
+  <text x="232" y="58" font-size="22" font-weight="600" fill="#1B1815">Live view</text>
+  <circle cx="352" cy="51" r="5" fill="#2E6B4E"/>
+  <text x="364" y="56" font-size="13" fill="#2E6B4E">Site online</text>
+  <g>
+    <rect x="232" y="84" width="220" height="96" rx="14" fill="#FBFAF6" stroke="#D9D2C3"/>
+    <text x="252" y="114" font-size="12" letter-spacing="1" fill="#6B645C">DEVICES ONLINE</text>
+    <rect x="252" y="132" width="64" height="28" rx="6" fill="#EAE5DA"/>
+    <rect x="468" y="84" width="220" height="96" rx="14" fill="#FBFAF6" stroke="#D9D2C3"/>
+    <text x="488" y="114" font-size="12" letter-spacing="1" fill="#6B645C">REVENUE TODAY</text>
+    <rect x="488" y="132" width="96" height="28" rx="6" fill="#EAE5DA"/>
+    <rect x="704" y="84" width="220" height="96" rx="14" fill="#FBFAF6" stroke="#D9D2C3"/>
+    <text x="724" y="114" font-size="12" letter-spacing="1" fill="#6B645C">UPLINK IN USE</text>
+    <rect x="724" y="140" width="180" height="10" rx="5" fill="#EAE5DA"/>
+    <rect x="724" y="140" width="96" height="10" rx="5" fill="#C98A2B"/>
+  </g>
+  <rect x="232" y="204" width="692" height="364" rx="14" fill="#FBFAF6" stroke="#D9D2C3"/>
+  <g font-size="12" letter-spacing="1" fill="#6B645C">
+    <text x="256" y="238">DEVICE</text><text x="436" y="238">PAYER</text><text x="596" y="238">PLAN</text><text x="716" y="238">TIME LEFT</text><text x="836" y="238">SPEED</text>
+  </g>
+  <line x1="232" y1="254" x2="924" y2="254" stroke="#D9D2C3"/>
+  <g fill="#EAE5DA">
+    <rect x="256" y="276" width="140" height="14" rx="5"/><rect x="436" y="276" width="110" height="14" rx="5"/><rect x="596" y="276" width="60" height="14" rx="5"/><rect x="716" y="276" width="80" height="14" rx="5"/><rect x="836" y="276" width="50" height="14" rx="5"/>
+    <rect x="256" y="330" width="140" height="14" rx="5"/><rect x="436" y="330" width="110" height="14" rx="5"/><rect x="596" y="330" width="60" height="14" rx="5"/><rect x="716" y="330" width="80" height="14" rx="5"/><rect x="836" y="330" width="50" height="14" rx="5"/>
+    <rect x="256" y="384" width="140" height="14" rx="5"/><rect x="436" y="384" width="110" height="14" rx="5"/><rect x="596" y="384" width="60" height="14" rx="5"/><rect x="716" y="384" width="80" height="14" rx="5"/><rect x="836" y="384" width="50" height="14" rx="5"/>
+    <rect x="256" y="438" width="140" height="14" rx="5"/><rect x="436" y="438" width="110" height="14" rx="5"/><rect x="596" y="438" width="60" height="14" rx="5"/><rect x="716" y="438" width="80" height="14" rx="5"/><rect x="836" y="438" width="50" height="14" rx="5"/>
+  </g>
+  <g stroke="#EAE5DA"><line x1="256" y1="312" x2="900" y2="312"/><line x1="256" y1="366" x2="900" y2="366"/><line x1="256" y1="420" x2="900" y2="420"/></g>
+</svg>

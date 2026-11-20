@@ -8,6 +8,27 @@ export type Status = 'live' | 'pilot' | 'building' | 'code' | 'concept';
 
 export const siteUrl = 'https://steve-arnold.vercel.app';
 
+/** An image on the site. `illustration` marks drawings that stand in for a product not yet deployed. */
+export type Shot = { src: string; alt: string; width: number; height: number; illustration?: boolean };
+
+export const shots = {
+  // Brand graphic until Steve supplies a photo: decorative, so empty alt.
+  portrait: { src: '/images/portrait-placeholder.svg', alt: '', width: 400, height: 500 },
+  umojaDesktop: { src: '/images/work/umoja-desktop.jpg', alt: 'Umoja marketplace home page: best-selling digital products from creators, priced in KES, with refund protection on every order', width: 2880, height: 1800 },
+  umojaPhone: { src: '/images/work/umoja-phone.jpg', alt: 'Umoja on a phone: product search and best sellers', width: 780, height: 1688 },
+  auraDesktop: { src: '/images/work/aura-desktop.jpg', alt: 'Earn from Home, the Aura by Racheal academy: enrolment landing page with M-Pesa payment', width: 2880, height: 1800 },
+  jazaPortal: { src: '/images/work/jaza-portal.svg', alt: 'Illustration of the Jaza WiFi captive portal: pick a plan, enter an M-Pesa number, pay', width: 360, height: 640, illustration: true },
+  jazaDashboard: { src: '/images/work/jaza-dashboard.svg', alt: 'Illustration of the Jaza WiFi operator live view: devices online, revenue, uplink in use', width: 960, height: 600, illustration: true },
+} satisfies Record<string, Shot>;
+
+/** Architecture diagram: boxes on a grid (col, row) joined by arrows. `hot` = the step the design is built around. */
+export type Diagram = {
+  title: string;
+  nodes: { id: string; label: string; sub: string; col: number; row: number; hot?: boolean }[];
+  edges: { from: string; to: string; label?: string }[];
+};
+
+
 export const person = {
   name: 'Steve Arnold Otieno',
   jobTitle: 'Software Engineer',
@@ -40,13 +61,14 @@ export const nav = [
 // Shared UI strings (buttons, labels) used across pages.
 export const ui = {
   getInTouch: { label: 'Get in touch', href: '/contact' },
-  bookCall: { label: 'Book a call', href: '/contact?route=hire' },
+  bookCall: { label: 'Book a call', href: '/contact#book' },
   downloadCv: 'Download CV',
   downloadCvPdf: 'Download CV (PDF)',
   openMenu: 'Open menu',
   closeMenu: 'Close menu',
   mainNav: 'Main',
   currently: 'Currently',
+  illustration: 'Illustration',
   hardPart: 'Hard part:',
   readCaseStudy: 'Read the case study →',
   visitLive: 'Visit the live site ↗',
@@ -73,8 +95,7 @@ export const hero = {
   primaryCta: { label: 'See the work', href: '/work/umoja' },
   secondaryCta: { label: 'Download CV', href: '/Steve_Arnold_SE_Resume.pdf' },
   currently: { title: 'Lead QA · Tourlast', sub: 'Founder · SaTechs Solutions' },
-  portrait: '[Portrait · natural light, plain background]',
-  photo: '[Photo]',
+  portrait: shots.portrait as Shot,
 };
 
 export const stats = [
@@ -134,24 +155,24 @@ export const flagship = {
     'Double-entry ledger: every creator balance is traceable to the cent',
     'M-Pesa checkout and payouts, with Paystack for cards',
   ],
-  shot: '[Marketplace + creator dashboard]',
+  shot: shots.umojaDesktop as Shot,
   liveUrl: 'https://umojacoaches.com',
 };
 
 /** Other work, in the order Steve wants it shown. `href` is where the whole card goes. */
 export const projects = [
-  { slug: 'jaza-wifi', name: 'Jaza WiFi', kind: 'Own product · Hotspot billing', status: 'building' as Status, productTint: null,
+  { slug: 'jaza-wifi', name: 'Jaza WiFi', kind: 'Own product · Hotspot billing', status: 'building' as Status,
     desc: 'Self-service paid WiFi: connect, pick a plan, pay with M-Pesa on your phone, and be online in under a minute.',
     hard: 'the phone that pays isn’t always the device that connects — so payment and access are two identities.',
-    shot: '[Captive portal on a phone]', href: '/work/jaza-wifi', cta: 'Read the case study →' },
-  { slug: 'gradehub', name: 'GradeHub', kind: 'Lead architect · SaaS', status: 'code' as Status, productTint: null,
+    shot: shots.jazaDashboard as Shot | null, href: '/work/jaza-wifi', cta: 'Read the case study →' },
+  { slug: 'gradehub', name: 'GradeHub', kind: 'Lead architect · SaaS', status: 'code' as Status,
     desc: 'School operations: fees, records and admin, with each school’s data isolated.',
     hard: 'a double-entry fee ledger, so balances are stored and verifiable.',
     shot: null, href: '/contact?route=hire', cta: 'Ask for code access →' },
-  { slug: 'aura', name: 'Aura by Racheal', kind: 'Client · Education', status: 'live' as Status, productTint: null,
+  { slug: 'aura', name: 'Aura by Racheal', kind: 'Client · Education', status: 'live' as Status,
     desc: 'An online marketing academy with paid enrolment, run in production.',
     hard: 'Paystack enrolment with instalment payments.',
-    shot: '[Academy screens]', href: 'https://earnfromhome.vercel.app/', cta: 'Visit the live site ↗' },
+    shot: shots.auraDesktop as Shot | null, href: 'https://earnfromhome.vercel.app/', cta: 'Visit the live site ↗' },
 ];
 
 export const qaSection = {
@@ -202,7 +223,7 @@ export const about = {
   eyebrow: 'About',
   heading: 'Engineer first, tester always.',
   bio: "I'm Steve Arnold Otieno, a full-stack software engineer based in Nairobi and working remotely with teams worldwide. I build payment-heavy platforms in NestJS, Next.js and PostgreSQL, and I test them like they will break, because in production they do. I lead QA at Tourlast, I spent two years as a remote engineer for UK-based iTravel Holidays, and I founded SaTechs Solutions.",
-  portrait: '[Portrait]',
+  portrait: shots.portrait as Shot,
   habitsEyebrow: 'How I work',
   habitsHeading: 'Four habits you can hold me to',
   experienceEyebrow: 'Experience',
@@ -272,7 +293,7 @@ export const contactPage = {
   talkEyebrow: 'Prefer to talk?',
   talkHeading: 'Book a 15- or 30-minute call',
   talkText: 'Pick a slot that suits you. Times show in your own time zone.',
-  talkCta: 'Pick a time ↗',
+  talkCta: 'Pick a time',
   elsewhereLabel: 'Elsewhere',
   hoursLabel: 'Hours',
   hours: 'Nairobi, UTC+3 · overlaps a full EU day and the US morning',
@@ -295,14 +316,14 @@ export type CaseStudy = {
   status: Status;
   liveUrl?: string;
   meta: { role: string; rails: string; stack: string };
-  showcase: { dashboard: string; phone: string };
+  showcase: { wide: Shot; phone: Shot };
   results: { num: string; cap: string }[];
   problem: string;
   constraints: string[];
   flowIntro: string;
   flow: string[];
   flowHighlight: number;
-  diagram: string;
+  diagram: Diagram;
   decision: { chose: string; rejected: string };
   result: string;
   change: string;
@@ -338,7 +359,7 @@ export const umojaCaseStudy: CaseStudy = {
   status: 'live',
   liveUrl: 'https://umojacoaches.com',
   meta: { role: 'Full-stack engineer & QA', rails: 'M-Pesa · Paystack', stack: 'NestJS · Next.js · Drizzle · Neon Postgres · BullMQ + Redis · Cloudflare R2' },
-  showcase: { dashboard: '[Creator dashboard]', phone: '[M-Pesa checkout on a phone]' },
+  showcase: { wide: shots.umojaDesktop, phone: shots.umojaPhone },
   results: [
     { num: '~20', cap: 'creators selling within the first month of launch' },
     { num: '~30', cap: 'sales paid with M-Pesa in the first month' },
@@ -353,7 +374,26 @@ export const umojaCaseStudy: CaseStudy = {
   flowIntro: 'From “buy it now” to the creator getting paid, with every step recorded once.',
   flow: ['Buyer picks a product', 'Pays with M-Pesa on their phone', 'Callback verified and recorded exactly once', 'Ledger credits the creator; download unlocks', 'Creator withdraws to M-Pesa after the hold window'],
   flowHighlight: 2,
-  diagram: '[Architecture: checkout, payment adapter, ledger, outbox worker, payouts]',
+  diagram: {
+    title: 'Umoja architecture: from checkout to payout',
+    nodes: [
+      { id: 'buyer', label: 'Buyer’s phone', sub: 'M-Pesa STK prompt', col: 0, row: 0 },
+      { id: 'web', label: 'Checkout', sub: 'Next.js', col: 1, row: 0 },
+      { id: 'api', label: 'API', sub: 'NestJS', col: 2, row: 0 },
+      { id: 'psp', label: 'Payment adapter', sub: 'M-Pesa · Paystack', col: 3, row: 0 },
+      { id: 'ledger', label: 'Ledger', sub: 'append-only, double-entry', col: 2, row: 1, hot: true },
+      { id: 'outbox', label: 'Outbox worker', sub: 'BullMQ + Redis', col: 1, row: 1 },
+      { id: 'out', label: 'Download + email', sub: 'then creator payout', col: 0, row: 1 },
+    ],
+    edges: [
+      { from: 'buyer', to: 'web' },
+      { from: 'web', to: 'api' },
+      { from: 'api', to: 'psp', label: 'charge' },
+      { from: 'psp', to: 'ledger', label: 'callback, once' },
+      { from: 'ledger', to: 'outbox', label: 'same transaction' },
+      { from: 'outbox', to: 'out' },
+    ],
+  },
   decision: {
     chose: 'An append-only, double-entry ledger. Balances are derived from immutable entries, written in the same database transaction as the order and the wallet, with an outbox for the events that follow.',
     rejected: 'A balance column updated in place. Simpler to build, but a retried callback or a half-finished write could silently change a creator’s money, with no trail to prove what happened.',
@@ -372,7 +412,7 @@ export const jazaCaseStudy: CaseStudy = {
   seoDescription: 'Self-service hotspot billing paid with M-Pesa on MikroTik routers, with a two-identity access model.',
   status: 'building',
   meta: { role: 'Founder & engineer', rails: 'M-Pesa · MikroTik', stack: 'NestJS · Next.js · Prisma · Neon · FreeRADIUS + CoA · WireGuard · BullMQ + Redis' },
-  showcase: { dashboard: '[Operator live view: devices online, time left, revenue]', phone: '[Captive portal on a phone]' },
+  showcase: { wide: shots.jazaDashboard, phone: shots.jazaPortal },
   results: [],
   problem: 'Selling WiFi by the hour usually means vouchers, cash and someone switching people on and off by hand. The goal for Jaza is the opposite: the operator does no hands-on work in normal operation, nothing gets online without paying, and the experience is the same for the first customer and the five-hundredth.',
   constraints: [
@@ -384,7 +424,27 @@ export const jazaCaseStudy: CaseStudy = {
   flowIntro: 'From joining the network to browsing, with no voucher and no operator in the loop.',
   flow: ['Device joins the WiFi', 'Captive portal shows plans', 'Customer pays with M-Pesa', 'Server grants that device via RADIUS', 'Operator sees it live'],
   flowHighlight: 2,
-  diagram: '[Architecture: MikroTik hotspot, WireGuard tunnel, FreeRADIUS, server, Paystack]',
+  diagram: {
+    title: 'Jaza WiFi architecture: router, server and payment',
+    nodes: [
+      { id: 'device', label: 'Customer device', sub: 'laptop or phone', col: 0, row: 0 },
+      { id: 'router', label: 'MikroTik hotspot', sub: 'portal, speed caps', col: 1, row: 0 },
+      { id: 'server', label: 'Server', sub: 'NestJS · owns paid time', col: 2, row: 0, hot: true },
+      { id: 'psp', label: 'Paystack', sub: 'M-Pesa STK push', col: 3, row: 0 },
+      { id: 'radius', label: 'FreeRADIUS', sub: 'grant + CoA disconnect', col: 1, row: 1 },
+      { id: 'operator', label: 'Operator dashboard', sub: 'live view', col: 2, row: 1 },
+      { id: 'phone', label: 'Payer’s phone', sub: 'enters M-Pesa PIN', col: 3, row: 1 },
+    ],
+    edges: [
+      { from: 'device', to: 'router', label: 'joins' },
+      { from: 'router', to: 'server', label: 'WireGuard' },
+      { from: 'server', to: 'psp', label: 'charge' },
+      { from: 'psp', to: 'phone' },
+      { from: 'server', to: 'radius', label: 'grant device' },
+      { from: 'radius', to: 'router' },
+      { from: 'server', to: 'operator' },
+    ],
+  },
   decision: {
     chose: 'The cloud server owns paid time, keyed to the device. That makes the fairness promises possible: the clock pauses when the internet is down, and a device that drops and rejoins keeps its balance without paying again.',
     rejected: 'Letting the router’s RADIUS session timers own time. They stay — but only as a backstop, not the source of truth.',

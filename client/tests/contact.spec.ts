@@ -89,3 +89,25 @@ test.describe("POST /api/contact", () => {
     expect(statuses).toContain(429);
   });
 });
+
+test.describe("booking", () => {
+  test.beforeEach(async ({ page }) => {
+    // Don't hit Cal.com from tests.
+    await page.route("https://cal.com/**", (route) => route.fulfill({ body: "<html><body>calendar</body></html>", contentType: "text/html" }));
+  });
+
+  test("Cal.com loads inline only after asking", async ({ page }) => {
+    await page.goto("/contact");
+    await expect(page.locator("#book iframe")).toHaveCount(0);
+    await page.getByRole("button", { name: "Pick a time" }).click();
+    await expect(page.locator("#book iframe")).toHaveAttribute("src", /^https:\/\/cal\.com\/steve-arnold\?embed=true&theme=(light|dark)$/);
+  });
+
+  test("Book a call from About opens the calendar on the contact page", async ({ page }, info) => {
+    test.skip(info.project.name === "phone-390", "About's desktop button; phone uses the sticky bar");
+    await page.goto("/about");
+    await page.getByRole("link", { name: "Book a call" }).first().click();
+    await expect(page).toHaveURL(/\/contact#book$/);
+    await expect(page.locator("#book iframe")).toBeVisible();
+  });
+});

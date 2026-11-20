@@ -1,125 +1,68 @@
-# Steve Arnold Otieno — Portfolio v3.0 (Digital Twin AI)
+# Steve Arnold Otieno — Portfolio v4
 
-![Portfolio Screenshot](./client/public/site-live-url.png)
+Personal site: https://steve-arnold.vercel.app
 
-> **v3.0 represents a fundamental shift** — from a static portfolio to an **Autonomous Technical Twin**. Built on an enterprise-grade speed stack, it features a proactive AI agent that conducts real-time technical screenings, explains architectural decisions, and surfaces direct evidence from my GitHub, LinkedIn, and live production environments.
+Built from the v4 design handoff in [`handoff/`](handoff/) (brand book, page specs, tokens, reference designs).
+The idea in one line: **jacaranda acts, ochre proves.**
 
-### [➡️ View Live Agent & Portfolio](https://steve-arnold.vercel.app/)
+## Stack
 
----
+Next.js 16 (App Router, server components by default) · TypeScript · Tailwind CSS v4 mapped to design tokens ·
+Geist / Geist Mono via `next/font` · Resend + zod for the contact form · Playwright + axe for QA. Deployed on Vercel.
 
-## ✨ Engineering Highlights (V3 Evolution)
-
-- **Proactive AI Technical Twin:** A bi-directional agent powered by Groq (Llama 3.3) and WebSockets. It monitors user intent and proactively offers contextual deep-dives — e.g. *"I see you're looking at GradeHub; want to know how I handled multi-tenant RBAC?"*
-- **Enterprise RAG Pipeline:** A custom Retrieval-Augmented Generation engine backed by Neon (PostgreSQL + pgvector), performing semantic search across my entire professional history for 100% factual accuracy.
-- **Automated Knowledge Ingestion:** A modular ETL pipeline that auto-syncs from:
-  - **GitHub** — real-time README scraping and technical metadata extraction
-  - **LinkedIn** — standardised career history via PDF-parsing
-  - **Live Web** — recursive crawling of production sites for brand consistency
-- **Local Inference Engine:** High-performance vector embeddings generated on-server with Xenova Transformers (`all-MiniLM-L6-v2`) — zero API cost, zero-latency vectorisation.
-- **The Shield (Rate Limiting):** Context-aware throttling via NestJS Throttler protecting both HTTP and WebSocket layers from bot spam.
-
----
-
-## 🛠️ Tech Stack
-
-### Frontend
-| Layer | Technology |
-|---|---|
-| Framework | [Next.js 15+](https://nextjs.org/) (App Router) |
-| Real-time UI | Socket.io-client & [Framer Motion](https://www.framer.com/motion/) |
-| Rich Media | React Markdown with GFM support |
-| Design | [Tailwind CSS](https://tailwindcss.com/) & [shadcn/ui](https://ui.shadcn.com/) |
-| Forms | [React Hook Form](https://react-hook-form.com/) & [Zod](https://zod.dev/) |
-| Email | [Resend](https://resend.com/) & [React Email](https://react.email/) |
-| Icons | [Lucide React](https://lucide.dev/) |
-| Notifications | [Sonner](https://sonner.emilkowal.ski/) |
-
-### Backend
-| Layer | Technology |
-|---|---|
-| Framework | [NestJS](https://nestjs.com/) (Modular Architecture) |
-| AI Inference | Groq Cloud LPU — Llama 3.3 70B |
-| Vector DB | [Neon](https://neon.tech/) with pgvector |
-| ORM | [Drizzle ORM](https://orm.drizzle.team/) (type-safe migrations) |
-| Ingestion | Playwright (headless scraping) & pdf-parse |
-
-### Infrastructure
-| Layer | Technology |
-|---|---|
-| Containerisation | Docker (multi-stage builds) |
-| Hosting | AWS EC2 (t3.micro) + Nginx reverse proxy |
-| CI/CD | GitHub Actions — automated deployment & model pre-caching |
-| Frontend Deploy | [Vercel](https://vercel.com/) |
-
----
-
-## 📂 Repository Structure
+## Layout
 
 ```
-steve-portfolio-v3/
-├── client/                 # Next.js Frontend → Vercel
-│   ├── src/hooks/          # Custom AI & Socket hooks
-│   └── src/services/       # Singleton Socket management
-├── server/                 # NestJS Backend → AWS EC2
-│   ├── src/modules/        # Modular AI, Vector, and Chat domains
-│   ├── src/scripts/        # Knowledge seeding and ETL scripts
-│   └── Dockerfile          # High-performance production image
-└── infra/                  # Nginx & SSL configurations
+client/
+├── src/content/site.ts          # ALL copy. Text in [brackets] is a placeholder still to fill.
+├── src/app/tokens.css           # Design tokens (light/dark) — source: handoff/design/tokens.json
+├── src/app/globals.css          # Tailwind v4 @theme mapping to the tokens
+├── src/content/                 # ALL copy and data, split by area (profile, work, contact, posts); site.ts re-exports
+├── src/app/                     # Routes: /, /work/[slug], /about, /contact, /writing, /api/contact, /api/booking(/slots)
+├── src/components/              # ui/ primitives, layout/, home/, work/, contact/ (contact form + native booking)
+├── src/lib/                     # Schemas (zod), Cal.com client, rate limiter, dates, spam trap
+├── scripts/                     # check-placeholders.ts, check-env.ts (run before every build)
+└── tests/                       # e2e + axe (3 engines), unit/, visual/ (opt-in), live/ (opt-in)
 ```
 
----
+CI (`.github/workflows/ci.yml`) runs lint, typecheck, build and the full test suite on every push and PR.
 
-## 🚀 Running Locally
+## Running locally
 
-This is a monorepo managed with `pnpm`.
+Requires Node 22.6+ (`.nvmrc`).
 
-**1. Clone the repository:**
-```bash
-git clone https://github.com/Arnoldsteve/Portfolio.git
-cd steve-portfolio-v3
-```
-
-**2. Server setup:**
-```bash
-cd server
-pnpm install
-# Add GROQ_API_KEY and DATABASE_URL to .env
-pnpm db:push     # Run Drizzle migrations
-pnpm seed        # Initialise AI memory
-pnpm start:dev
-```
-
-**3. Client setup:**
 ```bash
 cd client
 pnpm install
-# Add RESEND_API_KEY to .env.local
+cp .env.example .env.local   # Resend + recipient addresses, to send real mail
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to see the result.
+| Command | What it does |
+| --- | --- |
+| `pnpm build` | Checks placeholders and env vars, then builds. Both checks fail **production** builds on Vercel (`VERCEL_ENV=production`): placeholders unless `ALLOW_PLACEHOLDERS=1`, and missing contact-form env vars always. |
+| `pnpm lint` / `pnpm typecheck` | ESLint (Next 16 rules) / TypeScript |
+| `pnpm test:e2e` | Every page at 1440 / 834 / 390 (Chromium), iPhone (WebKit) and desktop Firefox, light + dark, axe on every page, plus unit tests. Run `pnpm build` first; first time: `pnpm exec playwright install chromium webkit firefox`. |
+| `pnpm test:unit` | Pure logic only (dates, schemas, rate limit, booking state) — fast, no browser |
+| `pnpm test:visual` | Screenshot comparison against approved baselines. After an intended design change: `pnpm test:visual --update-snapshots` |
+| `pnpm test:live` | **Real** Cal.com booking and **real** contact email (needs `.env.local`). Cancel the test booking in Cal.com afterwards. |
 
----
+## Editing content
 
-## ☁️ Deployment
+Change copy, links and numbers in `client/src/content/` only. Never invent a number, client name, date or
+quote — see `handoff/docs/FACTS.md` for what is verified. To add a full case study, add an entry to
+`caseStudies` in `content/work.ts` (same shape as `umojaCaseStudy`).
 
-- **Frontend:** The `client/` directory deploys automatically to [Vercel](https://vercel.com/) on every push to `main`.
-- **Backend:** The `server/` directory is containerised via Docker and deployed to AWS EC2 through a GitHub Actions CI/CD pipeline.
+## Booking
 
----
+The contact page books calls natively through Cal.com's public API (no API key): visitors pick a call, day
+and time on the site. Calls offered are `booking.calls` in `content/contact.ts`; their ids must match the
+event slugs on cal.com/steve-arnold.
 
-## 📜 License
+## Env vars (Vercel)
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+`RESEND_API_KEY`, `CONTACT_FROM`, `CONTACT_TO_STEVE` (hire / partner), `CONTACT_TO_SATECHS` (build).
 
-> This project follows [Conventional Commits](https://www.conventionalcommits.org/) and SOLID design principles. For an interactive technical deep-dive, talk to the AI Twin on the live site.
+## License
 
----
-
-## 📬 Contact
-
-**Steve Arnold Otieno** — Solutions Architect & Full-Stack Engineer
-
-- **Email:** stevearnold9e@gmail.com
-- **LinkedIn:** [linkedin.com/in/steve-arnold-otieno](https://www.linkedin.com/in/steve-arnold-otieno)
+MIT

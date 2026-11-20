@@ -1,43 +1,19 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
-
+  { ignores: [".next/**", "node_modules/**", "next-env.d.ts", "test-results/**", "playwright-report/**"] },
+  ...nextVitals,
+  ...nextTs,
   {
     rules: {
-      // Allow unused vars IF they start with "_"
-      "no-unused-vars": [
-        "warn",
-        {
-          vars: "all",
-          args: "after-used",
-          ignoreRestSiblings: true,
-          varsIgnorePattern: "^_",
-          argsIgnorePattern: "^_",
-        },
-      ],
-
+      // The TypeScript-aware rule below replaces the base rule (which misreads type-only names).
+      "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": [
         "warn",
-        {
-          vars: "all",
-          args: "after-used",
-          ignoreRestSiblings: true,
-          varsIgnorePattern: "^_",
-          argsIgnorePattern: "^_",
-        },
+        { vars: "all", args: "after-used", ignoreRestSiblings: true, varsIgnorePattern: "^_", argsIgnorePattern: "^_" },
       ],
-
-      // Disable annoying JSX apostrophe rule
+      // Copy lives in content files; apostrophes in JSX text are fine.
       "react/no-unescaped-entities": "off",
     },
   },

@@ -1,0 +1,53 @@
+import type { Config } from 'tailwindcss';
+
+// Tailwind v3 alternative to tailwind-theme.css. Colours resolve to the CSS variables in tokens.css.
+export const brandPreset: Partial<Config> = {
+  darkMode: ['class', '[data-theme="dark"]'],
+  theme: {
+    extend: {
+      colors: {
+        'paper': 'var(--paper)',
+        'surface': 'var(--surface)',
+        'sunken': 'var(--sunken)',
+        'line': 'var(--line)',
+        'ink': 'var(--ink)',
+        'ink-muted': 'var(--ink-muted)',
+        'ink-faint': 'var(--ink-faint)',
+        'jacaranda': 'var(--jacaranda)',
+        'jacaranda-deep': 'var(--jacaranda-deep)',
+        'jacaranda-mist': 'var(--jacaranda-mist)',
+        'on-jacaranda': 'var(--on-jacaranda)',
+        'ochre': 'var(--ochre)',
+        'ochre-text': 'var(--ochre-text)',
+        'ochre-soft': 'var(--ochre-soft)',
+        'acacia': 'var(--acacia)',
+        'acacia-soft': 'var(--acacia-soft)',
+        'pending': 'var(--pending)',
+        'ink-band': 'var(--ink-band)',
+        'on-band': 'var(--on-band)',
+        'on-band-muted': 'var(--on-band-muted)',
+        'on-band-jacaranda': 'var(--on-band-jacaranda)',
+        'on-band-ochre': 'var(--on-band-ochre)',
+        'band-well': 'var(--band-well)',
+        'band-line': 'var(--band-line)',
+        'navy': 'var(--navy)',
+        'navy-fill': 'var(--navy-fill)',
+        'on-navy': 'var(--on-navy)',
+        'on-navy-muted': 'var(--on-navy-muted)',
+        'on-navy-accent': 'var(--on-navy-accent)',
+        'navy-soft': 'var(--navy-soft)',
+        'focus': 'var(--focus)',
+      },
+      fontFamily: { sans: ['var(--font-sans)'], mono: ['var(--font-mono)'] },
+      borderRadius: {
+        'sm': 'var(--radius-sm)',
+        'md': 'var(--radius-md)',
+        'lg': 'var(--radius-lg)',
+        'xl': 'var(--radius-xl)',
+        'pill': 'var(--radius-pill)',
+      },
+      boxShadow: { card: 'var(--shadow-card)', lift: 'var(--shadow-lift)' },
+      maxWidth: { container: 'var(--container)', prose: 'var(--measure-text)' },
+    },
+  },
+};

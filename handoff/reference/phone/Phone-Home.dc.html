@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Phone · Home</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div style="width: 390px; min-height: 7400px; background: #F4F1EA; font-family: Geist, Inter, system-ui, sans-serif; color: #1B1815; position: relative">
+
+  <header style="display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; border-bottom: 1px solid #D9D2C3; background: #F4F1EA">
+    <a href="Phone-Home.dc.html" style="font-weight: 700; font-size: 17px; letter-spacing: -0.02em; color: #1B1815; text-decoration: none">Steve Arnold Otieno</a>
+    <button type="button" aria-label="Open menu" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid #D9D2C3; background: #FBFAF6; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B1815" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"></path></svg></button>
+  </header>
+
+  <section style="padding: 28px 20px 0">
+    <p style="margin: 0; display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 999px; background: #FBFAF6; border: 1px solid #D9D2C3; font-size: 13px; color: #57504A"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #2E6B4E; box-shadow: 0 0 0 4px #E1EEE6"></span>Taking on 1 engagement from [month]</p>
+    <h1 style="margin: 20px 0 0; font-size: 40px; line-height: 1.04; letter-spacing: -0.035em; font-weight: 600">I build and test the systems that move money on African payment rails.</h1>
+    <p style="margin: 16px 0 0; font-size: 17px; line-height: 1.55; color: #57504A">Senior full-stack engineer with a QA background. M-Pesa, Paystack and Stripe in production.</p>
+    <div style="margin-top: 20px; display: flex; gap: 12px; align-items: center; padding: 12px; background: #FBFAF6; border: 1px solid #D9D2C3; border-radius: 14px">
+      <div style="flex: 0 0 52px; height: 52px; border-radius: 50%; background: #EAE5DA; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #6B645C">[Photo]</div>
+      <div style="display: grid; gap: 2px"><span style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #6B645C">Currently</span><span style="font-weight: 600; font-size: 15px">QA Engineer · Tourlast</span><span style="font-size: 13px; color: #57504A">Founder · SaTechs · Nairobi, UTC+3</span></div>
+    </div>
+    <div style="margin-top: 20px; display: grid; gap: 10px">
+      <a href="Phone-Work-Jaza.dc.html" style="display: flex; justify-content: center; align-items: center; min-height: 52px; border-radius: 10px; background: #5B3E96; color: #FFFFFF; font-weight: 600; text-decoration: none">See the work</a>
+      <a href="Phone-About.dc.html" style="display: flex; justify-content: center; align-items: center; min-height: 52px; border-radius: 10px; background: #FBFAF6; border: 1px solid #D9D2C3; color: #1B1815; font-weight: 600; text-decoration: none">Download CV</a>
+    </div>
+  </section>
+
+  <section aria-label="Proof" style="padding: 32px 20px 0">
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: #D9D2C3; border: 1px solid #D9D2C3; border-radius: 14px; overflow: hidden">
+      <sc-for list="{{stats}}" as="s" hint-placeholder-count="4">
+        <div style="background: #FBFAF6; padding: 16px">
+          <p style="margin: 0; display: inline-block; padding-bottom: 6px; border-bottom: 3px solid #C98A2B; font-size: 26px; line-height: 30px; font-weight: 600; letter-spacing: -0.02em">{{s.num}}</p>
+          <p style="margin: 8px 0 0; font-size: 13px; line-height: 18px; color: #57504A">{{s.cap}}</p>
+        </div>
+      </sc-for>
+    </div>
+    <div style="margin-top: 24px; display: grid; gap: 16px">
+      <div style="border-top: 2px solid #5B3E96; padding-top: 10px; display: grid; gap: 2px"><span style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #6B645C">Current · since Jul 2026</span><span style="font-weight: 600">Tourlast · QA Engineer</span></div>
+      <div style="border-top: 2px solid #1B1815; padding-top: 10px; display: grid; gap: 2px"><span style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #6B645C">Mar 2024 – [end]</span><span style="font-weight: 600">iTravel Holidays · Full Stack Engineer</span></div>
+      <div style="border-top: 2px solid #1B1815; padding-top: 10px; display: grid; gap: 2px"><span style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #6B645C">Founder</span><span style="font-weight: 600">SaTechs Solutions</span></div>
+    </div>
+  </section>
+
+  <section style="padding: 64px 20px 0">
+    <p style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #8A5A12">Selected work</p>
+    <h2 style="margin: 8px 0 0; font-size: 30px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 600">Products on M-Pesa, Paystack and Stripe</h2>
+    <article style="margin-top: 24px; background: #1B1815; color: #F1ECE3; border-radius: 20px; padding: 20px; display: grid; gap: 14px">
+      <div style="aspect-ratio: 16 / 10; border-radius: 12px; background: rgba(241,236,227,0.06); border: 1px solid rgba(241,236,227,0.14); display: flex; align-items: center; justify-content: center; color: #B5ADA2; font-size: 13px">[Portal + dashboard]</div>
+      <span style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #E3A84B">Own product · Flagship</span>
+      <h3 style="margin: 0; font-size: 30px; letter-spacing: -0.025em; font-weight: 600">Jaza WiFi</h3>
+      <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #B5ADA2">Hotspot billing: customers pay with M-Pesa at the login page; operators run plans and MikroTik routers from one dashboard.</p>
+      <a href="Phone-Work-Jaza.dc.html" style="color: #B9A2F0; font-weight: 600">Read the build story →</a>
+    </article>
+    <div style="margin-top: 16px; display: grid; gap: 16px">
+      <sc-for list="{{projects}}" as="p" hint-placeholder-count="3">
+        <a href="Phone-Work-Jaza.dc.html" style="display: grid; background: #FBFAF6; border: 1px solid #D9D2C3; border-radius: 16px; overflow: hidden; color: #1B1815; text-decoration: none">
+          <div style="aspect-ratio: 16 / 9; background: {{p.well}}; display: flex; align-items: flex-end; padding: 12px; box-sizing: border-box"><span style="background: rgba(251,250,246,0.92); font-size: 12px; padding: 4px 8px; border-radius: 6px">{{p.shot}}</span></div>
+          <div style="padding: 18px; display: grid; gap: 8px">
+            <div style="display: flex; justify-content: space-between; gap: 8px; align-items: center"><span style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #6B645C">{{p.kind}}</span><span style="font-family: 'Geist Mono', monospace; font-size: 11px; text-transform: uppercase; padding: 4px 7px; border-radius: 6px; background: {{p.badgeBg}}; color: {{p.badgeFg}}">{{p.badge}}</span></div>
+            <h3 style="margin: 0; font-size: 21px; font-weight: 600; letter-spacing: -0.015em">{{p.name}}</h3>
+            <p style="margin: 0; font-size: 14px; line-height: 21px"><strong style="color: #8A5A12">Hard part:</strong> {{p.hard}}</p>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding: 64px 20px 0">
+    <p style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #8A5A12">The difference</p>
+    <h2 style="margin: 8px 0 0; font-size: 28px; line-height: 1.15; letter-spacing: -0.025em; font-weight: 600">I break things before your customers do.</h2>
+    <div style="margin-top: 20px; display: grid; gap: 10px">
+      <sc-for list="{{findings}}" as="f" hint-placeholder-count="3">
+        <div style="background: #FBFAF6; border: 1px solid #D9D2C3; border-radius: 14px; padding: 16px; display: grid; gap: 8px">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #8A5A12; padding-left: 8px; border-left: 3px solid #C98A2B">{{f.kind}}</span>
+          <span style="font-size: 15px; line-height: 1.5">{{f.text}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding: 64px 20px 0">
+    <div style="background: #16325C; color: #FFFFFF; border-radius: 20px; padding: 24px; display: grid; gap: 12px">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #E3A84B">Need a team?</span>
+      <h2 style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 600">SaTechs Solutions builds this for businesses.</h2>
+      <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #C9D6EA">Payment integrations, systems and websites, QA-tested before handover.</p>
+      <a href="Phone-Contact.dc.html" style="margin-top: 4px; display: flex; justify-content: center; align-items: center; min-height: 48px; border-radius: 10px; background: #FFFFFF; color: #16325C; font-weight: 600; text-decoration: none">Get a quote from SaTechs</a>
+    </div>
+  </section>
+
+  <section style="padding: 64px 20px 0">
+    <h2 style="margin: 0; font-size: 28px; letter-spacing: -0.025em; font-weight: 600">Notes from building</h2>
+    <div style="margin-top: 16px; display: grid; gap: 18px">
+      <a href="Phone-Home.dc.html" style="color: #1B1815; text-decoration: none; border-top: 2px solid #1B1815; padding-top: 12px"><span style="font-family: 'Geist Mono', monospace; font-size: 11px; color: #6B645C">[DATE] · 6 MIN</span><p style="margin: 6px 0 0; font-size: 17px; line-height: 1.35; font-weight: 600">Paystack payouts in Kenya: the USD limits nobody warns you about</p></a>
+      <a href="Phone-Home.dc.html" style="color: #1B1815; text-decoration: none; border-top: 2px solid #1B1815; padding-top: 12px"><span style="font-family: 'Geist Mono', monospace; font-size: 11px; color: #6B645C">[DATE] · 8 MIN</span><p style="margin: 6px 0 0; font-size: 17px; line-height: 1.35; font-weight: 600">Selling WiFi with M-Pesa and MikroTik</p></a>
+    </div>
+  </section>
+
+  <section style="padding: 64px 20px 32px">
+    <h2 style="margin: 0; font-size: 30px; letter-spacing: -0.025em; font-weight: 600">What brings you here?</h2>
+    <p style="margin: 8px 0 0; font-size: 15px; color: #57504A">Replies within one working day.</p>
+    <div style="margin-top: 16px; display: grid; gap: 10px">
+      <a href="Phone-Contact.dc.html" style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px; border-radius: 14px; background: #FBFAF6; border: 1px solid #D9D2C3; color: #1B1815; text-decoration: none"><span style="display: grid; gap: 2px"><span style="font-weight: 600">I need something built</span><span style="font-size: 13px; color: #57504A">Goes to SaTechs</span></span><span aria-hidden="true" style="color: #5B3E96; font-weight: 600">→</span></a>
+      <a href="Phone-Contact.dc.html" style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px; border-radius: 14px; background: #FBFAF6; border: 1px solid #D9D2C3; color: #1B1815; text-decoration: none"><span style="display: grid; gap: 2px"><span style="font-weight: 600">I'm hiring</span><span style="font-size: 13px; color: #57504A">CV and a call</span></span><span aria-hidden="true" style="color: #5B3E96; font-weight: 600">→</span></a>
+      <a href="Phone-Contact.dc.html" style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px; border-radius: 14px; background: #FBFAF6; border: 1px solid #D9D2C3; color: #1B1815; text-decoration: none"><span style="display: grid; gap: 2px"><span style="font-weight: 600">Let's partner</span><span style="font-size: 13px; color: #57504A">Jaza WiFi, investment, collaboration</span></span><span aria-hidden="true" style="color: #5B3E96; font-weight: 600">→</span></a>
+    </div>
+    <p style="margin: 40px 0 0; font-size: 13px; color: #57504A">© 2026 Steve Arnold Otieno · Nairobi<br>GitHub · LinkedIn · WhatsApp</p>
+  </section>
+
+  <div style="position: sticky; bottom: 0; padding: 12px 20px 20px; background: #F4F1EA; border-top: 1px solid #D9D2C3; display: flex; gap: 10px">
+    <a href="Phone-Contact.dc.html" style="flex: 1; display: flex; justify-content: center; align-items: center; min-height: 48px; border-radius: 10px; background: #5B3E96; color: #FFFFFF; font-weight: 600; text-decoration: none">Get in touch</a>
+    <a href="Phone-Contact.dc.html" aria-label="WhatsApp" style="flex: 0 0 48px; display: flex; justify-content: center; align-items: center; min-height: 48px; border-radius: 10px; background: #FBFAF6; border: 1px solid #D9D2C3; color: #1B1815; text-decoration: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.6 7.3L3 20l1.3-5A8.5 8.5 0 1 1 21 11.5z"></path></svg></a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":7400}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      stats: [
+        { num: '99.8%', cap: 'checkout success (iTravel)' },
+        { num: '45%', cap: 'faster API responses (iTravel)' },
+        { num: '3 rails', cap: 'M-Pesa, Paystack, Stripe' },
+        { num: '[N]', cap: 'clients via SaTechs' }
+      ],
+      projects: [
+        { kind: 'Client · Payouts', badge: 'Via SaTechs', badgeBg: '#E3EAF5', badgeFg: '#16325C', well: '#D6E6E3', shot: '[Seller dashboard]', name: 'Umoja Studio', hard: 'a four-state withdrawal flow inside Paystack’s USD limits.' },
+        { kind: 'Lead architect', badge: '[Status]', badgeBg: '#F5E8D0', badgeFg: '#8A5A12', well: '#EAE5DA', shot: '[Admin dashboard]', name: 'GradeHub', hard: 'a double-entry fee ledger with verifiable balances.' },
+        { kind: 'Client · Education', badge: 'Live', badgeBg: '#E1EEE6', badgeFg: '#2E6B4E', well: '#EAE5DA', shot: '[Academy screens]', name: 'Aura by Racheal', hard: 'Paystack enrolment with instalment payments.' }
+      ],
+      findings: [
+        { kind: 'Security', text: 'A payment reference could be reused across bookings, caught before launch.' },
+        { kind: 'Concurrency', text: 'Reproduced a race condition that let limited slots be oversold.' },
+        { kind: 'Design', text: 'Wrote the six-phase fix plan for a company-wide timezone bug.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

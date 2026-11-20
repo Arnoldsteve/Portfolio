@@ -1,64 +1,74 @@
-import { Inter } from "next/font/google";
-import "./globals.css";
-import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
-import { Header } from "@/components/pages/Header";
-import { Footer } from "@/components/pages/Footer";
-import { ScrollToTopButton } from "@/components/feature/ScrollToTopButton";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { TechnicalTwin } from "@/components/ai/technical-twin";
+import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import "./globals.css";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { person, seo, siteUrl, ui } from "@/content/site";
+import { isPlaceholder } from "@/lib/utils";
 
-const inter = Inter({ subsets: ["latin"] });
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" });
+
+// Re-render static pages daily so build-time values (like the footer year) never go stale.
+export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Steve Arnold Otieno | Full Stack Software Engineer",
-  description:
-    "Expert Full Stack Software Engineer specializing in NestJS, React, and high-scale SaaS architectures. Building secure, data-driven solutions with 99.8% reliability.",
-  openGraph: {
-    title: "Steve Arnold | Software Architect & Full Stack Software Engineer",
-    description:
-      "Explore the portfolio of Steve Arnold Otieno, featuring GradeHub and high-performance enterprise systems.",
-    url: "https://steve-arnold.vercel.app",
-    siteName: "Steve Arnold's Portfolio",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Steve Arnold Portfolio Preview",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Steve Arnold | Full Stack Engineer",
-    description:
-      "SaaS & Enterprise specialist building modern web platforms at scale.",
-    images: ["/og-image.png"],
-  },
+  metadataBase: new URL(siteUrl),
+  title: seo.home.title,
+  description: seo.home.description,
+  openGraph: { siteName: person.name, type: "website", locale: "en_GB" },
+  twitter: { card: "summary_large_image" },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+// Runs before paint: applies a saved theme choice so there is no flash of the wrong theme.
+// With no saved choice, tokens.css follows prefers-color-scheme.
+const themeScript = `try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${siteUrl}/#person`,
+  name: person.name,
+  jobTitle: person.jobTitle,
+  url: siteUrl,
+  email: `mailto:${person.email}`,
+  address: { "@type": "PostalAddress", addressLocality: person.city, addressCountry: person.country },
+  sameAs: [person.links.github, person.links.linkedin, person.links.satechs].filter((u) => !isPlaceholder(u)),
+  worksFor: [
+    { "@type": "Organization", name: person.employer },
+    {
+      // schema.org puts `founder` on the Organization, pointing back at this Person.
+      "@type": "Organization",
+      name: person.company,
+      founder: { "@id": `${siteUrl}/#person` },
+      ...(isPlaceholder(person.links.satechs) ? {} : { url: person.links.satechs }),
+    },
+  ],
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    // Moved scroll-smooth here for better browser support
-    <html lang="en" className="light scroll-smooth">
-      <body
-        className={`${inter.className} min-h-screen pt-16 bg-slate-50 text-slate-950 antialiased`}
-      >
-        <TooltipProvider delayDuration={0}>
-          <Header />
-          <main>{children}</main>
-          <TechnicalTwin />
-          <Footer />
-          {/* <ScrollToTopButton /> */}
-          <Toaster richColors position="top-center" />
-        </TooltipProvider>
+    <html lang="en" className={`${geist.variable} ${geistMono.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      </head>
+      <body className="min-h-dvh bg-paper text-ink">
+        <a
+          href="#main"
+          className="sr-only z-50 rounded-md bg-jacaranda px-4 py-3 font-semibold text-on-jacaranda focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+        >
+          {ui.skipToContent}
+        </a>
+        <Header />
+        <main id="main" tabIndex={-1} className="focus:outline-none">
+          {children}
+        </main>
+        <Footer />
+        {/* Page views on Vercel Web Analytics (enable it in the Vercel project). Its script only exists on
+            Vercel, so it isn't rendered for local and CI builds. */}
+        {process.env.VERCEL && <Analytics />}
       </body>
     </html>
   );

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500">
+  <!-- Brand graphic standing in for Steve's portrait until a real photo is supplied. Flat jacaranda blossoms on bone; no person depicted. -->
+  <rect width="400" height="500" fill="#EAE5DA"/>
+  <g fill="#5B3E96">
+    <circle cx="300" cy="96" r="54" opacity="0.92"/>
+    <circle cx="232" cy="150" r="30" opacity="0.7"/>
+    <circle cx="350" cy="188" r="22" opacity="0.55"/>
+    <circle cx="110" cy="250" r="40" opacity="0.8"/>
+    <circle cx="62" cy="318" r="18" opacity="0.5"/>
+    <circle cx="176" cy="300" r="14" opacity="0.45"/>
+    <circle cx="300" cy="380" r="36" opacity="0.75"/>
+    <circle cx="214" cy="430" r="20" opacity="0.55"/>
+  </g>
+  <g fill="#ECE6F6">
+    <circle cx="300" cy="96" r="10"/>
+    <circle cx="110" cy="250" r="8"/>
+    <circle cx="300" cy="380" r="7"/>
+  </g>
+  <rect x="40" y="452" width="64" height="6" rx="2" fill="#C98A2B"/>
+</svg>

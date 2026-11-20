@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Phone · Contact</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div style="width: 390px; min-height: 3200px; background: #F4F1EA; font-family: Geist, Inter, system-ui, sans-serif; color: #1B1815">
+
+  <header style="display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; border-bottom: 1px solid #D9D2C3">
+    <a href="Phone-Home.dc.html" style="font-weight: 700; font-size: 17px; letter-spacing: -0.02em; color: #1B1815; text-decoration: none">Steve Arnold Otieno</a>
+    <button type="button" aria-label="Open menu" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid #D9D2C3; background: #FBFAF6; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B1815" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"></path></svg></button>
+  </header>
+
+  <section style="padding: 28px 20px 0">
+    <p style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #8A5A12">Contact</p>
+    <h1 style="margin: 8px 0 0; font-size: 38px; line-height: 1.05; letter-spacing: -0.035em; font-weight: 600">What brings you here?</h1>
+    <p style="margin: 10px 0 0; font-size: 16px; color: #57504A">Pick one and the form adapts. Replies within one working day.</p>
+    <div role="radiogroup" aria-label="Reason for contact" style="margin-top: 20px; display: grid; gap: 10px">
+      <sc-for list="{{routes}}" as="r" hint-placeholder-count="3">
+        <button type="button" role="radio" aria-checked="{{r.checked}}" onClick="{{r.pick}}" style="font: inherit; text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px; border-radius: 14px; background: {{r.bg}}; border: {{r.border}}; color: #1B1815">
+          <span style="display: grid; gap: 2px"><span style="font-size: 17px; font-weight: 600">{{r.title}}</span><span style="font-size: 13px; color: #57504A">{{r.text}}</span></span>
+          <span aria-hidden="true" style="flex: 0 0 22px; height: 22px; border-radius: 50%; border: {{r.ring}}; box-sizing: border-box"></span>
+        </button>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding: 20px 20px 0">
+    <sc-if value="{{sent}}" hint-placeholder-val="{{false}}">
+      <div style="background: #FBFAF6; border: 1px solid #D9D2C3; border-radius: 16px; padding: 24px; display: grid; gap: 10px">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #2E6B4E">Sent</span>
+        <span style="font-size: 22px; font-weight: 600; letter-spacing: -0.02em">Thanks — you'll hear back within one working day.</span>
+        <span style="font-size: 15px; color: #57504A">{{form.after}}</span>
+        <button type="button" onClick="{{reset}}" style="font: inherit; min-height: 44px; border-radius: 10px; background: #FBFAF6; border: 1px solid #D9D2C3; cursor: pointer; font-weight: 600">Send another</button>
+      </div>
+    </sc-if>
+    <sc-if value="{{notSent}}" hint-placeholder-val="{{true}}">
+      <form style="background: #FBFAF6; border: 1px solid #D9D2C3; border-radius: 16px; padding: 20px; display: grid; gap: 14px">
+        <div style="display: grid; gap: 6px"><span style="font-family: 'Geist Mono', monospace; font-size: 11px; text-transform: uppercase; justify-self: start; padding: 4px 7px; border-radius: 6px; background: {{form.tagBg}}; color: {{form.tagFg}}">{{form.tag}}</span><span style="font-size: 20px; font-weight: 600; letter-spacing: -0.015em">{{form.heading}}</span></div>
+        <label style="display: grid; gap: 6px; font-size: 14px; font-weight: 500">Name<input type="text" placeholder="Wanjiku Kamau" style="font: inherit; font-size: 16px; padding: 12px 14px; border: 1px solid #D9D2C3; border-radius: 10px; background: #FFFFFF; color: #1B1815"></label>
+        <label style="display: grid; gap: 6px; font-size: 14px; font-weight: 500">Email or WhatsApp<input type="text" placeholder="you@company.com" style="font: inherit; font-size: 16px; padding: 12px 14px; border: 1px solid #D9D2C3; border-radius: 10px; background: #FFFFFF; color: #1B1815"></label>
+        <label style="display: grid; gap: 6px; font-size: 14px; font-weight: 500">{{form.selectLabel}}<select style="font: inherit; font-size: 16px; padding: 12px 14px; border: 1px solid #D9D2C3; border-radius: 10px; background: #FFFFFF; color: #1B1815"><sc-for list="{{form.options}}" as="o" hint-placeholder-count="4"><option>{{o}}</option></sc-for></select></label>
+        <label style="display: grid; gap: 6px; font-size: 14px; font-weight: 500">{{form.messageLabel}}<textarea rows="4" placeholder="A few lines is enough." style="font: inherit; font-size: 16px; padding: 12px 14px; border: 1px solid #D9D2C3; border-radius: 10px; background: #FFFFFF; color: #1B1815; resize: vertical"></textarea></label>
+        <button type="button" onClick="{{send}}" style="font: inherit; min-height: 52px; border-radius: 10px; background: #5B3E96; color: #FFFFFF; border: 0; font-weight: 600; font-size: 16px; cursor: pointer">{{form.cta}}</button>
+        <span style="font-size: 13px; color: #6B645C; text-align: center">No newsletter. Your details go nowhere else.</span>
+      </form>
+    </sc-if>
+  </section>
+
+  <section style="padding: 24px 20px 0; display: grid; gap: 12px">
+    <a href="Phone-Contact.dc.html" style="display: flex; justify-content: space-between; align-items: center; padding: 18px; border-radius: 16px; background: #1B1815; color: #F1ECE3; text-decoration: none"><span style="display: grid; gap: 2px"><span style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #E3A84B">Prefer to talk?</span><span style="font-size: 18px; font-weight: 600">Book a 20-minute call</span></span><span aria-hidden="true" style="color: #B9A2F0; font-weight: 600">→</span></a>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+      <a href="Phone-Contact.dc.html" style="display: flex; justify-content: center; align-items: center; min-height: 48px; border-radius: 10px; background: #FBFAF6; border: 1px solid #D9D2C3; color: #1B1815; font-weight: 600; text-decoration: none">WhatsApp</a>
+      <a href="Phone-Contact.dc.html" style="display: flex; justify-content: center; align-items: center; min-height: 48px; border-radius: 10px; background: #FBFAF6; border: 1px solid #D9D2C3; color: #1B1815; font-weight: 600; text-decoration: none">Email</a>
+    </div>
+  </section>
+
+  <section style="padding: 48px 20px 64px">
+    <h2 style="margin: 0; font-size: 24px; letter-spacing: -0.02em; font-weight: 600">Questions people ask</h2>
+    <div style="margin-top: 14px; display: grid; gap: 8px">
+      <details style="background: #FBFAF6; border: 1px solid #D9D2C3; border-radius: 12px; padding: 14px 16px"><summary style="cursor: pointer; font-weight: 600; font-size: 15px">Do you work with clients outside Kenya?</summary><p style="margin: 10px 0 0; color: #57504A; font-size: 14px; line-height: 1.6">[Your answer.]</p></details>
+      <details style="background: #FBFAF6; border: 1px solid #D9D2C3; border-radius: 12px; padding: 14px 16px"><summary style="cursor: pointer; font-weight: 600; font-size: 15px">Why do builds go to SaTechs?</summary><p style="margin: 10px 0 0; color: #57504A; font-size: 14px; line-height: 1.6">SaTechs is my studio. Client builds get a team, a contract and a QA report, and I stay involved.</p></details>
+      <details style="background: #FBFAF6; border: 1px solid #D9D2C3; border-radius: 12px; padding: 14px 16px"><summary style="cursor: pointer; font-weight: 600; font-size: 15px">Are you open to full-time roles?</summary><p style="margin: 10px 0 0; color: #57504A; font-size: 14px; line-height: 1.6">[Your answer.]</p></details>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3200}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { route: 'build', sent: false }; }
+  renderVals() {
+    const route = this.state.route;
+    const defs = [
+      { id: 'build', title: 'I need something built', text: 'Goes to SaTechs for a quote' },
+      { id: 'hire', title: "I'm hiring", text: 'Engineering or QA roles' },
+      { id: 'partner', title: "Let's partner", text: 'Jaza WiFi, investment, collaboration' }
+    ];
+    const forms = {
+      build: { heading: 'Tell SaTechs what you need', tag: 'Goes to SaTechs', tagBg: '#E3EAF5', tagFg: '#16325C', selectLabel: 'What do you need?',
+        options: ['Payments (M-Pesa, Paystack, Stripe)', 'A custom system or dashboard', 'A website', 'An audit or rescue'],
+        messageLabel: 'A few lines about the project', cta: 'Send to SaTechs', after: 'SaTechs will reply with next steps and a time for a short call.' },
+      hire: { heading: 'Tell me about the role', tag: 'Comes to Steve', tagBg: '#ECE6F6', tagFg: '#452C78', selectLabel: 'Type of role',
+        options: ['Full-time, remote', 'Contract', 'QA / test engineering', 'Something else'],
+        messageLabel: 'The team and the problem', cta: 'Send — I reply within a day', after: 'My CV comes with my reply, with times for a call.' },
+      partner: { heading: "Let's see if it fits", tag: 'Comes to Steve', tagBg: '#ECE6F6', tagFg: '#452C78', selectLabel: 'Topic',
+        options: ['Jaza WiFi', 'Investment', 'Collaboration', 'Something else'],
+        messageLabel: 'What you have in mind', cta: 'Send — I reply within a day', after: "I'll reply with a few times for a call." }
+    };
+    return {
+      routes: defs.map((d) => {
+        const on = d.id === route;
+        return Object.assign({}, d, {
+          checked: on ? 'true' : 'false',
+          bg: on ? '#ECE6F6' : '#FBFAF6',
+          border: on ? '2px solid #5B3E96' : '1px solid #D9D2C3',
+          ring: on ? '7px solid #5B3E96' : '2px solid #D9D2C3',
+          pick: () => this.setState({ route: d.id, sent: false })
+        });
+      }),
+      form: forms[route],
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      send: () => this.setState({ sent: true }),
+      reset: () => this.setState({ sent: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

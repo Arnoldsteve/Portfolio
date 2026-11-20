@@ -82,3 +82,30 @@ test("touch targets are at least 44px on phone", async ({ page }, info) => {
     expect(small, path).toEqual([]);
   }
 });
+
+test("home leads with Umoja, then SaTechs, then more work in order", async ({ page }) => {
+  await page.goto("/");
+  const order = await page.evaluate(() =>
+    ["Umoja", "SaTechs Solutions builds this for businesses.", "Jaza WiFi", "GradeHub", "Aura by Racheal"].map((t) =>
+      [...document.querySelectorAll("main h2, main h3")].findIndex((h) => h.textContent?.trim() === t),
+    ),
+  );
+  expect(order.every((i) => i >= 0)).toBe(true);
+  expect([...order].sort((a, b) => a - b)).toEqual(order);
+});
+
+test("status badges are honest", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("#work").getByText("Live", { exact: true })).toBeVisible();
+  await expect(page.getByText("In development", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Code on request", { exact: true })).toBeVisible();
+});
+
+test("every post ends with a next step", async ({ page }, info) => {
+  test.skip(info.project.name !== "desktop-1440", "content check runs once");
+  for (const slug of ["payment-callbacks-exactly-once", "wifi-payer-vs-device", "three-bugs-before-launch"]) {
+    await page.goto(`/writing/${slug}`);
+    await expect(page.locator("h1")).toHaveCount(1);
+    await expect(page.locator("main article a[href^='/contact']").first()).toBeVisible();
+  }
+});

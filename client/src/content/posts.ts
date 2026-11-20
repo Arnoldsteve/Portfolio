@@ -52,7 +52,7 @@ export const posts: Post[] = [
     slug: 'wifi-payer-vs-device',
     title: 'The phone that pays isn’t always the device that connects',
     description: 'Designing Jaza WiFi, a self-service paid hotspot: why payment and internet access are two different identities.',
-    date: '2026-11-13',
+    date: '2026-11-20',
     tag: 'Product design',
     body: [
       { p: 'Jaza WiFi is a self-service paid hotspot I’m building. A customer connects, sees clear plans, pays with M-Pesa on their own phone and is online in under a minute, with no operator involved. The first design question turned out to be the most important one: who, exactly, is the customer?' },
@@ -81,7 +81,7 @@ export const posts: Post[] = [
     slug: 'three-bugs-before-launch',
     title: 'Three bugs a booking platform hides until launch',
     description: 'A payment reference that could be reused, a race that oversold limited slots, and a timezone bug with company-wide reach — and how to look for them.',
-    date: '2026-11-06',
+    date: '2026-11-20',
     tag: 'QA',
     body: [
       { p: 'I lead QA on a travel platform before its launch. Testing turned up three problems that would have cost real money in production. None of them were exotic, and that is the point: they hide in almost every booking or checkout system, and you only find them if you go looking.' },

@@ -1,11 +1,18 @@
-import { expect, test } from "@playwright/test";
+import { expect, isPhone, test } from "./fixtures";
+import { statusLabels, ui } from "@/content/site";
 import { routes, themes } from "./routes";
 
 for (const route of routes) {
   for (const theme of themes) {
     test(`${route.name} renders (${theme})`, async ({ page }, info) => {
       const errors: string[] = [];
-      page.on("console", (m) => m.type() === "error" && !m.text().includes("404") && errors.push(m.text()));
+      // The 404 route's own document is *meant* to fail with 404; nothing else may log an error.
+      const expected404 = "status" in route && route.status === 404;
+      page.on("console", (m) => {
+        if (m.type() !== "error") return;
+        if (expected404 && m.text().includes("404") && m.location().url.endsWith(route.path)) return;
+        errors.push(m.text());
+      });
       page.on("pageerror", (e) => errors.push(e.message));
 
       await page.emulateMedia({ colorScheme: theme, reducedMotion: "reduce" });
@@ -40,24 +47,24 @@ test("no placeholders render; every image loads; illustrations are labelled", as
     }
   }
   await page.goto("/work/jaza-wifi");
-  await expect(page.getByText("Illustration").locator("visible=true").first()).toBeVisible();
+  await expect(page.getByText(ui.illustration).locator("visible=true").first()).toBeVisible();
 });
 
 test("theme toggle persists without a flash on reload", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "light" });
   await page.goto("/");
-  await page.getByRole("button", { name: "Switch to dark theme" }).click();
+  await page.getByRole("button", { name: ui.themeToDark }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await page.reload();
   // Set by the inline head script before first paint.
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await expect(page.getByRole("button", { name: "Switch to light theme" })).toBeVisible();
+  await expect(page.getByRole("button", { name: ui.themeToLight })).toBeVisible();
 });
 
 test("mobile menu opens, traps focus and closes on Escape", async ({ page }, info) => {
-  test.skip(info.project.name !== "phone-390", "phone only");
+  test.skip(!isPhone(info), "phone only");
   await page.goto("/");
-  const toggle = page.getByRole("button", { name: "Open menu" });
+  const toggle = page.getByRole("button", { name: ui.openMenu });
   await expect(toggle).toHaveAttribute("aria-expanded", "false");
   await toggle.click();
   await expect(toggle).toHaveAttribute("aria-expanded", "true");
@@ -69,7 +76,7 @@ test("mobile menu opens, traps focus and closes on Escape", async ({ page }, inf
 });
 
 test("sticky CTA shows on phone only, not on contact", async ({ page }, info) => {
-  const phone = info.project.name === "phone-390";
+  const phone = isPhone(info);
   await page.goto("/");
   const cta = page.locator("main a", { hasText: "Get in touch" }).last();
   await (phone ? expect(cta).toBeVisible() : expect(cta).toBeHidden());
@@ -78,7 +85,7 @@ test("sticky CTA shows on phone only, not on contact", async ({ page }, info) =>
 });
 
 test("touch targets are at least 44px on phone", async ({ page }, info) => {
-  test.skip(info.project.name !== "phone-390", "phone only");
+  test.skip(!isPhone(info), "phone only");
   for (const path of ["/", "/about", "/contact", "/work/jaza-wifi"]) {
     await page.goto(path);
     const small = await page.$$eval("main a.inline-flex, main button, header button, footer a, footer button", (els) =>
@@ -104,9 +111,9 @@ test("home leads with Umoja, then SaTechs, then more work in order", async ({ pa
 
 test("status badges are honest", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator("#work").getByText("Live", { exact: true })).toBeVisible();
-  await expect(page.getByText("In development", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("Code on request", { exact: true })).toBeVisible();
+  await expect(page.locator("#work").getByText(statusLabels.live, { exact: true })).toBeVisible();
+  await expect(page.getByText(statusLabels.building, { exact: true }).first()).toBeVisible();
+  await expect(page.getByText(statusLabels.code, { exact: true })).toBeVisible();
 });
 
 test("every post ends with a next step", async ({ page }, info) => {

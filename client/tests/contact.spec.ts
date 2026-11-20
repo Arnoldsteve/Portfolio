@@ -91,23 +91,97 @@ test.describe("POST /api/contact", () => {
 });
 
 test.describe("booking", () => {
+  // Two free days, built relative to "today" so the test never goes stale.
+  const day = (offset: number) => new Date(Date.now() + offset * 864e5).toISOString().slice(0, 10);
+  let booked: Record<string, string> | null = null;
+
   test.beforeEach(async ({ page }) => {
-    // Don't hit Cal.com from tests.
-    await page.route("https://cal.com/**", (route) => route.fulfill({ body: "<html><body>calendar</body></html>", contentType: "text/html" }));
+    booked = null;
+    await page.route("**/api/booking/slots?*", (route) => {
+      const call = new URL(route.request().url()).searchParams.get("call");
+      route.fulfill({
+        json: { days: { [day(1)]: [`${day(1)}T07:00:00.000Z`, `${day(1)}T07:30:00.000Z`], [day(2)]: call === "30min" ? [`${day(2)}T09:00:00.000Z`] : [] } },
+      });
+    });
+    await page.route("**/api/booking", async (route) => {
+      booked = route.request().postDataJSON();
+      await route.fulfill({ json: { uid: "abc", start: booked!.start, meetingUrl: "https://app.cal.com/video/abc" } });
+    });
   });
 
-  test("Cal.com loads inline only after asking", async ({ page }) => {
+  test("call → day → time → details → booked, all on the page", async ({ page }) => {
+    await page.goto("/contact#book");
+    await expect(page.getByRole("radio", { name: /Quick intro/ })).toHaveAttribute("aria-checked", "true");
+
+    // First free day is chosen automatically; days with no times are disabled.
+    const times = page.locator("#book").getByRole("button", { pressed: false }).filter({ hasText: /\d:\d\d/ });
+    await expect(times).toHaveCount(2);
+    await times.first().click();
+
+    const form = page.locator("#book form");
+    await form.getByRole("button", { name: "Confirm booking" }).click();
+    await expect(form.getByText("Please add your name.")).toBeVisible();
+
+    await form.getByLabel("Name").fill("Wanjiku Kamau");
+    await form.getByLabel("Email").fill("wanjiku@example.com");
+    await form.getByLabel(/What would you like to cover/).fill("Payment flow review");
+    await form.getByRole("button", { name: "Confirm booking" }).click();
+
+    await expect(page.getByText("You’re booked.")).toBeVisible();
+    await expect(page.getByText("wanjiku@example.com")).toBeVisible();
+    await expect(page.getByRole("link", { name: "Join link" })).toHaveAttribute("href", "https://app.cal.com/video/abc");
+    expect(booked).toMatchObject({ call: "15min", name: "Wanjiku Kamau", email: "wanjiku@example.com", notes: "Payment flow review" });
+    expect(booked!.timeZone).toBeTruthy();
+  });
+
+  test("switching call reloads its free times", async ({ page }) => {
+    await page.goto("/contact#book");
+    await page.getByRole("radio", { name: /Quick intro/ }).focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(page.getByRole("radio", { name: /Deep dive/ })).toHaveAttribute("aria-checked", "true");
+    await expect(page.locator("#book").getByRole("link", { name: /Book on Cal.com instead/ })).toHaveAttribute("href", "https://cal.com/steve-arnold/30min");
+  });
+
+  test("a slot taken meanwhile shows a clear message and keeps the visitor in flow", async ({ page }) => {
+    await page.route("**/api/booking", (route) => route.fulfill({ status: 409, json: { error: "taken" } }));
+    await page.goto("/contact#book");
+    await page.locator("#book").getByRole("button").filter({ hasText: /\d:\d\d/ }).first().click();
+    const form = page.locator("#book form");
+    await form.getByLabel("Name").fill("W K");
+    await form.getByLabel("Email").fill("w@example.com");
+    await form.getByRole("button", { name: "Confirm booking" }).click();
+    await expect(page.getByText("That time was just taken. Please pick another.")).toBeVisible();
+  });
+
+  test("teaser and About's Book a call land on the booking section", async ({ page }, info) => {
+    test.skip(info.project.name === "phone-390", "desktop buttons; phone uses the sticky bar");
     await page.goto("/contact");
-    await expect(page.locator("#book iframe")).toHaveCount(0);
-    await page.getByRole("button", { name: "Pick a time" }).click();
-    await expect(page.locator("#book iframe")).toHaveAttribute("src", /^https:\/\/cal\.com\/steve-arnold\?embed=true&theme=(light|dark)$/);
-  });
-
-  test("Book a call from About opens the calendar on the contact page", async ({ page }, info) => {
-    test.skip(info.project.name === "phone-390", "About's desktop button; phone uses the sticky bar");
+    await page.getByRole("link", { name: /See available times/ }).click();
+    await expect(page).toHaveURL(/#book$/);
+    await expect(page.getByRole("heading", { name: "Pick a call, a day and a time." })).toBeInViewport();
     await page.goto("/about");
     await page.getByRole("link", { name: "Book a call" }).first().click();
     await expect(page).toHaveURL(/\/contact#book$/);
-    await expect(page.locator("#book iframe")).toBeVisible();
+  });
+});
+
+test.describe("booking API (never reaches Cal)", () => {
+  test.beforeEach(({}, info) => test.skip(info.project.name !== "desktop-1440", "API checks run once"));
+
+  test("rejects bad input", async ({ request }) => {
+    expect((await request.get("/api/booking/slots?call=99min&start=x&end=y&tz=Nowhere")).status()).toBe(400);
+    const res = await request.post("/api/booking", {
+      headers: { "x-forwarded-for": "203.0.113.90" },
+      data: { call: "15min", start: "not-a-date", timeZone: "Africa/Nairobi", name: "", email: "nope" },
+    });
+    expect(res.status()).toBe(400);
+  });
+
+  test("honeypot gets a silent 200", async ({ request }) => {
+    const res = await request.post("/api/booking", {
+      headers: { "x-forwarded-for": "203.0.113.91" },
+      data: { call: "15min", start: "2030-01-07T07:00:00.000Z", timeZone: "Africa/Nairobi", name: "Bot", email: "bot@example.com", website: "spam" },
+    });
+    expect(res.status()).toBe(200);
   });
 });

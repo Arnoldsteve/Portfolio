@@ -15,17 +15,8 @@ const eslintConfig = [
 
   {
     rules: {
-      // Allow unused vars IF they start with "_"
-      "no-unused-vars": [
-        "warn",
-        {
-          vars: "all",
-          args: "after-used",
-          ignoreRestSiblings: true,
-          varsIgnorePattern: "^_",
-          argsIgnorePattern: "^_",
-        },
-      ],
+      // The TypeScript-aware rule below replaces the base rule (which misreads type-only names).
+      "no-unused-vars": "off",
 
       "@typescript-eslint/no-unused-vars": [
         "warn",

@@ -1,12 +1,13 @@
 "use client";
 
-import { useRef, useState, type FormEvent, type KeyboardEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { LoaderCircle } from "lucide-react";
 import { contactPage as c, contactRoutes, person, type RouteId } from "@/content/site";
 import { contactSchema, fieldErrors, routeIds, type FieldErrors } from "@/lib/contact-schema";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/primitives";
 import { Tag } from "@/components/ui/badge";
+import { useRadioGroup } from "@/components/ui/use-radio-group";
 import { cn } from "@/lib/utils";
 
 type Status = "idle" | "submitting" | "success" | "error";
@@ -20,7 +21,6 @@ export function ContactRouter({ initialRoute }: { initialRoute: RouteId }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<FieldErrors>({});
   const [formError, setFormError] = useState("");
-  const radios = useRef<(HTMLButtonElement | null)[]>([]);
   const r = contactRoutes[route];
 
   const pick = (id: RouteId) => {
@@ -30,15 +30,7 @@ export function ContactRouter({ initialRoute }: { initialRoute: RouteId }) {
     setFormError("");
   };
 
-  // Arrow keys move selection, as in a native radio group.
-  const onRadioKey = (e: KeyboardEvent, index: number) => {
-    const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
-    if (!step) return;
-    e.preventDefault();
-    const next = (index + step + routeIds.length) % routeIds.length;
-    pick(routeIds[next]);
-    radios.current[next]?.focus();
-  };
+  const radioProps = useRadioGroup(routeIds, pick);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -79,7 +71,7 @@ export function ContactRouter({ initialRoute }: { initialRoute: RouteId }) {
         {errors[name]}
       </span>
     );
-  const labelClass = "grid gap-1.5 text-sm font-medium sm:gap-2";
+  const labelClass = "grid content-start gap-1.5 text-sm font-medium sm:gap-2";
 
   return (
     <>
@@ -90,15 +82,12 @@ export function ContactRouter({ initialRoute }: { initialRoute: RouteId }) {
           return (
             <button
               key={id}
-              ref={(el) => {
-                radios.current[i] = el;
-              }}
+              {...radioProps(i)}
               type="button"
               role="radio"
               aria-checked={on}
               tabIndex={on ? 0 : -1}
               onClick={() => pick(id)}
-              onKeyDown={(e) => onRadioKey(e, i)}
               className={cn(
                 "flex cursor-pointer items-center justify-between gap-3 rounded-[14px] p-4 text-left text-ink sm:grid sm:content-start sm:gap-2 sm:rounded-lg sm:p-6",
                 on ? "border-2 border-jacaranda bg-jacaranda-mist p-[15px] sm:p-[23px]" : "border border-line bg-surface hover:border-ink-faint",

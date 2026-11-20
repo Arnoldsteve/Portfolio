@@ -2,11 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { Resend } from "resend";
 import { contactRoutes } from "@/content/site";
 import { contactSchema, fieldErrors, isEmail } from "@/lib/contact-schema";
-import { takeToken } from "@/lib/rate-limit";
-
-function clientIp(req: NextRequest) {
-  return req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || req.headers.get("x-real-ip") || "unknown";
-}
+import { clientIp, takeToken } from "@/lib/rate-limit";
 
 export async function POST(req: NextRequest) {
   if (!takeToken(clientIp(req))) {

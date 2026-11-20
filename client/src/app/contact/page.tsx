@@ -38,7 +38,16 @@ export default async function ContactPage({ searchParams }: Props) {
         </div>
 
         <aside className="grid flex-[1_1_300px] content-start gap-3 sm:mt-10 sm:gap-4">
-          <Booking />
+          <div className="grid gap-3 rounded-lg bg-ink-band p-[18px] text-on-band sm:p-7">
+            <Label as="span" className="text-on-band-ochre">
+              {c.talkEyebrow}
+            </Label>
+            <span className="text-lg leading-[1.25] font-semibold sm:text-[22px]">{c.talkHeading}</span>
+            <span className="text-[15px] leading-[1.55] text-on-band-muted">{c.talkText}</span>
+            <ButtonLink href="#book" variant="onBand" block>
+              {c.talkCta}
+            </ButtonLink>
+          </div>
 
           {/* Phone: WhatsApp and Email as two buttons. */}
           <div className="grid grid-cols-2 gap-2.5 sm:hidden">
@@ -71,6 +80,8 @@ export default async function ContactPage({ searchParams }: Props) {
           </div>
         </aside>
       </Container>
+
+      <Booking />
 
       <Container as="section" className="max-w-[880px] pt-12 pb-16 sm:pt-24 sm:pb-30">
         <h2 className="text-2xl font-semibold tracking-[-0.02em] sm:text-[32px]">{c.faqHeading}</h2>

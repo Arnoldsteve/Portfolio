@@ -1,23 +1,34 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { bookingInput } from "@/lib/booking-schema";
 import { createBooking } from "@/lib/cal";
-import { clientIp, takeToken } from "@/lib/rate-limit";
+import { isValidInstant } from "@/lib/dates";
+import { isTrapped } from "@/lib/honeypot";
+import { limited } from "@/lib/rate-limit";
 
 export async function POST(req: NextRequest) {
-  if (!takeToken(`booking:${clientIp(req)}`)) return NextResponse.json({ error: "rate_limited" }, { status: 429 });
+  if (limited("booking", req)) return NextResponse.json({ error: "rate_limited" }, { status: 429 });
 
-  const parsed = bookingInput.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) {
-    // A filled honeypot is a bot: pretend success so it learns nothing.
-    if (parsed.error.issues.some((i) => i.path[0] === "website")) return NextResponse.json({ uid: "ok", start: "" });
-    return NextResponse.json({ error: "validation" }, { status: 400 });
+  const body = await req.json().catch(() => null);
+  if (isTrapped(body)) {
+    // A bot: pretend success with a well-formed answer so it learns nothing.
+    const start = typeof body?.start === "string" && isValidInstant(body.start) ? body.start : new Date().toISOString();
+    return NextResponse.json({ uid: "ok", start });
   }
 
-  const result = await createBooking(parsed.data);
-  if (result.ok) return NextResponse.json(result.booked);
+  const parsed = bookingInput.safeParse(body);
+  if (!parsed.success) return NextResponse.json({ error: "validation" }, { status: 400 });
 
-  console.error("booking: cal rejected", result.status, result.message);
-  // Cal answers 400/409 when the slot is no longer free.
-  const taken = result.status === 409 || /no available users|not available|already/i.test(result.message);
-  return NextResponse.json({ error: taken ? "taken" : "failed" }, { status: taken ? 409 : 502 });
+  const result = await createBooking(parsed.data);
+  switch (result.kind) {
+    case "ok":
+      return NextResponse.json(result.booked);
+    case "taken":
+      return NextResponse.json({ error: "taken" }, { status: 409 });
+    case "unknown":
+      console.error("booking: no answer from Cal (timeout or network)");
+      return NextResponse.json({ error: "unknown" }, { status: 504 });
+    case "failed":
+      console.error("booking: cal rejected", result.status, result.message);
+      return NextResponse.json({ error: "failed" }, { status: 502 });
+  }
 }

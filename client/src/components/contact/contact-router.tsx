@@ -8,12 +8,13 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/primitives";
 import { Tag } from "@/components/ui/badge";
 import { useRadioGroup } from "@/components/ui/use-radio-group";
+import { choiceClass, FieldError, FormError, Honeypot, inputClass, labelClass } from "@/components/ui/form";
+import { HONEYPOT } from "@/lib/honeypot";
 import { cn } from "@/lib/utils";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-const inputClass =
-  "w-full rounded-md border border-line bg-surface px-3.5 py-3 text-base text-ink placeholder:text-ink-faint hover:border-ink-faint aria-[invalid=true]:border-pending";
+const errorFor: Record<number, string> = { 429: c.errorRateLimit, 503: c.errorUnavailable };
 
 /** Route picker (accessible radio group) + the form that adapts to the chosen route. */
 export function ContactRouter({ initialRoute }: { initialRoute: RouteId }) {
@@ -34,8 +35,9 @@ export function ContactRouter({ initialRoute }: { initialRoute: RouteId }) {
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const data = { route, ...Object.fromEntries(new FormData(e.currentTarget)) };
-    const parsed = contactSchema.safeParse(data);
+    const form = new FormData(e.currentTarget);
+    // The spam trap is not validated here; only the server judges it.
+    const parsed = contactSchema.safeParse({ route, ...Object.fromEntries(form) });
     if (!parsed.success) {
       setErrors(fieldErrors(parsed.error));
       return;
@@ -47,12 +49,12 @@ export function ContactRouter({ initialRoute }: { initialRoute: RouteId }) {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(parsed.data),
+        body: JSON.stringify({ ...parsed.data, [HONEYPOT]: form.get(HONEYPOT) ?? "" }),
       });
       if (res.ok) return setStatus("success");
       const json = await res.json().catch(() => ({}));
       if (json.fields) setErrors(json.fields);
-      setFormError(res.status === 429 ? c.errorRateLimit : json.fields ? "" : c.errorGeneric);
+      setFormError(errorFor[res.status] ?? (json.fields ? "" : c.errorGeneric));
     } catch {
       setFormError(c.errorGeneric);
     }
@@ -65,13 +67,7 @@ export function ContactRouter({ initialRoute }: { initialRoute: RouteId }) {
     "aria-invalid": errors[name] ? true : undefined,
     "aria-describedby": errors[name] ? `f-${name}-error` : undefined,
   });
-  const errorText = (name: keyof FieldErrors) =>
-    errors[name] && (
-      <span id={`f-${name}-error`} className="text-sm font-normal text-pending">
-        {errors[name]}
-      </span>
-    );
-  const labelClass = "grid content-start gap-1.5 text-sm font-medium sm:gap-2";
+  const errorText = (name: keyof FieldErrors) => <FieldError id={`f-${name}-error`}>{errors[name]}</FieldError>;
 
   return (
     <>
@@ -88,10 +84,7 @@ export function ContactRouter({ initialRoute }: { initialRoute: RouteId }) {
               aria-checked={on}
               tabIndex={on ? 0 : -1}
               onClick={() => pick(id)}
-              className={cn(
-                "flex cursor-pointer items-center justify-between gap-3 rounded-[14px] p-4 text-left text-ink sm:grid sm:content-start sm:gap-2 sm:rounded-lg sm:p-6",
-                on ? "border-2 border-jacaranda bg-jacaranda-mist p-[15px] sm:p-[23px]" : "border border-line bg-surface hover:border-ink-faint",
-              )}
+              className={choiceClass(on, "flex items-center justify-between gap-3 p-4 sm:grid sm:content-start sm:gap-2 sm:p-6")}
             >
               <span className="grid gap-0.5 sm:gap-2">
                 <span className="text-[17px] font-semibold sm:text-[19px]">{def.title}</span>
@@ -101,16 +94,16 @@ export function ContactRouter({ initialRoute }: { initialRoute: RouteId }) {
               <span className={cn("hidden text-sm font-semibold sm:block", on ? "text-jacaranda-deep" : "text-jacaranda")}>{def.dest}</span>
               <span
                 aria-hidden="true"
-                className={cn("size-[22px] shrink-0 rounded-full sm:hidden", on ? "border-[7px] border-jacaranda" : "border-2 border-line")}
+                className={cn("size-5.5 shrink-0 rounded-full sm:hidden", on ? "border-[7px] border-jacaranda" : "border-2 border-line")}
               />
             </button>
           );
         })}
       </div>
 
-      <div className="mt-5 sm:mt-10" aria-live="polite">
+      <div className="mt-5 sm:mt-10">
         {status === "success" ? (
-          <div className="grid gap-2.5 rounded-lg border border-line bg-surface p-6 sm:gap-3 sm:p-10">
+          <div role="status" className="grid gap-2.5 rounded-lg border border-line bg-surface p-6 sm:gap-3 sm:p-10">
             <Label as="span" className="text-acacia">
               {c.sentLabel}
             </Label>
@@ -121,7 +114,7 @@ export function ContactRouter({ initialRoute }: { initialRoute: RouteId }) {
             </Button>
           </div>
         ) : (
-          <form noValidate onSubmit={onSubmit} className="grid gap-3.5 rounded-lg border border-line bg-surface p-5 sm:gap-[18px] sm:p-8">
+          <form noValidate onSubmit={onSubmit} className="grid gap-3.5 rounded-lg border border-line bg-surface p-5 sm:gap-4.5 sm:p-8">
             <div className="flex flex-col-reverse items-start gap-1.5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-2.5">
               <h2 className="m-0 text-xl font-semibold tracking-[-0.015em] sm:text-[22px]">{r.heading}</h2>
               <Tag tone={r.recipient === "satechs" ? "navy" : "jacaranda"}>{r.tag}</Tag>
@@ -152,20 +145,14 @@ export function ContactRouter({ initialRoute }: { initialRoute: RouteId }) {
               <textarea {...field("message")} rows={4} placeholder={c.messagePlaceholder} className={cn(inputClass, "resize-y")} />
               {errorText("message")}
             </label>
-            {/* Honeypot: off-screen and skipped by keyboard and screen readers. */}
-            <div aria-hidden="true" className="absolute -left-[9999px] size-px overflow-hidden">
-              <label>
-                Website
-                <input type="text" name="website" tabIndex={-1} autoComplete="off" />
-              </label>
-            </div>
+            <Honeypot />
             {formError && (
-              <p role="alert" className="m-0 text-[15px] text-pending">
+              <FormError>
                 {formError}{" "}
                 <a href={`mailto:${person.email}`} className="font-semibold text-jacaranda underline">
                   {person.email}
                 </a>
-              </p>
+              </FormError>
             )}
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
               <Button type="submit" variant="primary" disabled={status === "submitting"} className="w-full sm:w-auto">

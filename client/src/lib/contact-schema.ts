@@ -16,19 +16,18 @@ export function isEmail(value: string) {
 
 const e = contactPage.errors;
 
-/** Shared by the form (client-side feedback) and POST /api/contact (the real check). */
+/** Shared by the form (client-side feedback) and POST /api/contact (the real check). The spam trap is checked separately, server-side only (lib/honeypot). */
 export const contactSchema = z
   .object({
     route: z.enum(routeIds as [RouteId, ...RouteId[]]),
-    name: z.string().trim().min(1, e.name).max(120, e.name),
+    // Single line: the name goes into the email subject.
+    name: z.string().trim().min(1, e.name).max(120, e.name).regex(/^[^\r\n]*$/, e.name),
     contact: z
       .string()
       .trim()
       .refine((v) => isEmail(v) || WHATSAPP.test(v), e.contact),
     topic: z.string().trim().min(1, e.topic),
     message: z.string().trim().min(10, e.message).max(5000, e.message),
-    // Honeypot: hidden from people, filled in by bots.
-    website: z.string().max(0).optional().or(z.literal("")),
   })
   .refine((d) => contactRoutes[d.route].options.includes(d.topic), { path: ["topic"], message: e.topic });
 

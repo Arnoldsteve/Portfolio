@@ -1,144 +1,102 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
-import { ChevronLeft, ChevronRight, LoaderCircle } from "lucide-react";
+import { useEffect, useMemo, useReducer, useRef, useState, type FormEvent } from "react";
 import { booking as b, person } from "@/content/site";
-import { bookingInput, type Booked, type CallId } from "@/lib/booking-schema";
-import { Button, ButtonLink } from "@/components/ui/button";
+import { bookingInput, MAX_AHEAD_DAYS, type Booked, type CallId } from "@/lib/booking-schema";
+import { addDays, daysBetween, todayIn } from "@/lib/dates";
+import { HONEYPOT } from "@/lib/honeypot";
+import { choiceClass, FormError } from "@/components/ui/form";
+import { ButtonLink } from "@/components/ui/button";
 import { Container, Label, MarkerList } from "@/components/ui/primitives";
 import { useRadioGroup } from "@/components/ui/use-radio-group";
 import { cn } from "@/lib/utils";
+import { bookingReducer, initialBooking } from "./booking-state";
+import { BookedCard, DayPicker, DetailsForm, TimePicker, dayParts, timeLabel } from "./booking-parts";
 
 const callIds = b.calls.map((c) => c.id) as CallId[];
 const WINDOW = 14; // days shown at once
 
-type Status = "idle" | "submitting" | "booked";
-
-// Dates are YYYY-MM-DD in the visitor's time zone; arithmetic is done at UTC noon to dodge DST.
-const dateIn = (instant: Date, tz: string) => new Intl.DateTimeFormat("en-CA", { timeZone: tz }).format(instant);
-const todayIn = (tz: string) => dateIn(new Date(), tz);
-const addDays = (date: string, n: number) => new Date(Date.parse(`${date}T12:00:00Z`) + n * 864e5).toISOString().slice(0, 10);
-const dayParts = (date: string) => {
-  const d = new Date(`${date}T12:00:00Z`);
-  const f = (o: Intl.DateTimeFormatOptions) => d.toLocaleDateString(undefined, { ...o, timeZone: "UTC" });
-  return { weekday: f({ weekday: "short" }), day: f({ day: "numeric" }), month: f({ month: "short" }), long: f({ weekday: "long", day: "numeric", month: "long" }) };
-};
-const timeLabel = (iso: string, tz: string) => new Date(iso).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit", timeZone: tz });
-
-const inputClass =
-  "w-full rounded-md border border-line bg-surface px-3.5 py-3 text-base text-ink placeholder:text-ink-faint hover:border-ink-faint aria-[invalid=true]:border-pending";
+const failureNotice: Record<string, string> = { taken: b.errors.taken, unknown: b.errors.unknown, rate_limited: b.errors.rateLimited };
 
 /**
  * Native booking, in the site's design: call → day → time → details → booked.
  * Cal.com runs behind it through /api/booking (slots and booking), so visitors never leave the page.
  */
 export function Booking() {
-  const [call, setCall] = useState<CallId>(callIds[0]);
-  const [tz, setTz] = useState<string | null>(null);
-  const [from, setFrom] = useState<string | null>(null);
-  const [days, setDays] = useState<Record<string, string[]> | null>(null);
-  const [slotsError, setSlotsError] = useState(false);
-  const [date, setDate] = useState<string | null>(null);
-  const [time, setTime] = useState<string | null>(null);
-  const [status, setStatus] = useState<Status>("idle");
-  const [errors, setErrors] = useState<{ name?: string; email?: string }>({});
-  const [formError, setFormError] = useState("");
-  const [booked, setBooked] = useState<(Booked & { email: string }) | null>(null);
+  const [s, dispatch] = useReducer(bookingReducer, callIds[0], initialBooking);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [active, setActive] = useState(false);
 
+  // Time zone and "today" are only known in the browser.
   useEffect(() => {
-    const zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    setTz(zone);
-    setFrom(todayIn(zone));
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    dispatch({ type: "init", tz, today: todayIn(tz) });
   }, []);
 
-  const load = useCallback(async () => {
-    if (!tz || !from) return;
-    setDays(null);
-    setSlotsError(false);
-    try {
-      const qs = new URLSearchParams({ call, start: from, end: addDays(from, WINDOW - 1), tz });
-      const res = await fetch(`/api/booking/slots?${qs}`);
-      if (!res.ok) throw new Error(String(res.status));
-      const json = (await res.json()) as { days: Record<string, string[]> };
-      setDays(json.days);
-      // Keep the chosen day if it still has times, otherwise jump to the first free day.
-      setDate((current) => (current && json.days[current]?.length ? current : (Object.keys(json.days).sort().find((d) => json.days[d].length) ?? null)));
-    } catch {
-      setSlotsError(true);
-    }
-  }, [call, from, tz]);
-
+  // Only ask Cal for times once the section is near the screen. Arriving at /contact#book scrolls it
+  // into view, which triggers this too.
   useEffect(() => {
-    load();
-  }, [load]);
+    const el = sectionRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver((entries) => entries.some((e) => e.isIntersecting) && setActive(true), { rootMargin: "400px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
-  const pickCall = (id: CallId) => {
-    if (id === call) return;
-    setCall(id);
-    setTime(null);
-  };
-  const radioProps = useRadioGroup(callIds, pickCall);
+  // Load the visible window. Aborting stale requests means a slow answer can never overwrite a newer one.
+  useEffect(() => {
+    if (!active || !s.tz || !s.from) return;
+    const controller = new AbortController();
+    dispatch({ type: "slotsLoading" });
+    const qs = new URLSearchParams({ call: s.call, start: s.from, end: addDays(s.from, WINDOW - 1), tz: s.tz });
+    fetch(`/api/booking/slots?${qs}`, { signal: controller.signal })
+      .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
+      .then((json: { days: Record<string, string[]> }) => dispatch({ type: "slotsLoaded", days: json.days }))
+      .catch(() => controller.signal.aborted || dispatch({ type: "slotsFailed" }));
+    return () => controller.abort();
+  }, [active, s.call, s.from, s.tz, s.reload]);
 
-  const dates = useMemo(() => (from ? Array.from({ length: WINDOW }, (_, i) => addDays(from, i)) : []), [from]);
-  const selectedCall = b.calls.find((c) => c.id === call)!;
-  const times = (date && days?.[date]) || [];
-  const canGoEarlier = tz && from && from > todayIn(tz);
-  const anyFree = days && Object.values(days).some((t) => t.length);
+  const radioProps = useRadioGroup(callIds, (call) => dispatch({ type: "pickCall", call }));
+  const dates = useMemo(() => (s.from ? Array.from({ length: WINDOW }, (_, i) => addDays(s.from!, i)) : []), [s.from]);
+  const call = b.calls.find((c) => c.id === s.call)!;
+  const canEarlier = Boolean(s.today && s.from && s.from > s.today);
+  const canLater = Boolean(s.today && s.from && daysBetween(s.today, addDays(s.from, 2 * WINDOW - 1)) <= MAX_AHEAD_DAYS);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!time || !tz) return;
-    const form = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
-    const parsed = bookingInput.safeParse({ ...form, call, start: time, timeZone: tz });
+    if (!s.time || !s.tz) return;
+    const form = new FormData(e.currentTarget);
+    // The spam trap is not validated here; only the server judges it.
+    const parsed = bookingInput.safeParse({ ...Object.fromEntries(form), call: s.call, start: s.time, timeZone: s.tz });
     if (!parsed.success) {
-      const next: typeof errors = {};
+      const errors: { name?: string; email?: string } = {};
       for (const issue of parsed.error.issues) {
         const key = issue.path[0];
-        if (key === "name" || key === "email") next[key] ??= issue.message;
+        if (key === "name" || key === "email") errors[key] ??= issue.message;
       }
-      setErrors(next);
-      return;
+      // Anything else invalid is our bug, not the visitor's: say so instead of doing nothing.
+      return Object.keys(errors).length ? dispatch({ type: "invalid", errors }) : dispatch({ type: "failed", notice: b.errors.failed });
     }
-    setErrors({});
-    setFormError("");
-    setStatus("submitting");
+    dispatch({ type: "submitting" });
     try {
-      const res = await fetch("/api/booking", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(parsed.data) });
-      if (res.ok) {
-        setBooked({ ...((await res.json()) as Booked), email: parsed.data.email });
-        setStatus("booked");
-        return;
-      }
-      const json = await res.json().catch(() => ({}));
-      if (json.error === "taken") {
-        setFormError(b.errors.taken);
-        setTime(null);
-        load();
-      } else {
-        setFormError(b.errors.failed);
-      }
+      const res = await fetch("/api/booking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...parsed.data, [HONEYPOT]: form.get(HONEYPOT) ?? "" }),
+      });
+      if (res.ok) return dispatch({ type: "booked", booked: { ...((await res.json()) as Booked), email: parsed.data.email } });
+      const { error } = await res.json().catch(() => ({ error: "failed" }));
+      dispatch({ type: "failed", notice: failureNotice[error] ?? b.errors.failed, dropTime: error === "taken", reload: error === "taken" });
     } catch {
-      setFormError(b.errors.failed);
+      // No answer at all: the booking may exist, so don't invite a blind retry.
+      dispatch({ type: "failed", notice: b.errors.unknown });
     }
-    setStatus("idle");
   }
 
-  const reset = () => {
-    setBooked(null);
-    setTime(null);
-    setStatus("idle");
-    load();
-  };
-
-  const fieldProps = (name: "name" | "email") => ({
-    name,
-    id: `b-${name}`,
-    "aria-invalid": errors[name] ? true : undefined,
-    "aria-describedby": errors[name] ? `b-${name}-error` : name === "email" ? "b-email-hint" : undefined,
-  });
+  const summary = s.time && s.tz && s.date ? `${call.title} · ${call.minutes} ${b.minutes} · ${dayParts(s.date).long}, ${timeLabel(s.time, s.tz)}` : "";
 
   return (
-    <Container as="section" id="book" aria-labelledby="book-heading" className="pt-14 sm:pt-24">
+    <Container as="section" ref={sectionRef} id="book" aria-labelledby="book-heading" className="pt-14 sm:pt-24">
       <div className="rounded-xl border border-line bg-surface p-4 sm:p-8 lg:p-10">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:items-start lg:gap-10">
           <div>
@@ -150,10 +108,10 @@ export function Booking() {
             <MarkerList items={b.points} className="mt-4 hidden text-[15px] text-ink-muted sm:grid" />
           </div>
 
-          {status !== "booked" && (
+          {s.status !== "booked" && (
             <div role="radiogroup" aria-label={b.pickLabel} className="grid grid-cols-2 gap-2.5 sm:gap-4">
               {b.calls.map((c, i) => {
-                const on = c.id === call;
+                const on = c.id === s.call;
                 return (
                   <button
                     key={c.id}
@@ -162,11 +120,8 @@ export function Booking() {
                     role="radio"
                     aria-checked={on}
                     tabIndex={on ? 0 : -1}
-                    onClick={() => pickCall(c.id)}
-                    className={cn(
-                      "grid cursor-pointer content-start gap-1.5 rounded-lg p-4 text-left text-ink sm:gap-2 sm:p-6",
-                      on ? "border-2 border-jacaranda bg-jacaranda-mist p-[15px] sm:p-[23px]" : "border border-line bg-paper hover:border-ink-faint",
-                    )}
+                    onClick={() => dispatch({ type: "pickCall", call: c.id })}
+                    className={choiceClass(on, "grid content-start gap-1.5 p-4 sm:gap-2 sm:p-6", "surface")}
                   >
                     <span className={cn("font-mono text-[28px] leading-none font-medium sm:text-[40px]", on ? "text-jacaranda-deep" : "text-ink")}>
                       {c.minutes}
@@ -181,219 +136,55 @@ export function Booking() {
           )}
         </div>
 
-        <div className="mt-6 border-t border-line pt-6 sm:mt-8 sm:pt-8" aria-live="polite">
-          {status === "booked" && booked && tz ? (
+        <div className="mt-6 border-t border-line pt-6 sm:mt-8 sm:pt-8">
+          {s.status === "booked" && s.booked && s.tz ? (
+            <BookedCard booked={s.booked} fallbackStart={s.time} tz={s.tz} callTitle={call.title} onAnother={() => dispatch({ type: "reset" })} />
+          ) : s.slotsError ? (
             <div className="grid justify-items-start gap-3">
-              <Label as="span" className="text-acacia">
-                {b.bookedLabel}
-              </Label>
-              <p className="m-0 text-[22px] leading-[1.25] font-semibold tracking-[-0.02em] sm:text-[28px]">
-                {b.bookedHeading} {selectedCall.title} · {dayParts(dateIn(new Date(booked.start), tz)).long},{" "}
-                {timeLabel(booked.start, tz)}
+              <p role="alert" className="m-0 text-ink-muted">
+                {b.errors.slots}
               </p>
-              <p className="m-0 text-ink-muted">
-                {b.bookedText} <strong className="font-semibold text-ink">{booked.email}</strong>.
-              </p>
-              <div className="mt-2 flex flex-wrap gap-3">
-                {booked.meetingUrl && (
-                  <ButtonLink href={booked.meetingUrl} variant="primary">
-                    {b.joinCall}
-                  </ButtonLink>
-                )}
-                <Button onClick={reset}>{b.bookAnother}</Button>
-              </div>
-            </div>
-          ) : slotsError ? (
-            <div className="grid justify-items-start gap-3">
-              <p className="m-0 text-ink-muted">{b.errors.slots}</p>
-              <ButtonLink href={`${person.links.booking}/${call}`} variant="primary">
+              <ButtonLink href={`${person.links.booking}/${s.call}`} variant="primary">
                 {b.external}
               </ButtonLink>
             </div>
           ) : (
             <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-10">
-              {formError && !time && (
-                <p role="alert" className="m-0 rounded-md border border-ochre bg-ochre-soft px-4 py-3 text-[15px] text-ink lg:col-span-2">
-                  {formError}
-                </p>
-              )}
-              {/* Day */}
-              <div>
-                <div className="flex items-center justify-between gap-2">
-                  <Label as="h3" className="text-ink-faint">
-                    {b.dayLabel}
-                  </Label>
-                  <div className="flex gap-1">
-                    <button
-                      type="button"
-                      aria-label={b.earlier}
-                      disabled={!canGoEarlier}
-                      onClick={() => from && setFrom(addDays(from, -WINDOW))}
-                      className="flex size-11 items-center justify-center rounded-md border border-line bg-paper text-ink hover:border-ink-faint disabled:cursor-not-allowed disabled:opacity-40"
-                    >
-                      <ChevronLeft size={18} strokeWidth={1.75} aria-hidden="true" />
-                    </button>
-                    <button
-                      type="button"
-                      aria-label={b.later}
-                      disabled={!from}
-                      onClick={() => from && setFrom(addDays(from, WINDOW))}
-                      className="flex size-11 items-center justify-center rounded-md border border-line bg-paper text-ink hover:border-ink-faint disabled:cursor-not-allowed disabled:opacity-40"
-                    >
-                      <ChevronRight size={18} strokeWidth={1.75} aria-hidden="true" />
-                    </button>
-                  </div>
-                </div>
-                <ul className="m-0 mt-3 grid list-none grid-cols-4 gap-2 p-0 sm:grid-cols-7">
-                  {dates.map((d) => {
-                    const free = days?.[d]?.length ?? 0;
-                    const on = d === date;
-                    const p = dayParts(d);
-                    return (
-                      <li key={d}>
-                        <button
-                          type="button"
-                          disabled={!days || !free}
-                          aria-pressed={on}
-                          onClick={() => {
-                            setDate(d);
-                            setTime(null);
-                          }}
-                          className={cn(
-                            "grid min-h-16 w-full place-content-center justify-items-center rounded-md border text-center leading-tight",
-                            on
-                              ? "border-jacaranda bg-jacaranda text-on-jacaranda"
-                              : free
-                                ? "cursor-pointer border-line bg-paper text-ink hover:border-jacaranda"
-                                : "cursor-not-allowed border-transparent text-ink-faint",
-                            !days && "animate-pulse bg-sunken",
-                          )}
-                        >
-                          <span className="font-mono text-[11px] tracking-[0.06em] uppercase">{p.weekday} </span>
-                          <span className="text-lg font-semibold">{p.day} </span>
-                          <span className="text-[11px]">{p.month}</span>
-                          {days && !free && <span className="sr-only"> — {b.noTimes}</span>}
-                        </button>
-                      </li>
-                    );
-                  })}
-                </ul>
-                {days && !anyFree && <p className="mt-3 text-sm text-ink-muted">{b.noDays}</p>}
-              </div>
-
-              {/* Time */}
-              <div>
-                <Label as="h3" className="text-ink-faint">
-                  {b.timeLabel}
-                </Label>
-                <p className="mt-1 text-sm text-ink-muted">
-                  {date ? dayParts(date).long : " "}
-                  {tz && (
-                    <span className="text-ink-faint">
-                      {" "}
-                      · {b.timesIn} {tz.replace(/_/g, " ")}
-                    </span>
-                  )}
-                </p>
-                {!days ? (
-                  <p className="mt-4 flex items-center gap-2 text-sm text-ink-muted">
-                    <LoaderCircle size={16} className="animate-spin" aria-hidden="true" />
-                    {b.loading}
-                  </p>
-                ) : date && times.length === 0 ? (
-                  <p className="mt-4 text-sm text-ink-muted">{b.noTimes}</p>
-                ) : (
-                  <ul className="m-0 mt-3 grid max-h-[268px] list-none grid-cols-3 gap-2 overflow-y-auto p-0 sm:grid-cols-4">
-                    {times.map((t) => {
-                      const on = t === time;
-                      return (
-                        <li key={t}>
-                          <button
-                            type="button"
-                            aria-pressed={on}
-                            onClick={() => {
-                              setTime(t);
-                              setFormError("");
-                            }}
-                            className={cn(
-                              "min-h-11 w-full cursor-pointer rounded-md border text-[15px] font-semibold",
-                              on ? "border-jacaranda bg-jacaranda text-on-jacaranda" : "border-line bg-paper text-ink hover:border-jacaranda",
-                            )}
-                          >
-                            {tz && timeLabel(t, tz)}
-                          </button>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
-              </div>
-
-              {/* Details: appear once a time is chosen */}
-              {time && tz && (
-                <form noValidate onSubmit={onSubmit} className="grid gap-4 rounded-lg border border-line bg-paper p-4 sm:p-6 lg:col-span-2">
-                  <div className="flex flex-wrap items-center justify-between gap-3">
-                    <p className="m-0 font-semibold">
-                      {selectedCall.title} · {selectedCall.minutes} {b.minutes} ·{" "}
-                      <span className="text-jacaranda">
-                        {date && dayParts(date).long}, {timeLabel(time, tz)}
-                      </span>
-                    </p>
-                    <button type="button" onClick={() => setTime(null)} className="min-h-11 text-sm font-semibold text-jacaranda underline-offset-3 hover:underline">
-                      {b.change}
-                    </button>
-                  </div>
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <label htmlFor="b-name" className="grid content-start gap-1.5 text-sm font-medium">
-                      {b.nameLabel}
-                      <input {...fieldProps("name")} type="text" autoComplete="name" className={inputClass} />
-                      {errors.name && (
-                        <span id="b-name-error" className="font-normal text-pending">
-                          {errors.name}
-                        </span>
-                      )}
-                    </label>
-                    <label htmlFor="b-email" className="grid content-start gap-1.5 text-sm font-medium">
-                      {b.emailLabel}
-                      <input {...fieldProps("email")} type="email" autoComplete="email" className={inputClass} />
-                      {errors.email ? (
-                        <span id="b-email-error" className="font-normal text-pending">
-                          {errors.email}
-                        </span>
-                      ) : (
-                        <span id="b-email-hint" className="font-normal text-ink-faint">
-                          {b.emailHint}
-                        </span>
-                      )}
-                    </label>
-                  </div>
-                  <label htmlFor="b-notes" className="grid content-start gap-1.5 text-sm font-medium">
-                    {b.notesLabel}
-                    <textarea id="b-notes" name="notes" rows={3} placeholder={b.notesPlaceholder} className={cn(inputClass, "resize-y")} />
-                  </label>
-                  <div aria-hidden="true" className="absolute -left-[9999px] size-px overflow-hidden">
-                    <label>
-                      Website
-                      <input type="text" name="website" tabIndex={-1} autoComplete="off" />
-                    </label>
-                  </div>
-                  {formError && (
-                    <p role="alert" className="m-0 text-[15px] text-pending">
-                      {formError}
-                    </p>
-                  )}
-                  <Button type="submit" variant="primary" disabled={status === "submitting"} className="w-full sm:w-auto sm:justify-self-start">
-                    {status === "submitting" && <LoaderCircle size={18} className="animate-spin" aria-hidden="true" />}
-                    {status === "submitting" ? b.confirming : b.confirm}
-                  </Button>
-                </form>
+              {s.notice && !s.time && <FormError className="rounded-md border border-danger px-4 py-3 lg:col-span-2">{s.notice}</FormError>}
+              <DayPicker
+                dates={dates}
+                days={s.days}
+                date={s.date}
+                canEarlier={canEarlier}
+                canLater={canLater}
+                onPick={(date) => dispatch({ type: "pickDate", date })}
+                onEarlier={() => s.from && dispatch({ type: "page", from: addDays(s.from, -WINDOW) })}
+                onLater={() => s.from && dispatch({ type: "page", from: addDays(s.from, WINDOW) })}
+              />
+              <TimePicker
+                date={s.date}
+                times={(s.date && s.days?.[s.date]) || []}
+                time={s.time}
+                tz={s.tz}
+                loading={active && !s.days}
+                onPick={(time) => dispatch({ type: "pickTime", time })}
+              />
+              {s.time && (
+                <DetailsForm
+                  summary={summary}
+                  errors={s.errors}
+                  notice={s.notice}
+                  submitting={s.status === "submitting"}
+                  onChangeTime={() => dispatch({ type: "pickTime", time: null })}
+                  onSubmit={onSubmit}
+                />
               )}
             </div>
           )}
         </div>
 
         <a
-          href={`${person.links.booking}/${call}`}
+          href={`${person.links.booking}/${s.call}`}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-4 ml-auto flex min-h-11 w-fit items-center text-sm font-semibold text-ink-muted underline-offset-3 hover:text-jacaranda hover:underline"

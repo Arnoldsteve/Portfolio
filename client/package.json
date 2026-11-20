@@ -4,13 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "prebuild": "pnpm check-placeholders",
+    "prebuild": "pnpm check-placeholders && pnpm check-env",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "check-placeholders": "node --experimental-strip-types --no-warnings scripts/check-placeholders.ts",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "check-env": "node --experimental-strip-types --no-warnings scripts/check-env.ts",
+    "test:unit": "playwright test --project=unit",
+    "test:visual": "VISUAL=1 playwright test --project=visual-desktop --project=visual-phone",
+    "test:live": "LIVE=1 playwright test --project=live"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
@@ -25,14 +29,13 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",
-    "@eslint/eslintrc": "^3.3.3",
     "@playwright/test": "^1.65.1",
     "@tailwindcss/postcss": "^4.1.17",
     "@types/node": "^20.19.25",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "eslint": "^9.39.1",
-    "eslint-config-next": "15.4.7",
+    "eslint-config-next": "16.0.7",
     "prettier": "^3.7.4",
     "tailwindcss": "^4.1.17",
     "typescript": "^5.9.3"
@@ -43,5 +46,8 @@
     "edge >= 111",
     "firefox >= 113",
     "safari >= 16.4"
-  ]
+  ],
+  "engines": {
+    "node": ">=22.6"
+  }
 }

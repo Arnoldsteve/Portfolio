@@ -11,5 +11,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...Object.keys(caseStudies).map((slug) => `/work/${slug}`),
     ...posts.map((p) => `/writing/${p.slug}`),
   ];
-  return paths.map((path) => ({ url: `${siteUrl}${path === "/" ? "" : path}`, lastModified: new Date() }));
+  // No lastModified: a build timestamp would claim every page changed on every deploy.
+  return paths.map((path) => ({ url: `${siteUrl}${path === "/" ? "" : path}` }));
 }

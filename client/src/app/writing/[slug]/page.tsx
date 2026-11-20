@@ -2,12 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { person, seo, siteUrl, ui, writingSection } from "@/content/site";
-import { posts, readingMinutes } from "@/content/posts";
+import { formatDate, posts, readingMinutes } from "@/content/posts";
 import { PostBody } from "@/components/writing/post-body";
 import { StickyCta } from "@/components/layout/sticky-cta";
 import { ButtonLink } from "@/components/ui/button";
 import { Container, Label } from "@/components/ui/primitives";
-import { isPlaceholder } from "@/lib/utils";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -43,7 +42,7 @@ export default async function PostPage({ params }: Params) {
     description: post.description,
     url: `${siteUrl}/writing/${post.slug}`,
     author: { "@id": `${siteUrl}/#person`, name: person.name },
-    ...(isPlaceholder(post.date) ? {} : { datePublished: post.date }),
+    datePublished: post.date,
   };
 
   return (
@@ -58,7 +57,7 @@ export default async function PostPage({ params }: Params) {
           <h1 className="mt-2 text-[34px] leading-[1.1] font-semibold tracking-[-0.03em] sm:mt-3 sm:text-5xl sm:leading-[1.08]">{post.title}</h1>
           <p className="mt-4 text-lg leading-[1.55] text-ink-muted sm:text-xl">{post.description}</p>
           <p className="mt-4 border-b border-line pb-6 font-mono text-xs text-ink-faint uppercase">
-            {person.name} · {post.date} · {readingMinutes(post)} {ui.minutes}
+            {person.name} · {formatDate(post.date)} · {readingMinutes(post)} {ui.minutes}
           </p>
           <PostBody blocks={post.body} />
 

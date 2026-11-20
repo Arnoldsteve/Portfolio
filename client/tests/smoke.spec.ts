@@ -29,10 +29,11 @@ for (const route of routes) {
   }
 }
 
-test("placeholders render visibly, never invented", async ({ page }) => {
+test("remaining placeholders render visibly, never invented", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByText("[N]").first()).toBeVisible();
-  await expect(page.getByText(/Taking on 1 new engagement from \[month\]/)).toBeVisible();
+  // Image slots stay as labelled wells until real screenshots exist.
+  await expect(page.getByText("[Marketplace + creator dashboard]")).toBeVisible();
+  await expect(page.getByText("Taking on 1 new engagement now")).toBeVisible();
 });
 
 test("theme toggle persists without a flash on reload", async ({ page }) => {

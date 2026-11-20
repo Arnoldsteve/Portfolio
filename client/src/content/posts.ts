@@ -1,6 +1,6 @@
 // Blog posts, as structured content (no MDX dependency).
 // Written from Steve's own repos and verified findings. Steve: read each before publishing,
-// and fill the [DATE] placeholders with the day you publish.
+// Dates are ISO (YYYY-MM-DD).
 
 export type Block = { h2: string } | { p: string } | { ul: string[] } | { code: string };
 
@@ -8,6 +8,7 @@ export type Post = {
   slug: string;
   title: string;
   description: string;
+  /** ISO date, YYYY-MM-DD. */
   date: string;
   tag: string;
   body: Block[];
@@ -19,7 +20,7 @@ export const posts: Post[] = [
     slug: 'payment-callbacks-exactly-once',
     title: 'A retried payment callback must never pay twice',
     description: 'How Umoja records every M-Pesa payment and payout exactly once: idempotency keys, an append-only ledger and an outbox.',
-    date: '[DATE]',
+    date: '2026-11-20',
     tag: 'Payments',
     body: [
       { p: 'Payment providers retry. M-Pesa, Paystack and Stripe will all send the same callback more than once if your server is slow, times out or returns an error. On Umoja — a live marketplace where buyers pay with M-Pesa and creators withdraw to M-Pesa — we treated duplicate callbacks as a when, not an if. Here is the design that makes a repeated callback harmless.' },
@@ -51,7 +52,7 @@ export const posts: Post[] = [
     slug: 'wifi-payer-vs-device',
     title: 'The phone that pays isn’t always the device that connects',
     description: 'Designing Jaza WiFi, a self-service paid hotspot: why payment and internet access are two different identities.',
-    date: '[DATE]',
+    date: '2026-11-13',
     tag: 'Product design',
     body: [
       { p: 'Jaza WiFi is a self-service paid hotspot I’m building. A customer connects, sees clear plans, pays with M-Pesa on their own phone and is online in under a minute, with no operator involved. The first design question turned out to be the most important one: who, exactly, is the customer?' },
@@ -80,7 +81,7 @@ export const posts: Post[] = [
     slug: 'three-bugs-before-launch',
     title: 'Three bugs a booking platform hides until launch',
     description: 'A payment reference that could be reused, a race that oversold limited slots, and a timezone bug with company-wide reach — and how to look for them.',
-    date: '[DATE]',
+    date: '2026-11-06',
     tag: 'QA',
     body: [
       { p: 'I lead QA on a travel platform before its launch. Testing turned up three problems that would have cost real money in production. None of them were exotic, and that is the point: they hide in almost every booking or checkout system, and you only find them if you go looking.' },
@@ -108,4 +109,8 @@ export const posts: Post[] = [
 export function readingMinutes(post: Post): number {
   const text = post.body.map((b) => ('ul' in b ? b.ul.join(' ') : Object.values(b)[0])).join(' ');
   return Math.max(1, Math.round(text.split(/\s+/).length / 220));
+}
+
+export function formatDate(iso: string): string {
+  return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
 }

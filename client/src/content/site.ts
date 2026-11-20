@@ -22,12 +22,12 @@ export const person = {
   links: {
     github: 'https://github.com/Arnoldsteve',
     linkedin: 'https://www.linkedin.com/in/steve-arnold-otieno',
-    whatsapp: '[WhatsApp link]',
+    whatsapp: 'https://wa.me/254796335895',
     cv: '/Steve_Arnold_SE_Resume.pdf',
     satechs: 'https://www.satechs-solutions.com/',
     booking: '[Cal.com booking URL]',
   },
-  availability: 'Taking on 1 new engagement from [month]',
+  availability: 'Taking on 1 new engagement now',
 };
 
 export const nav = [
@@ -81,7 +81,7 @@ export const stats = [
   { num: '99.8%', cap: 'transaction success on a UK travel checkout (iTravel)' },
   { num: '45%', cap: 'faster API responses after N+1 fixes (iTravel)' },
   { num: '3 rails', cap: 'Stripe, M-Pesa and Paystack shipped to production' },
-  { num: '[N]', cap: 'clients served through SaTechs' },
+  { num: '10+', cap: 'clients served through SaTechs' },
 ];
 
 export const experience = [
@@ -93,7 +93,7 @@ export const experience = [
     ],
   },
   {
-    org: 'iTravel Holidays', role: 'Full Stack Software Engineer', context: 'UK-based, remote', dates: 'Mar 2024 – [end]', current: false,
+    org: 'iTravel Holidays', role: 'Full Stack Software Engineer', context: 'UK-based, remote', dates: 'Mar 2024 – Apr 2026', current: false,
     points: [
       'Stripe webhooks and idempotency behind a 99.8% transaction success rate on global bookings',
       'Fixed N+1 queries and indexing, cutting API response times by 45%',
@@ -201,7 +201,7 @@ export const languages = ['English', 'Swahili'];
 export const about = {
   eyebrow: 'About',
   heading: 'Engineer first, tester always.',
-  bio: "I'm Steve Arnold Otieno, a full-stack software engineer based in Nairobi and working remotely with teams worldwide. I build payment-heavy platforms in NestJS, Next.js and PostgreSQL, and I test them like they will break, because in production they do. I lead QA at Tourlast, I spent [N years] as a remote engineer for UK-based iTravel Holidays, and I founded SaTechs Solutions.",
+  bio: "I'm Steve Arnold Otieno, a full-stack software engineer based in Nairobi and working remotely with teams worldwide. I build payment-heavy platforms in NestJS, Next.js and PostgreSQL, and I test them like they will break, because in production they do. I lead QA at Tourlast, I spent two years as a remote engineer for UK-based iTravel Holidays, and I founded SaTechs Solutions.",
   portrait: '[Portrait]',
   habitsEyebrow: 'How I work',
   habitsHeading: 'Four habits you can hold me to',
@@ -279,9 +279,9 @@ export const contactPage = {
 };
 
 export const faq = [
-  { q: 'Do you work with clients outside Kenya?', a: '[Your answer: time-zone overlap, contracts, payment in USD/EUR.]' },
+  { q: 'Do you work with clients outside Kenya?', a: 'Yes. I worked remotely for UK-based iTravel Holidays for two years. UTC+3 overlaps a full European working day and the US morning, I work async by default, and I invoice in USD, EUR or GBP.' },
   { q: 'Why do builds go to SaTechs?', a: 'SaTechs is my studio. Client builds get a team, a contract and a QA report, and I stay involved.' },
-  { q: 'Are you open to full-time roles?', a: '[Your answer, and what kind of team you want to join.]' },
+  { q: 'Are you open to full-time roles?', a: 'Yes — full-time or contract, remote. I do my best work where I own features end to end and quality is part of the job, especially in payments and fintech.' },
   { q: 'Can I see code for projects without a live demo?', a: 'Yes. GradeHub has no public demo right now, but I can give code access on request — pick “I’m hiring” on the form and say which project.' },
 ];
 
@@ -336,12 +336,11 @@ export const umojaCaseStudy: CaseStudy = {
   seoDescription: 'A live digital-products marketplace with M-Pesa checkout and payouts, built on an append-only double-entry ledger.',
   status: 'live',
   liveUrl: 'https://umojacoaches.com',
-  meta: { role: '[Your role on Umoja]', rails: 'M-Pesa · Paystack', stack: 'NestJS · Next.js · Drizzle · Neon Postgres · BullMQ + Redis · Cloudflare R2' },
+  meta: { role: 'Full-stack engineer & QA', rails: 'M-Pesa · Paystack', stack: 'NestJS · Next.js · Drizzle · Neon Postgres · BullMQ + Redis · Cloudflare R2' },
   showcase: { dashboard: '[Creator dashboard]', phone: '[M-Pesa checkout on a phone]' },
   results: [
-    { num: '[N]', cap: 'creators selling on the marketplace' },
-    { num: '[N]', cap: 'orders paid with M-Pesa' },
-    { num: '[N]', cap: 'duplicate charges or payouts since launch' },
+    { num: '~20', cap: 'creators selling within the first month of launch' },
+    { num: '~30', cap: 'sales paid with M-Pesa in the first month' },
   ],
   problem: 'Creators selling digital work — courses, templates, ebooks, coaching — were using tools built for other markets: payouts they couldn’t count on, fees they couldn’t see, and checkouts their buyers didn’t trust. Buyers had the mirror-image fear: “I’ll pay and get nothing.” The client wanted a marketplace where both sides could trust the money.',
   constraints: [
@@ -358,8 +357,8 @@ export const umojaCaseStudy: CaseStudy = {
     chose: 'An append-only, double-entry ledger. Balances are derived from immutable entries, written in the same database transaction as the order and the wallet, with an outbox for the events that follow.',
     rejected: 'A balance column updated in place. Simpler to build, but a retried callback or a half-finished write could silently change a creator’s money, with no trail to prove what happened.',
   },
-  result: 'Umoja is live at umojacoaches.com, with creators selling and buyers paying in KES. [Numbers since launch: creators, orders, payouts — and in what time.]',
-  change: '[One honest lesson from building Umoja. Senior readers trust this paragraph most.]',
+  result: 'Umoja is live at umojacoaches.com, with creators selling and buyers paying in KES. In its first month, close to 20 creators were selling and close to 30 sales were paid — each one recorded exactly once in the ledger.',
+  change: 'I’d put the seller dashboard in front of real creators earlier. The payment engineering held up from day one; the questions creators actually asked were about when payouts land and what the fees are. Now I put money timing and fees on screen from the first prototype.',
   cta: { eyebrow: 'Need a platform like this?', title: 'Get a quote from SaTechs', link: 'Start a project →', href: '/contact?route=build' },
   next: { label: 'Jaza WiFi', href: '/work/jaza-wifi' },
 };
@@ -389,8 +388,8 @@ export const jazaCaseStudy: CaseStudy = {
     chose: 'The cloud server owns paid time, keyed to the device. That makes the fairness promises possible: the clock pauses when the internet is down, and a device that drops and rejoins keeps its balance without paying again.',
     rejected: 'Letting the router’s RADIUS session timers own time. They stay — but only as a backstop, not the source of truth.',
   },
-  result: 'Jaza WiFi is in development. The first site is a home connection, and payments start with Paystack’s M-Pesa STK push, built behind an interface so direct Daraja can be swapped in later without a rewrite. [What works end to end today.]',
-  change: '[One honest lesson so far.]',
+  result: 'Jaza WiFi is in development. The first site is a home connection, and payments start with Paystack’s M-Pesa STK push, built behind an interface so direct Daraja can be swapped in later without a rewrite. The software is complete and tested end to end; the first site goes live as soon as the MikroTik router is installed.',
+  change: 'I’d order the router on day one. The software was finished before the hardware arrived; next time the physical setup starts in parallel, so testing on the real network isn’t the last step.',
   cta: { eyebrow: 'Want this for your site?', title: 'Talk to me about Jaza WiFi', link: 'Book a call →', href: '/contact?route=partner' },
   next: { label: 'Umoja', href: '/work/umoja' },
 };

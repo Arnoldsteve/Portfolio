@@ -44,7 +44,7 @@ export const person = {
     github: 'https://github.com/Arnoldsteve',
     linkedin: 'https://www.linkedin.com/in/steve-arnold-otieno',
     whatsapp: 'https://wa.me/254796335895',
-    cv: '/Steve_Arnold_SE_Resume.pdf',
+    cv: '/Steve_Arnold_Otieno_CV.pdf',
     satechs: 'https://www.satechs-solutions.com/',
     booking: 'https://cal.com/steve-arnold',
   },
@@ -93,7 +93,7 @@ export const hero = {
   headline: 'I build software that moves money, and I test it before your customers do.',
   lead: 'Full-stack software engineer and Lead QA. I ship payment systems end to end — Stripe, M-Pesa and Paystack in production — and work remotely with teams worldwide. Founder of SaTechs Solutions.',
   primaryCta: { label: 'See the work', href: '/work/umoja' },
-  secondaryCta: { label: 'Download CV', href: '/Steve_Arnold_SE_Resume.pdf' },
+  secondaryCta: { label: 'Download CV', href: person.links.cv },
   currently: { title: 'Lead QA · Tourlast', sub: 'Founder · SaTechs Solutions' },
   portrait: shots.portrait as Shot,
 };
@@ -105,31 +105,46 @@ export const stats = [
   { num: '10+', cap: 'clients served through SaTechs' },
 ];
 
-export const experience = [
+/** Company logo (real file) for the experience strip; companies without one show their name. */
+/** `mark`: the file is a symbol only, so the company name is shown beside it. */
+export type Logo = { src: string; alt: string; width: number; height: number; mark?: boolean };
+
+export const experience: {
+  org: string; role: string; context: string; dates: string; current: boolean; onHome: boolean; logo?: Logo; points: string[];
+}[] = [
   {
-    org: 'Tourlast', role: 'Lead QA', context: 'travel-tech, pre-launch', dates: 'Jul 2026 – now', current: true,
+    org: 'Tourlast', role: 'Senior Backend Engineer & Lead QA', context: 'online travel platform, pre-launch', dates: 'Jul 2026 – now', current: true, onHome: true,
     points: [
-      'Rebuilt the bug tracker across Stays, Experiences and Flights, with a live report dashboard',
+      'Lead QA for a team of about 10 engineers: test plans, code review, and API, end-to-end and mobile tests (Playwright, Pest, Bruno)',
+      'Advise engineers on technical trade-offs as a senior engineer, and build parts of the Laravel backend: OAuth2 single sign-on across stays, flights and experiences, and Filament admin panels',
+      'Built a CRM (Laravel, Vue.js) for customers, bookings and staff workflows, with role permissions',
       'Found a payment-reference reuse flaw, an oversell race condition and a company-wide timezone bug, and wrote its fix plan',
     ],
   },
   {
-    org: 'iTravel Holidays', role: 'Full Stack Software Engineer', context: 'UK-based, remote', dates: 'Mar 2024 – Apr 2026', current: false,
+    org: 'iTravel Holidays', role: 'Software Engineer', context: 'UK-based, remote', dates: 'Mar 2024 – Apr 2026', current: false, onHome: true,
+    logo: { src: '/images/logos/itravel.png', alt: 'iTravel Holidays', width: 494, height: 177 },
     points: [
-      'Stripe webhooks and idempotency behind a 99.8% transaction success rate on global bookings',
+      'Stripe webhooks and idempotency behind a 99.8% transaction success rate on global bookings; contributed to a ~30% conversion lift',
       'Fixed N+1 queries and indexing, cutting API response times by 45%',
+      'Built Node.js APIs (NestJS, Fastify, Express) and React features on Supabase, with custom auth, Keycloak and RBAC',
       'Designed a multi-tenant invoice module with strict per-client data isolation',
     ],
   },
   {
-    org: 'SaTechs Solutions', role: 'Founder', context: 'software and QA studio', dates: 'Founder', current: false,
+    org: 'Ecobiz Limited', role: 'Junior Software Engineer', context: 'Mombasa', dates: 'Aug 2023 – Dec 2023', current: false, onHome: true,
+    points: ['Built and maintained PHP and Laravel web applications, and optimised MySQL queries'],
+  },
+  {
+    org: 'SaTechs Solutions', role: 'Founder', context: 'software and QA studio', dates: 'Founder', current: false, onHome: true,
+    logo: { src: '/images/logos/satechs.png', alt: '', width: 284, height: 284, mark: true },
     points: [
       'Client platforms including Umoja (creator marketplace with M-Pesa checkout and payouts) and Aura by Racheal (paid enrolment with instalments)',
-      'Built the company site and admin dashboard',
+      'Built the company site, a CRM and admin dashboard (leads, clients, sales pipeline, RBAC)',
     ],
   },
   {
-    org: 'GradeHub · ArtisanBase', role: 'Lead architect', context: 'projects', dates: 'Projects', current: false,
+    org: 'GradeHub · ArtisanBase', role: 'Lead architect', context: 'projects', dates: 'Projects', current: false, onHome: false,
     points: [
       'GradeHub: double-entry fee ledger, internal event bus, permission-based access control',
       'ArtisanBase: one NestJS API serving a storefront and an admin app, with Redis caching',
@@ -214,15 +229,15 @@ export const habits = [
   { title: 'Async by default', text: 'UTC+3 overlaps a full EU day and the start of the US day; updates are written so time zones don’t matter.' },
 ];
 
-export const stack = ['TypeScript', 'NestJS', 'Node.js', 'Next.js', 'React', 'PostgreSQL', 'Prisma', 'Drizzle', 'Redis', 'BullMQ', 'Laravel', 'Docker', 'AWS', 'GitHub Actions', 'Playwright', 'Stripe', 'M-Pesa', 'Paystack'];
+export const stack = ['TypeScript', 'NestJS', 'Node.js', 'Next.js', 'React', 'Vue.js', 'Laravel', 'Filament', 'PostgreSQL', 'MySQL', 'Prisma', 'Drizzle', 'Redis', 'BullMQ', 'Docker', 'AWS', 'GitHub Actions', 'Playwright', 'Pest', 'Bruno', 'Stripe', 'M-Pesa', 'Paystack'];
 
-export const education = { degree: 'B.Sc. Computer Science', school: 'Technical University of Mombasa', years: '2020–2024' };
+export const education = { degree: 'B.Sc. Computer Science (Second Class Honours)', school: 'Technical University of Mombasa', years: '2020–2024' };
 export const languages = ['English', 'Swahili'];
 
 export const about = {
   eyebrow: 'About',
   heading: 'Engineer first, tester always.',
-  bio: "I'm Steve Arnold Otieno, a full-stack software engineer based in Nairobi and working remotely with teams worldwide. I build payment-heavy platforms in NestJS, Next.js and PostgreSQL, and I test them like they will break, because in production they do. I lead QA at Tourlast, I spent two years as a remote engineer for UK-based iTravel Holidays, and I founded SaTechs Solutions.",
+  bio: "I'm Steve Arnold Otieno, a full-stack software engineer based in Nairobi and working remotely with teams worldwide. I build payment-heavy platforms in NestJS, Next.js, Laravel and PostgreSQL, and I test them like they will break, because in production they do. I'm Senior Backend Engineer and Lead QA at Tourlast, I spent two years as a remote engineer for UK-based iTravel Holidays, and I founded SaTechs Solutions. I use Cursor, Claude and Copilot every day — and review and test every line they write.",
   portrait: shots.portrait as Shot,
   habitsEyebrow: 'How I work',
   habitsHeading: 'Four habits you can hold me to',

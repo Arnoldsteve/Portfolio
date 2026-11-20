@@ -100,7 +100,7 @@ test.describe("booking", () => {
     await page.route("**/api/booking/slots?*", (route) => {
       const call = new URL(route.request().url()).searchParams.get("call");
       route.fulfill({
-        json: { days: { [day(1)]: [`${day(1)}T07:00:00.000Z`, `${day(1)}T07:30:00.000Z`], [day(2)]: call === "30min" ? [`${day(2)}T09:00:00.000Z`] : [] } },
+        json: { days: { [day(1)]: [`${day(1)}T07:00:00.000Z`, `${day(1)}T07:30:00.000Z`], [day(2)]: call === "60-min-meeting" ? [`${day(2)}T09:00:00.000Z`] : [] } },
       });
     });
     await page.route("**/api/booking", async (route) => {
@@ -111,7 +111,7 @@ test.describe("booking", () => {
 
   test("call → day → time → details → booked, all on the page", async ({ page }) => {
     await page.goto("/contact#book");
-    await expect(page.getByRole("radio", { name: /Quick intro/ })).toHaveAttribute("aria-checked", "true");
+    await expect(page.getByRole("radio", { name: /Intro call/ })).toHaveAttribute("aria-checked", "true");
 
     // First free day is chosen automatically; days with no times are disabled.
     const times = page.locator("#book").getByRole("button", { pressed: false }).filter({ hasText: /\d:\d\d/ });
@@ -130,16 +130,16 @@ test.describe("booking", () => {
     await expect(page.getByText("You’re booked.")).toBeVisible();
     await expect(page.getByText("wanjiku@example.com")).toBeVisible();
     await expect(page.getByRole("link", { name: "Join link" })).toHaveAttribute("href", "https://app.cal.com/video/abc");
-    expect(booked).toMatchObject({ call: "15min", name: "Wanjiku Kamau", email: "wanjiku@example.com", notes: "Payment flow review" });
+    expect(booked).toMatchObject({ call: "30min", name: "Wanjiku Kamau", email: "wanjiku@example.com", notes: "Payment flow review" });
     expect(booked!.timeZone).toBeTruthy();
   });
 
   test("switching call reloads its free times", async ({ page }) => {
     await page.goto("/contact#book");
-    await page.getByRole("radio", { name: /Quick intro/ }).focus();
+    await page.getByRole("radio", { name: /Intro call/ }).focus();
     await page.keyboard.press("ArrowRight");
     await expect(page.getByRole("radio", { name: /Deep dive/ })).toHaveAttribute("aria-checked", "true");
-    await expect(page.locator("#book").getByRole("link", { name: /Book on Cal.com instead/ })).toHaveAttribute("href", "https://cal.com/steve-arnold/30min");
+    await expect(page.locator("#book").getByRole("link", { name: /Book on Cal.com instead/ })).toHaveAttribute("href", "https://cal.com/steve-arnold/60-min-meeting");
   });
 
   test("a slot taken meanwhile shows a clear message and keeps the visitor in flow", async ({ page }) => {
@@ -172,7 +172,7 @@ test.describe("booking API (never reaches Cal)", () => {
     expect((await request.get("/api/booking/slots?call=99min&start=x&end=y&tz=Nowhere")).status()).toBe(400);
     const res = await request.post("/api/booking", {
       headers: { "x-forwarded-for": "203.0.113.90" },
-      data: { call: "15min", start: "not-a-date", timeZone: "Africa/Nairobi", name: "", email: "nope" },
+      data: { call: "30min", start: "not-a-date", timeZone: "Africa/Nairobi", name: "", email: "nope" },
     });
     expect(res.status()).toBe(400);
   });
@@ -180,7 +180,7 @@ test.describe("booking API (never reaches Cal)", () => {
   test("honeypot gets a silent 200", async ({ request }) => {
     const res = await request.post("/api/booking", {
       headers: { "x-forwarded-for": "203.0.113.91" },
-      data: { call: "15min", start: "2030-01-07T07:00:00.000Z", timeZone: "Africa/Nairobi", name: "Bot", email: "bot@example.com", website: "spam" },
+      data: { call: "30min", start: "2030-01-07T07:00:00.000Z", timeZone: "Africa/Nairobi", name: "Bot", email: "bot@example.com", website: "spam" },
     });
     expect(res.status()).toBe(200);
   });

@@ -17,37 +17,49 @@ client/
 ├── src/content/site.ts          # ALL copy. Text in [brackets] is a placeholder still to fill.
 ├── src/app/tokens.css           # Design tokens (light/dark) — source: handoff/design/tokens.json
 ├── src/app/globals.css          # Tailwind v4 @theme mapping to the tokens
-├── src/app/                     # Routes: /, /work/[slug], /about, /contact, /api/contact, OG image, sitemap, robots
-├── src/components/ui/           # Primitives: Button, Badge, Label, Stat, SectionHeader, ShotWell…
-├── src/components/layout/       # Header, mobile menu, Footer, theme toggle, sticky phone CTA
-├── scripts/check-placeholders.ts
-└── tests/                       # Playwright smoke, axe accessibility and contact-form tests
+├── src/content/                 # ALL copy and data, split by area (profile, work, contact, posts); site.ts re-exports
+├── src/app/                     # Routes: /, /work/[slug], /about, /contact, /writing, /api/contact, /api/booking(/slots)
+├── src/components/              # ui/ primitives, layout/, home/, work/, contact/ (contact form + native booking)
+├── src/lib/                     # Schemas (zod), Cal.com client, rate limiter, dates, spam trap
+├── scripts/                     # check-placeholders.ts, check-env.ts (run before every build)
+└── tests/                       # e2e + axe (3 engines), unit/, visual/ (opt-in), live/ (opt-in)
 ```
 
+CI (`.github/workflows/ci.yml`) runs lint, typecheck, build and the full test suite on every push and PR.
+
 ## Running locally
+
+Requires Node 22.6+ (`.nvmrc`).
 
 ```bash
 cd client
 pnpm install
-cp .env.example .env.local   # fill in Resend + recipient addresses to send real mail
+cp .env.example .env.local   # Resend + recipient addresses, to send real mail
 pnpm dev
 ```
 
 | Command | What it does |
 | --- | --- |
-| `pnpm build` | Lists remaining placeholders, then builds. Fails on Vercel **production** builds while placeholders remain, unless `ALLOW_PLACEHOLDERS=1`. |
-| `pnpm lint` / `pnpm typecheck` | ESLint / TypeScript |
-| `pnpm check-placeholders` | Lists every `[placeholder]` left in `src/content/` |
-| `pnpm test:e2e` | Playwright at 1440 / 834 / 390 px, light + dark, axe on every page (run `pnpm build` first; first run: `pnpm exec playwright install chromium`) |
+| `pnpm build` | Checks placeholders and env vars, then builds. Both checks fail **production** builds on Vercel (`VERCEL_ENV=production`): placeholders unless `ALLOW_PLACEHOLDERS=1`, and missing contact-form env vars always. |
+| `pnpm lint` / `pnpm typecheck` | ESLint (Next 16 rules) / TypeScript |
+| `pnpm test:e2e` | Every page at 1440 / 834 / 390 (Chromium), iPhone (WebKit) and desktop Firefox, light + dark, axe on every page, plus unit tests. Run `pnpm build` first; first time: `pnpm exec playwright install chromium webkit firefox`. |
+| `pnpm test:unit` | Pure logic only (dates, schemas, rate limit, booking state) — fast, no browser |
+| `pnpm test:visual` | Screenshot comparison against approved baselines. After an intended design change: `pnpm test:visual --update-snapshots` |
+| `pnpm test:live` | **Real** Cal.com booking and **real** contact email (needs `.env.local`). Cancel the test booking in Cal.com afterwards. |
 
 ## Editing content
 
-Change copy, links and numbers in `client/src/content/site.ts` only. Never replace a placeholder with an
-invented number, client name, date or quote — see `handoff/docs/FACTS.md` for what is verified.
-To add a full case study, add an entry to `caseStudies` (same shape as `jazaCaseStudy`); until then the
-project's `/work/<slug>` page shows "Case study coming soon".
+Change copy, links and numbers in `client/src/content/` only. Never invent a number, client name, date or
+quote — see `handoff/docs/FACTS.md` for what is verified. To add a full case study, add an entry to
+`caseStudies` in `content/work.ts` (same shape as `umojaCaseStudy`).
 
-## Contact form env vars (Vercel)
+## Booking
+
+The contact page books calls natively through Cal.com's public API (no API key): visitors pick a call, day
+and time on the site. Calls offered are `booking.calls` in `content/contact.ts`; their ids must match the
+event slugs on cal.com/steve-arnold.
+
+## Env vars (Vercel)
 
 `RESEND_API_KEY`, `CONTACT_FROM`, `CONTACT_TO_STEVE` (hire / partner), `CONTACT_TO_SATECHS` (build).
 

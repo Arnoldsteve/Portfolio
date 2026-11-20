@@ -1,41 +1,33 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { caseStudies, flagship, projects, seo } from "@/content/site";
-import { CaseStudy, ComingSoon } from "@/components/work/case-study";
+import { caseStudies, seo } from "@/content/site";
+import { CaseStudy } from "@/components/work/case-study";
 import { StickyCta } from "@/components/layout/sticky-cta";
 import { ButtonLink } from "@/components/ui/button";
 
 type Params = { params: Promise<{ slug: string }> };
 
-const allWork = [{ slug: flagship.slug, name: flagship.name, kind: flagship.kind }, ...projects];
-
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return allWork.map(({ slug }) => ({ slug }));
+  return Object.keys(caseStudies).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const { slug } = await params;
-  const work = allWork.find((w) => w.slug === slug);
-  if (!work) return {};
-  const { title } = seo.caseStudy(work.name);
-  const description = seo.caseStudyDescriptions[slug];
+  const cs = caseStudies[(await params).slug];
+  if (!cs) return {};
+  const title = seo.caseStudy(cs.title);
   return {
     title: { absolute: title },
-    description,
-    alternates: { canonical: `/work/${slug}` },
-    openGraph: { title, description, url: `/work/${slug}` },
+    description: cs.seoDescription,
+    alternates: { canonical: `/work/${cs.slug}` },
+    openGraph: { title, description: cs.seoDescription, url: `/work/${cs.slug}`, type: "article" },
   };
 }
 
 export default async function WorkPage({ params }: Params) {
-  const { slug } = await params;
-  const work = allWork.find((w) => w.slug === slug);
-  if (!work) notFound();
-
-  const cs = caseStudies[slug];
-  if (!cs) return <ComingSoon name={work.name} eyebrow={work.kind} />;
+  const cs = caseStudies[(await params).slug];
+  if (!cs) notFound();
 
   return (
     <>

@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { caseStudyUi as t, type CaseStudy as Data } from "@/content/site";
-import { ButtonLink } from "@/components/ui/button";
+import { caseStudyUi as t, statusLabels, ui, type CaseStudy as Data } from "@/content/site";
 import { Container, Label, MarkerList, ShotWell, Stat } from "@/components/ui/primitives";
 import { cn } from "@/lib/utils";
 import { Toc } from "./toc";
@@ -35,31 +34,51 @@ export function CaseStudy({ cs }: { cs: Data }) {
         <Label className="mt-4 sm:mt-8">{cs.eyebrow}</Label>
         <h1 className="mt-2 text-5xl leading-none font-semibold tracking-[-0.04em] sm:mt-3 sm:text-[clamp(44px,6vw,80px)]">{cs.title}</h1>
         <p className="mt-3.5 max-w-[36ch] text-lg leading-[1.5] text-ink-muted sm:mt-5 sm:text-[22px]">{cs.oneLiner}</p>
-        <dl className="m-0 mt-6 grid grid-cols-2 gap-4 border-t border-line pt-4 sm:mt-10 sm:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] sm:gap-6 sm:pt-6">
-          {(Object.keys(t.metaLabels) as (keyof typeof t.metaLabels)[]).map((key) => (
+        {cs.liveUrl && (
+          <a
+            href={cs.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-flex min-h-11 items-center font-semibold text-jacaranda underline-offset-3 hover:underline sm:mt-4"
+          >
+            {ui.visitLive}
+          </a>
+        )}
+        <dl className="m-0 mt-6 grid grid-cols-2 gap-4 border-t border-line pt-4 sm:mt-8 sm:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] sm:gap-6 sm:pt-6">
+          {(
+            [
+              ["role", cs.meta.role],
+              ["status", statusLabels[cs.status]],
+              ["rails", cs.meta.rails],
+              ["stack", cs.meta.stack],
+            ] as const
+          ).map(([key, value]) => (
             <div key={key}>
               <dt className="font-mono text-xs leading-4 font-medium tracking-[0.06em] text-ink-faint uppercase">{t.metaLabels[key]}</dt>
               <dd className="m-0 mt-1.5 flex items-center gap-2 text-[15px] sm:text-base">
-                {key === "status" && <span aria-hidden="true" className="size-2 rounded-full bg-acacia" />}
-                {cs.meta[key]}
+                {/* acacia = live, nothing else */}
+                {key === "status" && cs.status === "live" && <span aria-hidden="true" className="size-2 shrink-0 rounded-full bg-acacia" />}
+                {value}
               </dd>
             </div>
           ))}
         </dl>
       </Container>
 
-      <Container as="section" aria-label="Showcase and results">
+      <Container as="section" aria-label="Showcase">
         <div className="flex flex-wrap justify-center gap-6 rounded-[20px] bg-ink-band p-5 sm:rounded-xl sm:p-10">
           <ShotWell label={cs.showcase.dashboard} onBand className="hidden aspect-[16/10] flex-[2_1_480px] sm:flex" />
           <ShotWell label={cs.showcase.phone} onBand className="aspect-[9/16] w-[200px] rounded-[22px] sm:max-h-[420px] sm:w-auto sm:flex-[1_1_200px] sm:rounded-xl" />
         </div>
-        <ul className="m-0 mt-3 grid list-none gap-2.5 p-0 sm:mt-6 sm:grid-cols-[repeat(auto-fit,minmax(220px,1fr))] sm:gap-4">
-          {cs.results.map((r) => (
-            <li key={r.cap} className="flex items-center gap-4 rounded-[14px] border border-line bg-surface p-4 sm:block sm:rounded-lg sm:p-6">
-              <Stat num={r.num} cap={r.cap} />
-            </li>
-          ))}
-        </ul>
+        {cs.results.length > 0 && (
+          <ul className="m-0 mt-3 grid list-none gap-2.5 p-0 sm:mt-6 sm:grid-cols-[repeat(auto-fit,minmax(220px,1fr))] sm:gap-4">
+            {cs.results.map((r) => (
+              <li key={r.cap} className="flex items-center gap-4 rounded-[14px] border border-line bg-surface p-4 sm:block sm:rounded-lg sm:p-6">
+                <Stat num={r.num} cap={r.cap} />
+              </li>
+            ))}
+          </ul>
+        )}
       </Container>
 
       <Container as="section" className="flex flex-col gap-6 pt-8 sm:flex-row sm:flex-wrap sm:gap-16 sm:pt-24">
@@ -167,24 +186,5 @@ export function NextCard({ href, label }: { href: string; label: string }) {
       <span className="text-[22px] leading-[1.2] font-semibold tracking-[-0.02em] sm:text-[28px]">{label}</span>
       <span className="font-semibold text-jacaranda">{t.readIt}</span>
     </Link>
-  );
-}
-
-export function ComingSoon({ name, eyebrow }: { name: string; eyebrow: string }) {
-  return (
-    <Container as="section" className="pt-5 pb-16 sm:pt-12 sm:pb-30">
-      <p className="m-0 text-sm text-ink-muted">
-        <Link href={t.breadcrumbRoot.href} className="inline-flex min-h-11 items-center text-ink-muted underline-offset-3 hover:underline">
-          {t.backToWork}
-        </Link>
-      </p>
-      <Label className="mt-4 sm:mt-8">{eyebrow}</Label>
-      <h1 className="mt-2 text-5xl leading-none font-semibold tracking-[-0.04em] sm:mt-3 sm:text-[clamp(44px,6vw,80px)]">{name}</h1>
-      <p className="mt-5 text-[22px] font-semibold">{t.comingSoon}</p>
-      <p className="mt-2 max-w-measure text-lg leading-[1.6] text-ink-muted">{t.comingSoonText}</p>
-      <ButtonLink href={t.comingSoonHref} variant="primary" className="mt-8">
-        {t.comingSoonCta}
-      </ButtonLink>
-    </Container>
   );
 }

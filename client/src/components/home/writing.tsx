@@ -6,7 +6,7 @@ import { Container, SectionHeader } from "@/components/ui/primitives";
 /** One post link: 2px ink rule, mono meta, title. Used on home and /writing. */
 export function PostLink({ post, withDescription = false }: { post: Post; withDescription?: boolean }) {
   return (
-    <Link href={`/writing/${post.slug}`} className="group block border-t-2 border-ink pt-3 text-ink no-underline sm:pt-[18px]">
+    <Link href={`/writing/${post.slug}`} className="group block border-t-2 border-ink pt-3 text-ink no-underline sm:pt-4.5">
       <span className="font-mono text-xs text-ink-faint uppercase">
         {post.tag} · {formatDate(post.date)} · {readingMinutes(post)} {ui.minutes}
       </span>
@@ -25,7 +25,7 @@ export function Writing() {
           {writingSection.all}
         </Link>
       </div>
-      <ul className="m-0 mt-4 grid list-none gap-[18px] p-0 sm:mt-8 sm:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] sm:gap-6">
+      <ul className="m-0 mt-4 grid list-none gap-4.5 p-0 sm:mt-8 sm:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] sm:gap-6">
         {posts.map((post) => (
           <li key={post.slug}>
             <PostLink post={post} />

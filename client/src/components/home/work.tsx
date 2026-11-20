@@ -12,7 +12,7 @@ export function Flagship() {
   return (
     <Container as="section" id="work" className="pt-16 sm:pt-28">
       <SectionHeader eyebrow={workSection.eyebrow} title={workSection.heading} className="[&_h2]:max-w-[22ch]" />
-      <article className="mt-6 flex flex-wrap gap-3.5 rounded-[20px] bg-ink-band p-5 text-on-band sm:mt-10 sm:gap-10 sm:rounded-xl sm:p-10">
+      <article className="mt-6 flex flex-wrap gap-3.5 rounded-xl bg-ink-band p-5 text-on-band sm:mt-10 sm:gap-10 sm:p-10">
         {/* Phone: screenshot first. */}
         <Screenshot
           shot={flagship.shot}
@@ -56,7 +56,7 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
           className="aspect-[16/9] rounded-none sm:aspect-[16/10]"
         />
       )}
-      <div className="grid flex-1 gap-2 p-[18px] sm:gap-3 sm:p-6">
+      <div className="grid flex-1 gap-2 p-4.5 sm:gap-3 sm:p-6">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <Label as="span" className="text-ink-faint">
             {project.kind}

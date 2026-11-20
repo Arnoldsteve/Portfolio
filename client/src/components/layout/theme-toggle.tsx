@@ -1,21 +1,34 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { Moon, Sun } from "lucide-react";
 import { ui } from "@/content/site";
 
 type Theme = "light" | "dark";
 
+const media = () => window.matchMedia("(prefers-color-scheme: dark)");
+
 function currentTheme(): Theme {
   const set = document.documentElement.dataset.theme;
   if (set === "light" || set === "dark") return set;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  return media().matches ? "dark" : "light";
+}
+
+/** The theme is external state (the <html data-theme> attribute + OS preference): subscribe to both. */
+function subscribe(onChange: () => void) {
+  const mq = media();
+  const observer = new MutationObserver(onChange);
+  mq.addEventListener("change", onChange);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  return () => {
+    mq.removeEventListener("change", onChange);
+    observer.disconnect();
+  };
 }
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme | null>(null);
-
-  useEffect(() => setTheme(currentTheme()), []);
+  // Server render has no theme: show a neutral label until the browser knows.
+  const theme = useSyncExternalStore<Theme | null>(subscribe, currentTheme, () => null);
 
   const toggle = () => {
     const next: Theme = currentTheme() === "dark" ? "light" : "dark";
@@ -25,10 +38,9 @@ export function ThemeToggle() {
     } catch {
       // Storage blocked: the choice still applies for this visit.
     }
-    setTheme(next);
   };
 
-  const label = theme === "dark" ? ui.themeToLight : ui.themeToDark;
+  const label = theme === null ? ui.themeToggle : theme === "dark" ? ui.themeToLight : ui.themeToDark;
   const Icon = theme === "dark" ? Sun : Moon;
 
   return (

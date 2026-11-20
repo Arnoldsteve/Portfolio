@@ -38,7 +38,7 @@ export default async function ContactPage({ searchParams }: Props) {
         </div>
 
         <aside className="grid flex-[1_1_300px] content-start gap-3 sm:mt-10 sm:gap-4">
-          <div className="grid gap-3 rounded-lg bg-ink-band p-[18px] text-on-band sm:p-7">
+          <div className="grid gap-3 rounded-lg bg-ink-band p-4.5 text-on-band sm:p-7">
             <Label as="span" className="text-on-band-ochre">
               {c.talkEyebrow}
             </Label>
@@ -83,11 +83,11 @@ export default async function ContactPage({ searchParams }: Props) {
 
       <Booking />
 
-      <Container as="section" className="max-w-[880px] pt-12 pb-16 sm:pt-24 sm:pb-30">
+      <Container as="section" className="max-w-220 pt-12 pb-16 sm:pt-24 sm:pb-30">
         <h2 className="text-2xl font-semibold tracking-[-0.02em] sm:text-[32px]">{c.faqHeading}</h2>
         <div className="mt-3.5 grid gap-2 sm:mt-6 sm:gap-2.5">
           {faq.map((item) => (
-            <details key={item.q} className="rounded-md border border-line bg-surface px-4 py-3.5 sm:rounded-[14px] sm:px-[22px] sm:py-[18px]">
+            <details key={item.q} className="rounded-md border border-line bg-surface px-4 py-3.5 sm:rounded-lg sm:px-5.5 sm:py-4.5">
               <summary className="cursor-pointer text-[15px] font-semibold sm:text-[17px]">{item.q}</summary>
               <p className="mt-2.5 text-sm leading-[1.6] text-ink-muted sm:mt-3 sm:text-base">{item.a}</p>
             </details>

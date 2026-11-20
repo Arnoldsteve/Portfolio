@@ -69,7 +69,7 @@ export function MarkerList({ items, className, onBand = false }: { items: string
     <ul className={cn("m-0 grid list-none gap-2.5 p-0", className)}>
       {items.map((item) => (
         <li key={item} className="flex gap-3">
-          <span aria-hidden="true" className={cn("mt-[0.6em] h-1.5 flex-[0_0_6px] rounded-[2px]", onBand ? "bg-on-band-ochre" : "bg-ochre")} />
+          <span aria-hidden="true" className={cn("mt-[0.6em] h-1.5 flex-[0_0_6px] rounded-xs", onBand ? "bg-on-band-ochre" : "bg-ochre")} />
           <span>{item}</span>
         </li>
       ))}

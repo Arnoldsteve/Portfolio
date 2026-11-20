@@ -17,6 +17,7 @@
   --acacia: #2E6B4E;
   --acacia-soft: #E1EEE6;
   --pending: #8A5A12;
+  --danger: #A12C22;
   --ink-band: #1B1815;
   --on-band: #F1ECE3;
   --on-band-muted: #B5ADA2;
@@ -53,6 +54,7 @@
   --acacia: #6FC39A;
   --acacia-soft: #16261E;
   --pending: #E3A84B;
+  --danger: #F2958B;
   --ink-band: #211A33;
   --on-band: #F1ECE3;
   --on-band-muted: #B5ADA2;
@@ -90,6 +92,7 @@
     --acacia: #6FC39A;
     --acacia-soft: #16261E;
     --pending: #E3A84B;
+  --danger: #F2958B;
     --ink-band: #211A33;
     --on-band: #F1ECE3;
     --on-band-muted: #B5ADA2;

@@ -20,6 +20,7 @@
   --color-acacia: var(--acacia);
   --color-acacia-soft: var(--acacia-soft);
   --color-pending: var(--pending);
+  --color-danger: var(--danger);
   --color-ink-band: var(--ink-band);
   --color-on-band: var(--on-band);
   --color-on-band-muted: var(--on-band-muted);

@@ -23,6 +23,15 @@ export function SiteNav() {
     dialogRef.current?.close();
   }, [pathname]);
 
+  // The sheet is phone-only: if the window grows past 640px while it's open, close it, or the
+  // (now invisible) modal would leave the page inert.
+  useEffect(() => {
+    const wide = window.matchMedia("(min-width: 640px)");
+    const onChange = () => wide.matches && dialogRef.current?.close();
+    wide.addEventListener("change", onChange);
+    return () => wide.removeEventListener("change", onChange);
+  }, []);
+
   const isCurrent = (match?: string) => Boolean(match && pathname.startsWith(match));
 
   const links = (large: boolean) =>
@@ -69,7 +78,7 @@ export function SiteNav() {
       <dialog
         id="mobile-menu"
         ref={dialogRef}
-        aria-label={ui.mainNav}
+        aria-label={ui.menuNav}
         onClose={() => setOpen(false)}
         className="m-0 h-dvh max-h-none w-full max-w-none bg-paper p-0 text-ink backdrop:bg-ink-band/40 sm:hidden"
       >
@@ -84,7 +93,7 @@ export function SiteNav() {
             <X size={20} strokeWidth={1.75} aria-hidden="true" />
           </button>
         </div>
-        <nav aria-label={ui.mainNav} className="grid px-5 pt-4">
+        <nav aria-label={ui.menuNav} className="grid px-5 pt-4">
           {links(true)}
           <Link
             href={ui.getInTouch.href}

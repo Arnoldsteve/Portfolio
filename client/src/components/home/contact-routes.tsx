@@ -14,7 +14,7 @@ export function ContactRoutes() {
             <li key={id}>
               <Link
                 href={`/contact?route=${id}`}
-                className="flex h-full items-center justify-between gap-3 rounded-[14px] border border-line bg-surface p-4 text-ink no-underline hover:border-ink-faint sm:grid sm:content-start sm:gap-2 sm:rounded-lg sm:p-6"
+                className="flex h-full items-center justify-between gap-3 rounded-lg border border-line bg-surface p-4 text-ink no-underline hover:border-ink-faint sm:grid sm:content-start sm:gap-2 sm:p-6"
               >
                 <span className="grid gap-0.5 sm:gap-2">
                   <span className="font-semibold sm:text-[19px]">{r.title}</span>

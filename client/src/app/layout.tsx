@@ -4,11 +4,14 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { person, seo, siteUrl } from "@/content/site";
+import { person, seo, siteUrl, ui } from "@/content/site";
 import { isPlaceholder } from "@/lib/utils";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" });
+
+// Re-render static pages daily so build-time values (like the footer year) never go stale.
+export const revalidate = 86400;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -52,11 +55,20 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body className="min-h-dvh bg-paper text-ink">
+        <a
+          href="#main"
+          className="sr-only z-50 rounded-md bg-jacaranda px-4 py-3 font-semibold text-on-jacaranda focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+        >
+          {ui.skipToContent}
+        </a>
         <Header />
-        <main id="main">{children}</main>
+        <main id="main" tabIndex={-1} className="focus:outline-none">
+          {children}
+        </main>
         <Footer />
-        {/* Page views on Vercel Web Analytics (enable it in the Vercel project). */}
-        <Analytics />
+        {/* Page views on Vercel Web Analytics (enable it in the Vercel project). Its script only exists on
+            Vercel, so it isn't rendered for local and CI builds. */}
+        {process.env.VERCEL && <Analytics />}
       </body>
     </html>
   );

@@ -17,7 +17,7 @@ function LogoTile({ job }: { job: (typeof experience)[number] }) {
 export function Proof() {
   return (
     <Container as="section" aria-label="Proof" className="pt-8 sm:pt-0">
-      <div className="grid grid-cols-2 gap-px overflow-hidden rounded-[14px] border border-line bg-line sm:grid-cols-[repeat(auto-fit,minmax(220px,1fr))] sm:rounded-lg">
+      <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-[repeat(auto-fit,minmax(220px,1fr))]">
         {stats.map((s) => (
           <div key={s.cap} className="bg-surface p-4 sm:p-6">
             <Stat num={s.num} cap={s.cap} />

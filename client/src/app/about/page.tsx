@@ -14,13 +14,13 @@ export const metadata: Metadata = {
 };
 
 const bookHref = ui.bookCall.href;
-const card = "rounded-[14px] border border-line bg-surface p-[18px] sm:rounded-lg sm:p-6";
+const card = "rounded-lg border border-line bg-surface p-4.5 sm:p-6";
 
 export default function AboutPage() {
   return (
     <>
       <Container as="section" className="flex flex-wrap items-end gap-6 pt-6 sm:gap-14 sm:pt-14">
-        <Screenshot shot={about.portrait} sizes="(min-width: 640px) 420px, 100vw" position="center" className="aspect-square w-full rounded-[20px] sm:max-w-[420px] sm:flex-[1_1_320px] sm:rounded-xl" />
+        <Screenshot shot={about.portrait} sizes="(min-width: 640px) 420px, 100vw" position="center" className="aspect-square w-full rounded-xl sm:max-w-105 sm:flex-[1_1_320px]" />
         <div className="min-w-0 flex-[999_1_520px]">
           <Label>{about.eyebrow}</Label>
           <h1 className="mt-2 text-[38px] leading-[1.05] font-semibold tracking-[-0.035em] sm:mt-3 sm:text-[clamp(40px,5vw,64px)]">
@@ -59,7 +59,7 @@ export default function AboutPage() {
           <ol className="m-0 mt-4 list-none p-0 sm:mt-8">
             {experience.map((job) => (
               <li key={job.org} className="flex flex-wrap gap-1.5 border-t border-line py-5 sm:gap-6 sm:py-7">
-                <Label as="span" className={cn("basis-full sm:basis-[180px]", job.current ? "text-jacaranda" : "text-ink-faint")}>
+                <Label as="span" className={cn("basis-full sm:basis-45", job.current ? "text-jacaranda" : "text-ink-faint")}>
                   {job.dates}
                 </Label>
                 <div className="grid min-w-0 flex-[1_1_360px] gap-1.5 sm:gap-2">
@@ -67,7 +67,7 @@ export default function AboutPage() {
                   <span className="text-sm text-ink-muted sm:text-[15px]">
                     {job.role} · {job.context}
                   </span>
-                  <ul className="mt-1 pl-[18px] text-[15px] leading-[1.6] sm:mt-1.5 sm:pl-5 sm:text-base sm:leading-[1.65]">
+                  <ul className="mt-1 pl-4.5 text-[15px] leading-[1.6] sm:mt-1.5 sm:pl-5 sm:text-base sm:leading-[1.65]">
                     {job.points.map((p) => (
                       <li key={p} className="list-disc">
                         {p}
@@ -105,7 +105,7 @@ export default function AboutPage() {
       </Container>
 
       <Container as="section" className="pt-10 pb-8 sm:pt-28 sm:pb-30">
-        <div className="flex flex-wrap items-center justify-between gap-8 rounded-[20px] bg-ink-band p-6 text-on-band sm:rounded-xl sm:p-12">
+        <div className="flex flex-wrap items-center justify-between gap-8 rounded-xl bg-ink-band p-6 text-on-band sm:p-12">
           <div className="flex-[1_1_420px]">
             <Label className="text-on-band-ochre">{about.hiringEyebrow}</Label>
             <h2 className="mt-3 text-2xl leading-[1.2] font-semibold tracking-[-0.02em] sm:text-4xl sm:leading-[1.15]">{about.hiringHeading}</h2>

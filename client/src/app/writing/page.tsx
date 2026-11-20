@@ -19,7 +19,7 @@ export default function WritingPage() {
         {writingSection.pageHeading}
       </h1>
       <p className="mt-3 max-w-[56ch] text-[17px] leading-[1.6] text-ink-muted sm:mt-5 sm:text-[19px]">{writingSection.pageText}</p>
-      <ul className="m-0 mt-8 grid max-w-[880px] list-none gap-8 p-0 sm:mt-12 sm:gap-10">
+      <ul className="m-0 mt-8 grid max-w-220 list-none gap-8 p-0 sm:mt-12 sm:gap-10">
         {posts.map((post) => (
           <li key={post.slug}>
             <PostLink post={post} withDescription />

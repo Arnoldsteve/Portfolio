@@ -33,7 +33,7 @@ export function Hero() {
         <p className="mt-4 max-w-[40ch] text-[17px] leading-[1.55] text-ink-muted sm:mt-7 sm:text-xl">{hero.lead}</p>
 
         {/* Phone: the "Currently" card becomes a row with a small round photo. */}
-        <div className="mt-5 flex items-center gap-3 rounded-[14px] border border-line bg-surface p-3 sm:hidden">
+        <div className="mt-5 flex items-center gap-3 rounded-lg border border-line bg-surface p-3 sm:hidden">
           <Screenshot shot={hero.portrait} sizes="52px" position="center" className="size-13 shrink-0 rounded-full" />
           <div className="grid gap-0.5">
             <CurrentlyText />
@@ -51,9 +51,9 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="relative hidden max-w-[420px] min-w-0 flex-[1_1_340px] sm:block">
+      <div className="relative hidden max-w-105 min-w-0 flex-[1_1_340px] sm:block">
         <Screenshot shot={hero.portrait} sizes="420px" position="center" className="aspect-[4/5] rounded-xl" />
-        <div className="absolute bottom-8 -left-6 grid gap-1 rounded-lg border border-line bg-surface px-[18px] py-4 shadow-lift">
+        <div className="absolute bottom-8 -left-6 grid gap-1 rounded-lg border border-line bg-surface px-4.5 py-4 shadow-lift">
           <CurrentlyText />
         </div>
       </div>

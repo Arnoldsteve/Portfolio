@@ -68,19 +68,19 @@ export function CaseStudy({ cs }: { cs: Data }) {
       </Container>
 
       <Container as="section" aria-label="Showcase">
-        <div className="flex flex-wrap justify-center gap-6 rounded-[20px] bg-ink-band p-5 sm:rounded-xl sm:p-10">
+        <div className="flex flex-wrap justify-center gap-6 rounded-xl bg-ink-band p-5 sm:p-10">
           <Screenshot shot={cs.showcase.wide} onBand sizes="(min-width: 1024px) 760px, 100vw" className="hidden aspect-[16/10] flex-[2_1_480px] sm:block" />
           <Screenshot
             shot={cs.showcase.phone}
             onBand
             sizes="240px"
-            className="aspect-[9/16] w-[200px] rounded-[22px] sm:w-[236px] sm:flex-none sm:self-center sm:rounded-xl"
+            className="aspect-[9/16] w-50 rounded-xl sm:w-59 sm:flex-none sm:self-center"
           />
         </div>
         {cs.results.length > 0 && (
           <ul className="m-0 mt-3 grid list-none gap-2.5 p-0 sm:mt-6 sm:grid-cols-[repeat(auto-fit,minmax(220px,1fr))] sm:gap-4">
             {cs.results.map((r) => (
-              <li key={r.cap} className="flex items-center gap-4 rounded-[14px] border border-line bg-surface p-4 sm:block sm:rounded-lg sm:p-6">
+              <li key={r.cap} className="flex items-center gap-4 rounded-lg border border-line bg-surface p-4 sm:block sm:p-6">
                 <Stat num={r.num} cap={r.cap} />
               </li>
             ))}
@@ -92,7 +92,7 @@ export function CaseStudy({ cs }: { cs: Data }) {
         <div className="sm:flex-[0_1_220px]">
           <Toc items={toc} label={t.tocLabel} />
         </div>
-        <article className="max-w-[720px] min-w-0 text-[17px] leading-[1.65] sm:flex-[999_1_560px] sm:text-lg sm:leading-[1.7]">
+        <article className="max-w-180 min-w-0 text-[17px] leading-[1.65] sm:flex-[999_1_560px] sm:text-lg sm:leading-[1.7]">
           <h2 id="problem" className={h2}>
             {s.problem.title}
           </h2>
@@ -137,17 +137,17 @@ export function CaseStudy({ cs }: { cs: Data }) {
               );
             })}
           </ol>
-          <Diagram data={cs.diagram} className="mt-6 overflow-x-auto" />
+          <Diagram data={cs.diagram} className="mt-6" />
 
           <h2 id="decision" className={cn(h2, "mt-9 sm:mt-14")}>
             {s.decision.title}
           </h2>
           <div className="mt-3 grid gap-2.5 text-[15px] leading-[1.55] sm:mt-4 sm:grid-cols-[repeat(auto-fit,minmax(240px,1fr))] sm:gap-4 sm:text-base sm:leading-[1.6]">
-            <div className="rounded-[14px] border border-line bg-surface p-4 sm:rounded-lg sm:p-5">
+            <div className="rounded-lg border border-line bg-surface p-4 sm:p-5">
               <Label className="text-acacia">{t.chose}</Label>
               <p className="mt-1.5 sm:mt-2">{cs.decision.chose}</p>
             </div>
-            <div className="rounded-[14px] border border-dashed border-line bg-surface p-4 sm:rounded-lg sm:p-5">
+            <div className="rounded-lg border border-dashed border-line bg-surface p-4 sm:p-5">
               <Label className="text-ink-faint">{t.rejected}</Label>
               <p className="mt-1.5 text-ink-muted sm:mt-2">{cs.decision.rejected}</p>
             </div>
@@ -157,7 +157,7 @@ export function CaseStudy({ cs }: { cs: Data }) {
             {s.result.title}
           </h2>
           <p className="mt-3 sm:mt-4">{cs.result}</p>
-          <div className="mt-4 rounded-[14px] bg-ochre-soft p-[18px] sm:mt-6 sm:rounded-lg sm:p-6">
+          <div className="mt-4 rounded-lg bg-ochre-soft p-4.5 sm:mt-6 sm:p-6">
             <Label>{t.change}</Label>
             <p className="mt-1.5 text-base sm:mt-2 sm:text-[17px]">{cs.change}</p>
           </div>

@@ -49,7 +49,7 @@ export default async function PostPage({ params }: Params) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Container as="article" className="pt-5 pb-12 sm:pt-12 sm:pb-20">
-        <div className="mx-auto max-w-[720px]">
+        <div className="mx-auto max-w-180">
           <Link href="/writing" className="inline-flex min-h-11 items-center text-sm text-ink-muted underline-offset-3 hover:text-ink hover:underline">
             {writingSection.back}
           </Link>

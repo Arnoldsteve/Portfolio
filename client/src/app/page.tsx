@@ -3,7 +3,7 @@ import { MessageCircle } from "lucide-react";
 import { person, seo, ui } from "@/content/site";
 import { Hero } from "@/components/home/hero";
 import { Proof } from "@/components/home/proof";
-import { Work } from "@/components/home/work";
+import { Flagship, MoreWork } from "@/components/home/work";
 import { Qa } from "@/components/home/qa";
 import { SatechsBand } from "@/components/home/satechs-band";
 import { Writing } from "@/components/home/writing";
@@ -24,9 +24,10 @@ export default function HomePage() {
     <>
       <Hero />
       <Proof />
-      <Work />
-      <Qa />
+      <Flagship />
       <SatechsBand />
+      <MoreWork />
+      <Qa />
       <Writing />
       <ContactRoutes />
       <StickyCta>

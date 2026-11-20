@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { qaFindings, qaSection } from "@/content/site";
 import { Container, Label } from "@/components/ui/primitives";
 
@@ -9,7 +10,10 @@ export function Qa() {
         <h2 className="mt-2 text-[28px] leading-[1.15] font-semibold tracking-[-0.025em] sm:mt-3 sm:text-[40px] sm:leading-[1.1]">
           {qaSection.heading}
         </h2>
-        <p className="mt-[18px] hidden text-[17px] leading-[1.6] text-ink-muted sm:block">{qaSection.text}</p>
+        <p className="mt-3 text-[15px] leading-[1.6] text-ink-muted sm:mt-[18px] sm:text-[17px]">{qaSection.text}</p>
+        <Link href={qaSection.more.href} className="mt-2 inline-flex min-h-11 items-center font-semibold text-jacaranda underline-offset-3 hover:underline">
+          {qaSection.more.label}
+        </Link>
       </div>
       <ul className="m-0 grid flex-[1.4_1_480px] list-none gap-2.5 p-0 sm:gap-3">
         {qaFindings.map((f) => (

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Phone · Case study — Jaza WiFi</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div style="width: 390px; min-height: 6000px; background: #F4F1EA; font-family: Geist, Inter, system-ui, sans-serif; color: #1B1815; position: relative">
+
+  <header style="display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; border-bottom: 1px solid #D9D2C3">
+    <a href="Phone-Home.dc.html" style="font-weight: 700; font-size: 17px; letter-spacing: -0.02em; color: #1B1815; text-decoration: none">Steve Arnold Otieno</a>
+    <button type="button" aria-label="Open menu" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid #D9D2C3; background: #FBFAF6; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B1815" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"></path></svg></button>
+  </header>
+
+  <section style="padding: 20px 20px 0">
+    <a href="Phone-Home.dc.html" style="font-size: 14px; color: #57504A; text-decoration: none">← All work</a>
+    <p style="margin: 24px 0 0; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #8A5A12">Case study · Own product</p>
+    <h1 style="margin: 8px 0 0; font-size: 48px; line-height: 1; letter-spacing: -0.04em; font-weight: 600">Jaza WiFi</h1>
+    <p style="margin: 14px 0 0; font-size: 18px; line-height: 1.5; color: #57504A">Hotspot billing that lets anyone sell WiFi by the hour or day, paid with M-Pesa.</p>
+    <dl style="margin: 24px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; border-top: 1px solid #D9D2C3; padding-top: 16px; font-size: 15px">
+      <div><dt style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #6B645C">Role</dt><dd style="margin: 4px 0 0">Founder &amp; engineer</dd></div>
+      <div><dt style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #6B645C">Status</dt><dd style="margin: 4px 0 0">[Live / Pilot]</dd></div>
+      <div><dt style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #6B645C">Rails</dt><dd style="margin: 4px 0 0">M-Pesa · MikroTik</dd></div>
+      <div><dt style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #6B645C">Stack</dt><dd style="margin: 4px 0 0">[Your stack]</dd></div>
+    </dl>
+  </section>
+
+  <section style="padding: 28px 20px 0">
+    <div style="background: #1B1815; border-radius: 20px; padding: 20px; display: flex; justify-content: center">
+      <div style="width: 200px; aspect-ratio: 9 / 16; border-radius: 22px; background: rgba(241,236,227,0.06); border: 1px solid rgba(241,236,227,0.14); display: flex; align-items: center; justify-content: center; color: #B5ADA2; font-size: 13px; text-align: center; padding: 12px">[Captive portal on a phone]</div>
+    </div>
+    <div style="margin-top: 12px; display: grid; gap: 10px">
+      <sc-for list="{{results}}" as="r" hint-placeholder-count="3">
+        <div style="background: #FBFAF6; border: 1px solid #D9D2C3; border-radius: 14px; padding: 16px; display: flex; align-items: center; gap: 16px">
+          <span style="flex: 0 0 auto; padding-bottom: 4px; border-bottom: 3px solid #C98A2B; font-size: 26px; font-weight: 600; letter-spacing: -0.02em">{{r.num}}</span>
+          <span style="font-size: 14px; line-height: 1.4; color: #57504A">{{r.cap}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <nav aria-label="On this page" style="margin-top: 32px; padding: 0 20px; display: flex; gap: 8px; overflow-x: auto">
+    <a href="#problem" style="flex: 0 0 auto; padding: 10px 14px; border-radius: 999px; background: #5B3E96; color: #FFFFFF; font-size: 14px; font-weight: 600; text-decoration: none">Problem</a>
+    <a href="#constraints" style="flex: 0 0 auto; padding: 10px 14px; border-radius: 999px; background: #FBFAF6; border: 1px solid #D9D2C3; color: #1B1815; font-size: 14px; text-decoration: none">Constraints</a>
+    <a href="#how" style="flex: 0 0 auto; padding: 10px 14px; border-radius: 999px; background: #FBFAF6; border: 1px solid #D9D2C3; color: #1B1815; font-size: 14px; text-decoration: none">How it works</a>
+    <a href="#decision" style="flex: 0 0 auto; padding: 10px 14px; border-radius: 999px; background: #FBFAF6; border: 1px solid #D9D2C3; color: #1B1815; font-size: 14px; text-decoration: none">Decision</a>
+  </nav>
+
+  <article style="padding: 24px 20px 0; font-size: 17px; line-height: 1.65">
+    <h2 id="problem" style="margin: 0; font-size: 26px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 600">The problem</h2>
+    <p style="margin: 12px 0 0; color: #2B2622">Landlords and small operators want to resell internet, but billing is manual: vouchers, cash, and someone switching people on and off by hand. [Your words.]</p>
+
+    <h2 id="constraints" style="margin: 44px 0 0; font-size: 26px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 600">Constraints</h2>
+    <ul style="margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 10px">
+      <li style="display: flex; gap: 12px"><span aria-hidden="true" style="flex: 0 0 6px; height: 6px; margin-top: 11px; border-radius: 2px; background: #C98A2B"></span>M-Pesa payment must start a session with no human involved.</li>
+      <li style="display: flex; gap: 12px"><span aria-hidden="true" style="flex: 0 0 6px; height: 6px; margin-top: 11px; border-radius: 2px; background: #C98A2B"></span>It has to run on MikroTik routers operators already own.</li>
+      <li style="display: flex; gap: 12px"><span aria-hidden="true" style="flex: 0 0 6px; height: 6px; margin-top: 11px; border-radius: 2px; background: #C98A2B"></span>First site: one residential plot, so cost per site stays low.</li>
+    </ul>
+
+    <h2 id="how" style="margin: 44px 0 0; font-size: 26px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 600">How it works</h2>
+    <ol style="margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 0">
+      <sc-for list="{{flow}}" as="s" hint-placeholder-count="5">
+        <li style="display: flex; gap: 14px">
+          <div style="display: flex; flex-direction: column; align-items: center">
+            <span style="width: 32px; height: 32px; border-radius: 50%; background: {{s.dotBg}}; color: {{s.dotFg}}; display: flex; align-items: center; justify-content: center; font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 500">{{s.n}}</span>
+            <span aria-hidden="true" style="flex: 1; width: 2px; min-height: 20px; background: #D9D2C3"></span>
+          </div>
+          <span style="padding: 4px 0 20px; font-size: 16px; font-weight: 500">{{s.title}}</span>
+        </li>
+      </sc-for>
+    </ol>
+
+    <h2 id="decision" style="margin: 36px 0 0; font-size: 26px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 600">The key decision</h2>
+    <div style="margin-top: 12px; display: grid; gap: 10px; font-size: 15px; line-height: 1.55">
+      <div style="background: #FBFAF6; border: 1px solid #D9D2C3; border-radius: 14px; padding: 16px"><p style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #2E6B4E">Chose</p><p style="margin: 6px 0 0">[What you built and why]</p></div>
+      <div style="background: #FBFAF6; border: 1px dashed #D9D2C3; border-radius: 14px; padding: 16px"><p style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #6B645C">Rejected</p><p style="margin: 6px 0 0; color: #57504A">[The alternative and its cost]</p></div>
+    </div>
+
+    <h2 style="margin: 44px 0 0; font-size: 26px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 600">Result</h2>
+    <p style="margin: 12px 0 0; color: #2B2622">[One paragraph with the numbers, in context.]</p>
+    <div style="margin-top: 16px; background: #F5E8D0; border-radius: 14px; padding: 18px"><p style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #8A5A12">What I'd change</p><p style="margin: 6px 0 0; font-size: 16px">[One honest lesson.]</p></div>
+  </article>
+
+  <section style="padding: 48px 20px 120px; display: grid; gap: 12px">
+    <a href="Phone-Home.dc.html" style="display: grid; gap: 6px; padding: 20px; border-radius: 16px; background: #FBFAF6; border: 1px solid #D9D2C3; color: #1B1815; text-decoration: none"><span style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #6B645C">Next case study</span><span style="font-size: 22px; font-weight: 600">Umoja Studio →</span></a>
+  </section>
+
+  <div style="position: sticky; bottom: 0; padding: 12px 20px 20px; background: #F4F1EA; border-top: 1px solid #D9D2C3">
+    <a href="Phone-Contact.dc.html" style="display: flex; justify-content: center; align-items: center; min-height: 48px; border-radius: 10px; background: #5B3E96; color: #FFFFFF; font-weight: 600; text-decoration: none">Talk to me about Jaza WiFi</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const plain = { dotBg: '#EAE5DA', dotFg: '#1B1815' };
+    return {
+      results: [
+        { num: '[N]', cap: 'paying users at the first site' },
+        { num: '[N]', cap: 'sessions sold, paid by M-Pesa' },
+        { num: '[N]%', cap: 'of payments that opened a session automatically' }
+      ],
+      flow: [
+        Object.assign({ n: '01', title: 'Phone joins the WiFi' }, plain),
+        Object.assign({ n: '02', title: 'Captive portal shows plans' }, plain),
+        { n: '03', title: 'Customer pays with M-Pesa', dotBg: '#5B3E96', dotFg: '#FFFFFF' },
+        Object.assign({ n: '04', title: 'Router opens a session' }, plain),
+        Object.assign({ n: '05', title: 'Operator sees it in the dashboard' }, plain)
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

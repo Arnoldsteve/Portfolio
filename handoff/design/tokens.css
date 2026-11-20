@@ -1,0 +1,151 @@
+/* Steve Arnold Otieno — design tokens. Generated from tokens.json. Do not hand-edit values here; edit tokens.json and regenerate. */
+:root, [data-theme="light"] {
+  --paper: #F4F1EA;
+  --surface: #FBFAF6;
+  --sunken: #EAE5DA;
+  --line: #D9D2C3;
+  --ink: #1B1815;
+  --ink-muted: #57504A;
+  --ink-faint: #6B645C;
+  --jacaranda: #5B3E96;
+  --jacaranda-deep: #452C78;
+  --jacaranda-mist: #ECE6F6;
+  --on-jacaranda: #FFFFFF;
+  --ochre: #C98A2B;
+  --ochre-text: #8A5A12;
+  --ochre-soft: #F5E8D0;
+  --acacia: #2E6B4E;
+  --acacia-soft: #E1EEE6;
+  --pending: #8A5A12;
+  --ink-band: #1B1815;
+  --on-band: #F1ECE3;
+  --on-band-muted: #B5ADA2;
+  --on-band-jacaranda: #B9A2F0;
+  --on-band-ochre: #E3A84B;
+  --band-well: rgba(241,236,227,0.06);
+  --band-line: rgba(241,236,227,0.14);
+  --navy: #16325C;
+  --navy-fill: #16325C;
+  --on-navy: #FFFFFF;
+  --on-navy-muted: #C9D6EA;
+  --on-navy-accent: #E3A84B;
+  --navy-soft: #E3EAF5;
+  --focus: #5B3E96;
+  --shadow-card: 0 1px 2px rgba(11,22,38,0.06), 0 8px 24px rgba(11,22,38,0.06);
+  --shadow-lift: 0 2px 4px rgba(11,22,38,0.08), 0 16px 40px rgba(11,22,38,0.10);
+}
+
+[data-theme="dark"] {
+  --paper: #12100E;
+  --surface: #1B1815;
+  --sunken: #0E0C0A;
+  --line: #332E28;
+  --ink: #F1ECE3;
+  --ink-muted: #B5ADA2;
+  --ink-faint: #968E83;
+  --jacaranda: #B9A2F0;
+  --jacaranda-deep: #D3C5F7;
+  --jacaranda-mist: #2A2140;
+  --on-jacaranda: #12100E;
+  --ochre: #E3A84B;
+  --ochre-text: #E3A84B;
+  --ochre-soft: #2E2414;
+  --acacia: #6FC39A;
+  --acacia-soft: #16261E;
+  --pending: #E3A84B;
+  --ink-band: #211A33;
+  --on-band: #F1ECE3;
+  --on-band-muted: #B5ADA2;
+  --on-band-jacaranda: #C9B7F5;
+  --on-band-ochre: #E3A84B;
+  --band-well: rgba(241,236,227,0.05);
+  --band-line: rgba(241,236,227,0.12);
+  --navy: #8FB1E8;
+  --navy-fill: #1C3A68;
+  --on-navy: #FFFFFF;
+  --on-navy-muted: #C9D6EA;
+  --on-navy-accent: #E3A84B;
+  --navy-soft: #18284A;
+  --focus: #B9A2F0;
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.3);
+  --shadow-lift: 0 2px 4px rgba(0,0,0,0.5), 0 16px 40px rgba(0,0,0,0.4);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #12100E;
+    --surface: #1B1815;
+    --sunken: #0E0C0A;
+    --line: #332E28;
+    --ink: #F1ECE3;
+    --ink-muted: #B5ADA2;
+    --ink-faint: #968E83;
+    --jacaranda: #B9A2F0;
+    --jacaranda-deep: #D3C5F7;
+    --jacaranda-mist: #2A2140;
+    --on-jacaranda: #12100E;
+    --ochre: #E3A84B;
+    --ochre-text: #E3A84B;
+    --ochre-soft: #2E2414;
+    --acacia: #6FC39A;
+    --acacia-soft: #16261E;
+    --pending: #E3A84B;
+    --ink-band: #211A33;
+    --on-band: #F1ECE3;
+    --on-band-muted: #B5ADA2;
+    --on-band-jacaranda: #C9B7F5;
+    --on-band-ochre: #E3A84B;
+    --band-well: rgba(241,236,227,0.05);
+    --band-line: rgba(241,236,227,0.12);
+    --navy: #8FB1E8;
+    --navy-fill: #1C3A68;
+    --on-navy: #FFFFFF;
+    --on-navy-muted: #C9D6EA;
+    --on-navy-accent: #E3A84B;
+    --navy-soft: #18284A;
+    --focus: #B9A2F0;
+    --shadow-card: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.3);
+    --shadow-lift: 0 2px 4px rgba(0,0,0,0.5), 0 16px 40px rgba(0,0,0,0.4);
+  }
+}
+
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+  --container: 1200px;
+  --measure-text: 68ch;
+  --font-sans: Geist, "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+
+/* Type styles */
+.display-xl { font-family: var(--font-sans); font-size: 72px; line-height: 76px; font-weight: 600; letter-spacing: -0.035em; }
+.display { font-family: var(--font-sans); font-size: 48px; line-height: 52px; font-weight: 600; letter-spacing: -0.03em; }
+.stat { font-family: var(--font-sans); font-size: 40px; line-height: 44px; font-weight: 600; letter-spacing: -0.02em; }
+.h1 { font-family: var(--font-sans); font-size: 36px; line-height: 42px; font-weight: 600; letter-spacing: -0.02em; }
+.h2 { font-family: var(--font-sans); font-size: 26px; line-height: 32px; font-weight: 600; letter-spacing: -0.015em; }
+.h3 { font-family: var(--font-sans); font-size: 19px; line-height: 26px; font-weight: 600; }
+.lead { font-family: var(--font-sans); font-size: 20px; line-height: 31px; font-weight: 400; }
+.body { font-family: var(--font-sans); font-size: 16px; line-height: 26px; font-weight: 400; }
+.small { font-family: var(--font-sans); font-size: 14px; line-height: 22px; font-weight: 400; }
+.label { font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+.code { font-family: var(--font-mono); font-size: 14px; line-height: 22px; font-weight: 400; }
+
+/* Responsive type steps (phone) */
+@media (max-width: 640px) {
+  .display-xl { font-size: 40px; line-height: 42px; }
+  .display { font-size: 30px; line-height: 34px; }
+  .h1 { font-size: 30px; line-height: 36px; }
+}

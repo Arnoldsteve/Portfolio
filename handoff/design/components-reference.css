@@ -1,0 +1,106 @@
+/* Steve Arnold Otieno — components. Plain CSS on top of tokens.css; prefix sa-. */
+body { margin: 0; font-family: var(--font-sans); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+.sa-demo { padding: var(--space-6); display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+.sa-demo-col { padding: var(--space-6); display: grid; gap: var(--space-4); }
+.sa-label { font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin: 0; }
+.sa-link { color: var(--jacaranda); font-weight: 600; text-decoration: none; }
+.sa-link:hover { color: var(--jacaranda-deep); text-decoration: underline; text-underline-offset: 3px; }
+:where(a, button, input, select, textarea):focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* Button */
+.sa-btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); min-height: 48px; padding: 0 22px; border-radius: var(--radius-md); font: 600 16px/1 var(--font-sans); text-decoration: none; cursor: pointer; border: 1px solid var(--line); background: var(--surface); color: var(--ink); transition: background .15s ease-out, transform .15s ease-out; }
+.sa-btn:hover { border-color: var(--ink-faint); }
+.sa-btn-primary { background: var(--jacaranda); border-color: var(--jacaranda); color: var(--on-jacaranda); }
+.sa-btn-primary:hover { background: var(--jacaranda-deep); border-color: var(--jacaranda-deep); }
+.sa-btn-navy { background: var(--surface); border-color: var(--surface); color: var(--navy); }
+.sa-btn-sm { min-height: 40px; padding: 0 16px; font-size: 15px; }
+.sa-btn svg { width: 18px; height: 18px; }
+
+/* Badge + availability */
+.sa-badge { display: inline-flex; align-items: center; gap: 6px; font: 500 12px/1 var(--font-mono); letter-spacing: 0.04em; text-transform: uppercase; padding: 6px 8px; border-radius: var(--radius-sm); background: var(--sunken); color: var(--ink-muted); }
+.sa-badge-live { background: var(--acacia-soft); color: var(--acacia); }
+.sa-badge-pilot { background: var(--ochre-soft); color: var(--ochre-text); }
+.sa-badge-new { background: var(--jacaranda-mist); color: var(--jacaranda-deep); }
+.sa-badge-satechs { background: var(--navy-soft); color: var(--navy); }
+.sa-dot { width: 8px; height: 8px; border-radius: var(--radius-pill); background: currentColor; display: inline-block; }
+.sa-avail { display: inline-flex; align-items: center; gap: var(--space-2); padding: 8px 14px; border-radius: var(--radius-pill); background: var(--surface); border: 1px solid var(--line); font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.sa-avail .sa-dot { color: var(--acacia); box-shadow: 0 0 0 4px var(--acacia-soft); }
+
+/* Nav */
+.sa-nav { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; justify-content: space-between; padding: var(--space-4) var(--space-8); }
+.sa-nav-name { font-weight: 700; font-size: 18px; letter-spacing: -0.02em; color: var(--ink); text-decoration: none; }
+.sa-nav-links { display: flex; flex-wrap: wrap; gap: var(--space-6); align-items: center; }
+.sa-nav-links a:not(.sa-btn) { color: var(--ink-muted); text-decoration: none; font-size: 15px; }
+.sa-nav-links a:not(.sa-btn):hover { color: var(--ink); }
+
+/* Stat strip */
+.sa-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); overflow: hidden; }
+.sa-stat { padding: var(--space-6); border-right: 1px solid var(--line); }
+.sa-stat:last-child { border-right: 0; }
+.sa-stat-num { margin: 0; display: inline-block; padding-bottom: 6px; background: linear-gradient(var(--ochre), var(--ochre)) left bottom / 32px 3px no-repeat; font-size: 40px; line-height: 44px; font-weight: 600; letter-spacing: -0.02em; }
+.sa-stat-cap { margin: var(--space-2) 0 0; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+
+/* Experience strip */
+.sa-exp { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+.sa-exp-item { display: grid; gap: 6px; padding: var(--space-4) 0; border-top: 2px solid var(--ink); }
+.sa-exp-item.is-current { border-top-color: var(--jacaranda); }
+.sa-exp-org { margin: 0; font-weight: 600; font-size: 17px; }
+.sa-exp-role { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+
+/* Project card */
+.sa-card { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; color: var(--ink); text-decoration: none; transition: transform .15s ease-out, box-shadow .15s ease-out; }
+.sa-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); }
+.sa-card-shot { aspect-ratio: 16 / 10; background: var(--sunken); display: flex; align-items: center; justify-content: center; color: var(--ink-faint); font-size: 13px; }
+.sa-card-body { padding: var(--space-6); display: grid; gap: var(--space-3); }
+.sa-card-top { display: flex; justify-content: space-between; align-items: center; gap: var(--space-2); }
+.sa-card-title { margin: 0; font-size: 24px; line-height: 30px; font-weight: 600; letter-spacing: -0.015em; }
+.sa-card-text { margin: 0; font-size: 16px; line-height: 25px; color: var(--ink-muted); }
+.sa-card-proof { margin: 0; padding-top: var(--space-3); border-top: 1px solid var(--line); font-size: 15px; line-height: 22px; }
+.sa-card-proof strong { font-weight: 600; color: var(--ochre-text); }
+.sa-card-cta { color: var(--jacaranda); font-weight: 600; font-size: 15px; }
+
+/* Flagship card */
+.sa-flag { display: flex; flex-wrap: wrap; gap: var(--space-8); padding: var(--space-8); border-radius: var(--radius-xl); background: var(--ink-band); color: var(--on-band); }
+.sa-flag-copy { flex: 1 1 340px; min-width: 0; display: grid; gap: var(--space-4); align-content: start; }
+.sa-flag .sa-label { color: var(--on-band-ochre); }
+.sa-flag-title { margin: 0; font-size: 40px; line-height: 44px; font-weight: 600; letter-spacing: -0.025em; }
+.sa-flag-text { margin: 0; font-size: 18px; line-height: 28px; color: var(--on-band-muted); }
+.sa-flag-list { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--space-2); color: var(--on-band); }
+.sa-flag-list li { display: flex; gap: var(--space-3); }
+.sa-flag-list li::before { content: ""; flex: 0 0 6px; height: 6px; margin-top: 9px; border-radius: 2px; background: var(--on-band-ochre); }
+.sa-flag-shot { flex: 1.2 1 380px; min-width: 0; aspect-ratio: 16 / 10; border-radius: var(--radius-lg); background: var(--band-well); border: 1px solid var(--band-line); display: flex; align-items: center; justify-content: center; color: var(--on-band-muted); font-size: 13px; }
+.sa-flag .sa-link { color: var(--on-band-jacaranda); }
+
+/* SaTechs band */
+.sa-band { display: flex; flex-wrap: wrap; gap: var(--space-8); align-items: center; padding: var(--space-12) var(--space-8); border-radius: var(--radius-xl); background: var(--navy-fill); color: var(--on-navy); }
+.sa-band-copy { flex: 999 1 420px; min-width: 0; }
+.sa-band .sa-label { color: var(--on-navy-accent); }
+.sa-band-title { margin: var(--space-3) 0 0; font-size: 36px; line-height: 42px; font-weight: 600; letter-spacing: -0.02em; }
+.sa-band-text { margin: var(--space-3) 0 0; font-size: 17px; line-height: 27px; color: var(--on-navy-muted); max-width: 60ch; }
+.sa-band-actions { flex: 1 1 240px; display: grid; gap: var(--space-3); }
+.sa-btn-ghost-light { background: transparent; border-color: var(--on-navy-muted); color: var(--on-navy); }
+
+/* Contact router */
+.sa-routes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4); }
+.sa-route { display: grid; gap: var(--space-2); padding: var(--space-6); border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); color: var(--ink); text-decoration: none; }
+.sa-route:hover { border-color: var(--ink-faint); }
+.sa-route.is-selected { border: 2px solid var(--jacaranda); background: var(--jacaranda-mist); padding: calc(var(--space-6) - 1px); }
+.sa-route-title { margin: 0; font-size: 19px; font-weight: 600; }
+.sa-route-text { margin: 0; font-size: 15px; line-height: 23px; color: var(--ink-muted); }
+.sa-route-dest { font-size: 14px; font-weight: 600; color: var(--jacaranda); }
+.sa-route.is-selected .sa-route-text { color: var(--ink); }
+.sa-route.is-selected .sa-route-dest { color: var(--jacaranda-deep); }
+
+/* Field */
+.sa-field { display: grid; gap: var(--space-2); font-size: 14px; font-weight: 500; color: var(--ink); }
+.sa-input { font: 400 16px/24px var(--font-sans); padding: 11px 14px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface); color: var(--ink); }
+.sa-input::placeholder { color: var(--ink-faint); }
+.sa-input:hover { border-color: var(--ink-faint); }
+.sa-help { font-size: 13px; line-height: 18px; font-weight: 400; color: var(--ink-faint); }
+.sa-form { display: grid; gap: var(--space-4); padding: var(--space-8); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); }
+
+/* Quote */
+.sa-quote { margin: 0; padding: var(--space-8); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); display: grid; gap: var(--space-4); }
+.sa-quote blockquote { margin: 0; font-size: 22px; line-height: 32px; font-weight: 500; letter-spacing: -0.01em; }
+.sa-quote figcaption { font-size: 14px; color: var(--ink-muted); }
+.sa-quote-metric { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ochre-text); padding-left: 12px; border-left: 3px solid var(--ochre); }

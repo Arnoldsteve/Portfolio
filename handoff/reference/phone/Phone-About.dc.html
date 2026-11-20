@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Phone · About</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div style="width: 390px; min-height: 5600px; background: #F4F1EA; font-family: Geist, Inter, system-ui, sans-serif; color: #1B1815; position: relative">
+
+  <header style="display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; border-bottom: 1px solid #D9D2C3">
+    <a href="Phone-Home.dc.html" style="font-weight: 700; font-size: 17px; letter-spacing: -0.02em; color: #1B1815; text-decoration: none">Steve Arnold Otieno</a>
+    <button type="button" aria-label="Open menu" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid #D9D2C3; background: #FBFAF6; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B1815" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"></path></svg></button>
+  </header>
+
+  <section style="padding: 24px 20px 0">
+    <div style="aspect-ratio: 1 / 1; border-radius: 20px; background: #EAE5DA; display: flex; align-items: center; justify-content: center; color: #6B645C; font-size: 14px">[Portrait]</div>
+    <p style="margin: 24px 0 0; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #8A5A12">About</p>
+    <h1 style="margin: 8px 0 0; font-size: 38px; line-height: 1.05; letter-spacing: -0.035em; font-weight: 600">Engineer first, tester always.</h1>
+    <p style="margin: 16px 0 0; font-size: 17px; line-height: 1.65; color: #2B2622">I'm Steve Arnold Otieno, a full-stack engineer in Nairobi. I build payment-heavy platforms in NestJS, Next.js and PostgreSQL, and test them like they will break. QA Engineer at Tourlast, previously remote at UK-based iTravel Holidays, founder of SaTechs Solutions.</p>
+    <a href="#cv" style="margin-top: 20px; display: flex; justify-content: center; align-items: center; min-height: 52px; border-radius: 10px; background: #5B3E96; color: #FFFFFF; font-weight: 600; text-decoration: none">Download CV (PDF)</a>
+  </section>
+
+  <section style="padding: 56px 20px 0">
+    <p style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #8A5A12">How I work</p>
+    <h2 style="margin: 8px 0 0; font-size: 28px; letter-spacing: -0.025em; font-weight: 600">Four habits you can hold me to</h2>
+    <ol style="margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 10px">
+      <sc-for list="{{habits}}" as="h" hint-placeholder-count="4">
+        <li style="background: #FBFAF6; border: 1px solid #D9D2C3; border-radius: 14px; padding: 16px; display: flex; gap: 14px">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #5B3E96; padding-top: 3px">{{h.n}}</span>
+          <span style="display: grid; gap: 4px"><span style="font-size: 17px; font-weight: 600">{{h.title}}</span><span style="font-size: 14px; line-height: 1.55; color: #57504A">{{h.text}}</span></span>
+        </li>
+      </sc-for>
+    </ol>
+  </section>
+
+  <section id="cv" style="padding: 56px 20px 0">
+    <p style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #8A5A12">Experience</p>
+    <h2 style="margin: 8px 0 0; font-size: 28px; letter-spacing: -0.025em; font-weight: 600">Where I've worked</h2>
+    <div style="margin-top: 16px">
+      <sc-for list="{{jobs}}" as="j" hint-placeholder-count="4">
+        <div style="padding: 20px 0; border-top: 1px solid #D9D2C3; display: grid; gap: 6px">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: {{j.dateColor}}">{{j.dates}}</span>
+          <span style="font-size: 19px; font-weight: 600">{{j.org}}</span>
+          <span style="font-size: 14px; color: #57504A">{{j.role}}</span>
+          <ul style="margin: 4px 0 0; padding-left: 18px; font-size: 15px; line-height: 1.6; color: #2B2622">
+            <sc-for list="{{j.points}}" as="pt" hint-placeholder-count="2"><li>{{pt}}</li></sc-for>
+          </ul>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding: 32px 20px 0; display: grid; gap: 12px">
+    <div style="background: #FBFAF6; border: 1px solid #D9D2C3; border-radius: 14px; padding: 18px">
+      <p style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #6B645C">Stack</p>
+      <div style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px">
+        <sc-for list="{{stack}}" as="s" hint-placeholder-count="12"><span style="font-family: 'Geist Mono', monospace; font-size: 12px; padding: 5px 8px; border-radius: 6px; background: #EAE5DA">{{s}}</span></sc-for>
+      </div>
+    </div>
+    <div style="background: #FBFAF6; border: 1px solid #D9D2C3; border-radius: 14px; padding: 18px; display: grid; gap: 12px; font-size: 15px">
+      <div><p style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #6B645C">Education</p><p style="margin: 6px 0 0">B.Sc. Computer Science, Technical University of Mombasa, 2020–2024</p></div>
+      <div><p style="margin: 0; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #6B645C">Languages</p><p style="margin: 6px 0 0">English · Swahili</p></div>
+    </div>
+  </section>
+
+  <section style="padding: 40px 20px 120px">
+    <div style="background: #1B1815; color: #F1ECE3; border-radius: 20px; padding: 24px; display: grid; gap: 12px">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #E3A84B">Hiring?</span>
+      <span style="font-size: 24px; line-height: 1.2; font-weight: 600; letter-spacing: -0.02em">Remote, contract or full-time — let's talk.</span>
+    </div>
+  </section>
+
+  <div style="position: sticky; bottom: 0; padding: 12px 20px 20px; background: #F4F1EA; border-top: 1px solid #D9D2C3; display: flex; gap: 10px">
+    <a href="Phone-Contact.dc.html" style="flex: 1; display: flex; justify-content: center; align-items: center; min-height: 48px; border-radius: 10px; background: #5B3E96; color: #FFFFFF; font-weight: 600; text-decoration: none">Book a call</a>
+    <a href="#cv" style="flex: 1; display: flex; justify-content: center; align-items: center; min-height: 48px; border-radius: 10px; background: #FBFAF6; border: 1px solid #D9D2C3; color: #1B1815; font-weight: 600; text-decoration: none">Download CV</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":5600}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      habits: [
+        { n: '01', title: 'Test plan on day one', text: 'Failure cases are written before the feature.' },
+        { n: '02', title: 'Money paths are idempotent', text: 'A retried payment never charges twice.' },
+        { n: '03', title: 'Decisions in writing', text: 'Short design docs with the alternative I rejected.' },
+        { n: '04', title: 'Async by default', text: 'UTC+3 overlaps a full EU day.' }
+      ],
+      jobs: [
+        { dates: 'Jul 2026 – now', dateColor: '#5B3E96', org: 'Tourlast', role: 'QA Engineer · pre-launch travel-tech',
+          points: ['Rebuilt the bug tracker across Stays, Experiences and Flights', 'Found a payment-reference reuse flaw, an oversell race and a timezone bug'] },
+        { dates: 'Mar 2024 – [end]', dateColor: '#6B645C', org: 'iTravel Holidays', role: 'Full Stack Engineer · UK, remote',
+          points: ['Stripe idempotency behind 99.8% transaction success', 'N+1 fixes cut API response times 45%'] },
+        { dates: 'Founder', dateColor: '#6B645C', org: 'SaTechs Solutions', role: 'Software and QA studio · Nairobi',
+          points: ['Client platforms: Umoja Studio, Aura by Racheal'] },
+        { dates: 'Projects', dateColor: '#6B645C', org: 'GradeHub · ArtisanBase', role: 'Lead architect',
+          points: ['Double-entry fee ledger, event bus, permission-based access'] }
+      ],
+      stack: ['TypeScript', 'NestJS', 'Next.js', 'React', 'PostgreSQL', 'Prisma', 'Redis', 'Laravel', 'Docker', 'AWS', 'M-Pesa', 'Paystack', 'Stripe']
+    };
+  }
+}
+</script>
+</body>
+</html>

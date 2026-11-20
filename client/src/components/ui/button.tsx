@@ -25,7 +25,7 @@ type StyleProps = { variant?: ButtonVariant; size?: keyof typeof sizes; block?: 
 
 export function buttonClasses({ variant = "secondary", size = "md", block = false }: StyleProps = {}) {
   return cn(
-    "inline-flex items-center justify-center gap-2 rounded-md border font-semibold leading-none no-underline",
+    "inline-flex items-center justify-center gap-2 rounded-md border font-semibold leading-none whitespace-nowrap no-underline",
     "transition-colors duration-150 ease-out cursor-pointer disabled:cursor-not-allowed disabled:opacity-70",
     variants[variant],
     sizes[size],

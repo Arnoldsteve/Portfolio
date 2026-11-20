@@ -65,7 +65,7 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
 export function Work() {
   return (
     <Container as="section" id="work" className="pt-16 sm:pt-28">
-      <SectionHeader eyebrow={workSection.eyebrow} title={workSection.heading} className="max-w-[20ch]" />
+      <SectionHeader eyebrow={workSection.eyebrow} title={workSection.heading} className="[&_h2]:max-w-[20ch]" />
       <FlagshipCard />
       <div className="mt-4 grid gap-4 sm:mt-6 sm:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] sm:gap-6">
         {projects.map((p) => (

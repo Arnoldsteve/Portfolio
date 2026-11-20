@@ -1,8 +1,10 @@
 // Single source of truth for all site copy.
 // Anything inside [brackets] is a placeholder Steve must fill. Render it as-is (visible),
 // never invent a value. `pnpm check-placeholders` lists every remaining one.
+// Facts come from Steve, his résumé and his own repos (handoff/docs/FACTS.md).
 
-export type Status = 'live' | 'pilot' | 'concept' | 'satechs' | 'unknown';
+/** Honest project status: every project wears exactly one. */
+export type Status = 'live' | 'pilot' | 'building' | 'code' | 'concept';
 
 export const siteUrl = 'https://steve-arnold.vercel.app';
 
@@ -13,6 +15,7 @@ export const person = {
   country: 'KE',
   location: 'Nairobi, Kenya',
   timezone: 'UTC+3',
+  remote: 'Remote, working with teams worldwide',
   email: 'stevearnold9e@gmail.com',
   employer: 'Tourlast',
   company: 'SaTechs Solutions',
@@ -21,17 +24,17 @@ export const person = {
     linkedin: 'https://www.linkedin.com/in/steve-arnold-otieno',
     whatsapp: '[WhatsApp link]',
     cv: '/Steve_Arnold_SE_Resume.pdf',
-    satechs: '[SaTechs site URL]',
+    satechs: 'https://www.satechs-solutions.com/',
     booking: '[Cal.com booking URL]',
   },
   availability: 'Taking on 1 new engagement from [month]',
 };
 
 export const nav = [
-  { label: 'Work', href: '/work/jaza-wifi', match: '/work' },
-  { label: 'QA & security', href: '/#qa' },
+  { label: 'Work', href: '/work/umoja', match: '/work' },
+  { label: 'QA & testing', href: '/#qa' },
   { label: 'About', href: '/about', match: '/about' },
-  { label: 'Writing', href: '/#writing' },
+  { label: 'Writing', href: '/writing', match: '/writing' },
 ];
 
 // Shared UI strings (buttons, labels) used across pages.
@@ -46,30 +49,30 @@ export const ui = {
   currently: 'Currently',
   hardPart: 'Hard part:',
   readCaseStudy: 'Read the case study →',
-  readBuildStory: 'Read the build story →',
+  visitLive: 'Visit the live site ↗',
   whatsapp: 'WhatsApp',
   emailLabel: 'Email',
   github: 'GitHub',
   linkedin: 'LinkedIn',
   themeToDark: 'Switch to dark theme',
   themeToLight: 'Switch to light theme',
-  minutes: 'min',
+  minutes: 'min read',
 };
 
 export const statusLabels: Record<Status, string> = {
   live: 'Live',
   pilot: 'Pilot',
+  building: 'In development',
+  code: 'Code on request',
   concept: 'Concept',
-  satechs: 'Via SaTechs',
-  unknown: '[Status]',
 };
 
 export const hero = {
-  headline: 'I build and test the systems that move money on African payment rails.',
-  lead: 'Senior full-stack engineer with a QA background. M-Pesa, Paystack and Stripe in production, and founder of SaTechs Solutions.',
-  primaryCta: { label: 'See the work', href: '/work/jaza-wifi' },
+  headline: 'I build software that moves money, and I test it before your customers do.',
+  lead: 'Full-stack software engineer and Lead QA. I ship payment systems end to end — Stripe, M-Pesa and Paystack in production — and work remotely with teams worldwide. Founder of SaTechs Solutions.',
+  primaryCta: { label: 'See the work', href: '/work/umoja' },
   secondaryCta: { label: 'Download CV', href: '/Steve_Arnold_SE_Resume.pdf' },
-  currently: { title: 'QA Engineer · Tourlast', sub: 'Founder · SaTechs Solutions' },
+  currently: { title: 'Lead QA · Tourlast', sub: 'Founder · SaTechs Solutions' },
   portrait: '[Portrait · natural light, plain background]',
   photo: '[Photo]',
 };
@@ -77,13 +80,13 @@ export const hero = {
 export const stats = [
   { num: '99.8%', cap: 'transaction success on a UK travel checkout (iTravel)' },
   { num: '45%', cap: 'faster API responses after N+1 fixes (iTravel)' },
-  { num: '3 rails', cap: 'M-Pesa, Paystack and Stripe shipped to production' },
+  { num: '3 rails', cap: 'Stripe, M-Pesa and Paystack shipped to production' },
   { num: '[N]', cap: 'clients served through SaTechs' },
 ];
 
 export const experience = [
   {
-    org: 'Tourlast', role: 'QA Engineer', context: 'travel-tech, pre-launch', dates: 'Jul 2026 – now', current: true,
+    org: 'Tourlast', role: 'Lead QA', context: 'travel-tech, pre-launch', dates: 'Jul 2026 – now', current: true,
     points: [
       'Rebuilt the bug tracker across Stays, Experiences and Flights, with a live report dashboard',
       'Found a payment-reference reuse flaw, an oversell race condition and a company-wide timezone bug, and wrote its fix plan',
@@ -98,9 +101,9 @@ export const experience = [
     ],
   },
   {
-    org: 'SaTechs Solutions', role: 'Founder', context: 'software and QA studio, Nairobi', dates: 'Founder', current: false,
+    org: 'SaTechs Solutions', role: 'Founder', context: 'software and QA studio', dates: 'Founder', current: false,
     points: [
-      'Client platforms including Umoja Studio (Paystack payouts) and Aura by Racheal (instalment enrolment)',
+      'Client platforms including Umoja (creator marketplace with M-Pesa checkout and payouts) and Aura by Racheal (paid enrolment with instalments)',
       'Built the company site and admin dashboard',
     ],
   },
@@ -115,35 +118,47 @@ export const experience = [
 
 export const workSection = {
   eyebrow: 'Selected work',
-  heading: 'Products on M-Pesa, Paystack and Stripe',
+  heading: 'Payment systems, built and tested end to end',
+  moreHeading: 'More work',
 };
 
+/** The lead project on the home page (a client build, delivered through SaTechs). */
 export const flagship = {
-  slug: 'jaza-wifi',
-  name: 'Jaza WiFi',
-  kind: 'Own product · Flagship',
-  status: 'unknown' as Status,
-  summary: 'Hotspot billing for WiFi sold by the hour or day. Customers pay with M-Pesa at the login page; operators run plans and routers from one dashboard.',
-  bullets: ['M-Pesa payment at the captive portal', 'Runs on MikroTik routers', 'First site: a residential plot · [numbers]'],
-  shot: '[Captive portal + operator dashboard]',
+  slug: 'umoja',
+  name: 'Umoja',
+  kind: 'Client · via SaTechs · Marketplace',
+  status: 'live' as Status,
+  summary: 'A digital-products marketplace: creators sell, buyers pay with M-Pesa and download instantly, with refund protection on every order.',
+  bullets: [
+    'Every payment and payout processed exactly once, even when callbacks repeat',
+    'Double-entry ledger: every creator balance is traceable to the cent',
+    'M-Pesa checkout and payouts, with Paystack for cards',
+  ],
+  shot: '[Marketplace + creator dashboard]',
+  liveUrl: 'https://umojacoaches.com',
 };
 
+/** Other work, in the order Steve wants it shown. `href` is where the whole card goes. */
 export const projects = [
-  { slug: 'umoja-studio', name: 'Umoja Studio', kind: 'Client · Payouts', status: 'satechs' as Status, productTint: '#D6E6E3',
-    desc: 'A creator and seller dashboard with Paystack payouts, from storefront to withdrawal.',
-    hard: 'a four-state withdrawal flow inside Paystack’s USD limits in Kenya.', shot: '[Seller dashboard]' },
-  { slug: 'gradehub', name: 'GradeHub', kind: 'Lead architect · SaaS', status: 'unknown' as Status, productTint: null,
+  { slug: 'jaza-wifi', name: 'Jaza WiFi', kind: 'Own product · Hotspot billing', status: 'building' as Status, productTint: null,
+    desc: 'Self-service paid WiFi: connect, pick a plan, pay with M-Pesa on your phone, and be online in under a minute.',
+    hard: 'the phone that pays isn’t always the device that connects — so payment and access are two identities.',
+    shot: '[Captive portal on a phone]', href: '/work/jaza-wifi', cta: 'Read the case study →' },
+  { slug: 'gradehub', name: 'GradeHub', kind: 'Lead architect · SaaS', status: 'code' as Status, productTint: null,
     desc: 'School operations: fees, records and admin, with each school’s data isolated.',
-    hard: 'a double-entry fee ledger, so balances are stored and verifiable.', shot: '[Admin dashboard]' },
+    hard: 'a double-entry fee ledger, so balances are stored and verifiable.',
+    shot: null, href: '/contact?route=hire', cta: 'Ask for code access →' },
   { slug: 'aura', name: 'Aura by Racheal', kind: 'Client · Education', status: 'live' as Status, productTint: null,
     desc: 'An online marketing academy with paid enrolment, run in production.',
-    hard: 'Paystack enrolment with instalment payments.', shot: '[Academy screens]' },
+    hard: 'Paystack enrolment with instalment payments.',
+    shot: '[Academy screens]', href: 'https://earnfromhome.vercel.app/', cta: 'Visit the live site ↗' },
 ];
 
 export const qaSection = {
   eyebrow: 'The difference',
   heading: 'I break things before your customers do.',
-  text: 'On a pre-launch travel platform, testing turned up problems that would have cost real money after launch.',
+  text: 'Most engineers test what they build. I lead QA too — so I know where payment systems fail. On a pre-launch travel platform, testing turned up problems that would have cost real money after launch.',
+  more: { label: 'How I find bugs like these →', href: '/writing/three-bugs-before-launch' },
 };
 
 export const qaFindings = [
@@ -151,35 +166,34 @@ export const qaFindings = [
   { kind: 'Concurrency', text: 'Reproduced a race condition live that let limited slots be oversold.' },
   { kind: 'Design', text: 'Traced a timezone bug with company-wide impact and wrote the fix plan: schema change, backfill, six-phase rollout.' },
 ];
-// NOTE: Tourlast is Steve's current employer. Do not name Tourlast next to these findings until Steve confirms sign-off.
+// NOTE: Do not name Tourlast next to these findings (Steve: keep anonymous).
 
 export const satechsBand = {
   eyebrow: 'Need a team, not one engineer?',
   heading: 'SaTechs Solutions builds this for businesses.',
-  text: 'The studio I founded: payment integrations, custom systems and websites, each one QA-tested before handover.',
+  text: 'The studio I founded: payment integrations, custom systems and websites, each one QA-tested before handover. Umoja was built through SaTechs.',
   primary: 'Get a quote from SaTechs',
-  secondary: 'See SaTechs services',
+  secondary: 'Visit SaTechs ↗',
 };
 
 export const writingSection = {
   eyebrow: 'Writing',
   heading: 'Notes from building',
+  all: 'All writing →',
+  pageHeading: 'Notes from building and testing payment systems',
+  pageText: 'What I learn shipping software that moves money — and breaking it before launch.',
+  back: '← All writing',
+  next: 'Next',
 };
-
-export const posts = [
-  { title: 'Paystack payouts in Kenya: the USD limits nobody warns you about', date: '[DATE]', minutes: 6, href: '[post URL]' },
-  { title: 'Selling WiFi with M-Pesa and MikroTik: how Jaza works', date: '[DATE]', minutes: 8, href: '[post URL]' },
-  { title: 'The timezone bug that almost shipped', date: '[DATE]', minutes: 5, href: '[post URL]' },
-];
 
 export const habits = [
   { title: 'Test plan on day one', text: 'Failure cases are written before the feature, not after the launch.' },
   { title: 'Money paths are idempotent', text: 'A retried payment never charges twice; every callback can be replayed.' },
   { title: 'Decisions in writing', text: 'Short design docs with the alternative I rejected, so the next engineer knows why.' },
-  { title: 'Async by default', text: 'UTC+3 overlaps a full EU day; updates are written so time zones don’t matter.' },
+  { title: 'Async by default', text: 'UTC+3 overlaps a full EU day and the start of the US day; updates are written so time zones don’t matter.' },
 ];
 
-export const stack = ['TypeScript', 'NestJS', 'Node.js', 'Next.js', 'React', 'PostgreSQL', 'Prisma', 'Redis', 'Laravel', 'Docker', 'AWS', 'GitHub Actions', 'M-Pesa', 'Paystack', 'Stripe'];
+export const stack = ['TypeScript', 'NestJS', 'Node.js', 'Next.js', 'React', 'PostgreSQL', 'Prisma', 'Drizzle', 'Redis', 'BullMQ', 'Laravel', 'Docker', 'AWS', 'GitHub Actions', 'Playwright', 'Stripe', 'M-Pesa', 'Paystack'];
 
 export const education = { degree: 'B.Sc. Computer Science', school: 'Technical University of Mombasa', years: '2020–2024' };
 export const languages = ['English', 'Swahili'];
@@ -187,7 +201,7 @@ export const languages = ['English', 'Swahili'];
 export const about = {
   eyebrow: 'About',
   heading: 'Engineer first, tester always.',
-  bio: "I'm Steve Arnold Otieno, a full-stack engineer in Nairobi. I build payment-heavy platforms in NestJS, Next.js and PostgreSQL, and I test them like they will break, because in production they do. I'm a QA Engineer at Tourlast, I spent [N years] as a remote engineer for UK-based iTravel Holidays, and I founded SaTechs Solutions.",
+  bio: "I'm Steve Arnold Otieno, a full-stack software engineer based in Nairobi and working remotely with teams worldwide. I build payment-heavy platforms in NestJS, Next.js and PostgreSQL, and I test them like they will break, because in production they do. I lead QA at Tourlast, I spent [N years] as a remote engineer for UK-based iTravel Holidays, and I founded SaTechs Solutions.",
   portrait: '[Portrait]',
   habitsEyebrow: 'How I work',
   habitsHeading: 'Four habits you can hold me to',
@@ -210,13 +224,13 @@ export const contactRoutes: Record<RouteId, {
   build: {
     title: 'I need something built', text: 'Payments, a system or a website. Goes to SaTechs for a quote.', short: 'Goes to SaTechs for a quote', dest: 'Start a project →',
     heading: 'Tell SaTechs what you need', tag: 'Goes to SaTechs', recipient: 'satechs',
-    selectLabel: 'What do you need?', options: ['Payments (M-Pesa, Paystack, Stripe)', 'A custom system or dashboard', 'A website', 'An audit or rescue of an existing system'],
+    selectLabel: 'What do you need?', options: ['Payments (Stripe, M-Pesa, Paystack)', 'A custom system or dashboard', 'A website', 'An audit or rescue of an existing system', 'QA / testing of an existing product'],
     messageLabel: 'A few lines about the project', cta: 'Send to SaTechs', after: 'SaTechs will reply with next steps and a time for a short call.',
   },
   hire: {
-    title: "I'm hiring", text: 'Engineering or QA, contract or full-time.', short: 'Engineering or QA roles', dest: 'CV and a call →',
+    title: "I'm hiring", text: 'Engineering or QA, contract or full-time, remote.', short: 'Engineering or QA roles', dest: 'CV and a call →',
     heading: 'Tell me about the role', tag: 'Comes to Steve', recipient: 'steve',
-    selectLabel: 'Type of role', options: ['Full-time, remote', 'Contract', 'QA / test engineering', 'Something else'],
+    selectLabel: 'Type of role', options: ['Full-time, remote', 'Contract', 'QA / test engineering', 'Code access to a project', 'Something else'],
     messageLabel: 'The team and the problem', cta: 'Send — I reply within a day', after: 'My CV comes with my reply, with times for a call.',
   },
   partner: {
@@ -238,7 +252,7 @@ export const contactPage = {
   text: 'Pick one and the form adapts. I reply within one working day.',
   pickerLabel: 'Reason for contact',
   nameLabel: 'Name',
-  namePlaceholder: 'Wanjiku Kamau',
+  namePlaceholder: 'Your name',
   contactLabel: 'Email or WhatsApp',
   contactPlaceholder: 'you@company.com',
   messagePlaceholder: 'A few lines is enough.',
@@ -258,10 +272,9 @@ export const contactPage = {
   talkEyebrow: 'Prefer to talk?',
   talkHeading: 'Book a 20-minute call',
   bookingEmbed: '[Cal.com booking embed]',
-  openBooking: 'Open the booking page →',
   elsewhereLabel: 'Elsewhere',
   hoursLabel: 'Hours',
-  hours: 'Nairobi, UTC+3 · overlaps a full EU day',
+  hours: 'Nairobi, UTC+3 · overlaps a full EU day and the US morning',
   faqHeading: 'Questions people ask',
 };
 
@@ -269,9 +282,32 @@ export const faq = [
   { q: 'Do you work with clients outside Kenya?', a: '[Your answer: time-zone overlap, contracts, payment in USD/EUR.]' },
   { q: 'Why do builds go to SaTechs?', a: 'SaTechs is my studio. Client builds get a team, a contract and a QA report, and I stay involved.' },
   { q: 'Are you open to full-time roles?', a: '[Your answer, and what kind of team you want to join.]' },
+  { q: 'Can I see code for projects without a live demo?', a: 'Yes. GradeHub has no public demo right now, but I can give code access on request — pick “I’m hiring” on the form and say which project.' },
 ];
 
-export type CaseStudy = typeof jazaCaseStudy;
+export type CaseStudy = {
+  slug: string;
+  title: string;
+  eyebrow: string;
+  oneLiner: string;
+  seoDescription: string;
+  status: Status;
+  liveUrl?: string;
+  meta: { role: string; rails: string; stack: string };
+  showcase: { dashboard: string; phone: string };
+  results: { num: string; cap: string }[];
+  problem: string;
+  constraints: string[];
+  flowIntro: string;
+  flow: string[];
+  flowHighlight: number;
+  diagram: string;
+  decision: { chose: string; rejected: string };
+  result: string;
+  change: string;
+  cta: { eyebrow: string; title: string; link: string; href: string };
+  next: { label: string; href: string };
+};
 
 export const caseStudyUi = {
   breadcrumbRoot: { label: 'Work', href: '/#work' },
@@ -290,44 +326,78 @@ export const caseStudyUi = {
   change: "What I'd change",
   nextLabel: 'Next case study',
   readIt: 'Read it →',
-  comingSoonEyebrow: 'Case study',
-  comingSoon: 'Case study coming soon',
-  comingSoonText: 'The full write-up is on its way. Meanwhile, the Jaza WiFi case study shows how I work.',
-  comingSoonCta: 'Read the Jaza WiFi case study',
-  comingSoonHref: '/work/jaza-wifi',
 };
 
-export const jazaCaseStudy = {
+export const umojaCaseStudy: CaseStudy = {
+  slug: 'umoja',
+  title: 'Umoja',
+  eyebrow: 'Case study · Client via SaTechs',
+  oneLiner: 'A marketplace where creators sell digital products and buyers pay with M-Pesa — with every payment and payout recorded exactly once.',
+  seoDescription: 'A live digital-products marketplace with M-Pesa checkout and payouts, built on an append-only double-entry ledger.',
+  status: 'live',
+  liveUrl: 'https://umojacoaches.com',
+  meta: { role: '[Your role on Umoja]', rails: 'M-Pesa · Paystack', stack: 'NestJS · Next.js · Drizzle · Neon Postgres · BullMQ + Redis · Cloudflare R2' },
+  showcase: { dashboard: '[Creator dashboard]', phone: '[M-Pesa checkout on a phone]' },
+  results: [
+    { num: '[N]', cap: 'creators selling on the marketplace' },
+    { num: '[N]', cap: 'orders paid with M-Pesa' },
+    { num: '[N]', cap: 'duplicate charges or payouts since launch' },
+  ],
+  problem: 'Creators selling digital work — courses, templates, ebooks, coaching — were using tools built for other markets: payouts they couldn’t count on, fees they couldn’t see, and checkouts their buyers didn’t trust. Buyers had the mirror-image fear: “I’ll pay and get nothing.” The client wanted a marketplace where both sides could trust the money.',
+  constraints: [
+    'Money moves, so every payment, callback and payout must process exactly once — duplicate M-Pesa callbacks are a “when”, not an “if”.',
+    'Buyers are mobile-first, often on mid-range Android phones and 3G/4G, so checkout has to be fast and light.',
+    'Prices can be in KES or USD, and the two can never mix in one order. Amounts are integers in minor units — never floats.',
+    'Every vendor (M-Pesa, Paystack, email, SMS, storage) had to be swappable without touching business logic.',
+  ],
+  flowIntro: 'From “buy it now” to the creator getting paid, with every step recorded once.',
+  flow: ['Buyer picks a product', 'Pays with M-Pesa on their phone', 'Callback verified and recorded exactly once', 'Ledger credits the creator; download unlocks', 'Creator withdraws to M-Pesa after the hold window'],
+  flowHighlight: 2,
+  diagram: '[Architecture: checkout, payment adapter, ledger, outbox worker, payouts]',
+  decision: {
+    chose: 'An append-only, double-entry ledger. Balances are derived from immutable entries, written in the same database transaction as the order and the wallet, with an outbox for the events that follow.',
+    rejected: 'A balance column updated in place. Simpler to build, but a retried callback or a half-finished write could silently change a creator’s money, with no trail to prove what happened.',
+  },
+  result: 'Umoja is live at umojacoaches.com, with creators selling and buyers paying in KES. [Numbers since launch: creators, orders, payouts — and in what time.]',
+  change: '[One honest lesson from building Umoja. Senior readers trust this paragraph most.]',
+  cta: { eyebrow: 'Need a platform like this?', title: 'Get a quote from SaTechs', link: 'Start a project →', href: '/contact?route=build' },
+  next: { label: 'Jaza WiFi', href: '/work/jaza-wifi' },
+};
+
+export const jazaCaseStudy: CaseStudy = {
   slug: 'jaza-wifi',
   title: 'Jaza WiFi',
   eyebrow: 'Case study · Own product',
-  oneLiner: 'Hotspot billing that lets anyone sell WiFi by the hour or day, paid with M-Pesa.',
-  meta: { role: 'Founder & engineer', status: '[Live / Pilot]', rails: 'M-Pesa · MikroTik', stack: '[Your stack]' },
-  showcase: { dashboard: "[Operator dashboard · in Jaza's own colours]", phone: '[Captive portal on a phone]' },
-  results: [
-    { num: '[N]', cap: 'paying users at the first site' },
-    { num: '[N]', cap: 'sessions sold, paid by M-Pesa' },
-    { num: '[N]%', cap: 'of payments that opened a session automatically' },
-  ],
-  problem: 'Landlords and small operators want to resell internet to tenants and walk-in users, but billing is manual: vouchers, cash, and someone switching people on and off by hand. [Your words: who you saw struggling and what it cost them.]',
+  oneLiner: 'Self-service paid WiFi: connect, pick a plan, pay with M-Pesa on your own phone, and be online in under a minute — no operator involved.',
+  seoDescription: 'Self-service hotspot billing paid with M-Pesa on MikroTik routers, with a two-identity access model.',
+  status: 'building',
+  meta: { role: 'Founder & engineer', rails: 'M-Pesa · MikroTik', stack: 'NestJS · Next.js · Prisma · Neon · FreeRADIUS + CoA · WireGuard · BullMQ + Redis' },
+  showcase: { dashboard: '[Operator live view: devices online, time left, revenue]', phone: '[Captive portal on a phone]' },
+  results: [],
+  problem: 'Selling WiFi by the hour usually means vouchers, cash and someone switching people on and off by hand. The goal for Jaza is the opposite: the operator does no hands-on work in normal operation, nothing gets online without paying, and the experience is the same for the first customer and the five-hundredth.',
   constraints: [
-    'Customers pay with M-Pesa from their phone, so payment must start a session with no human involved.',
-    'It has to run on MikroTik routers, which operators already own.',
-    'First deployment: one residential plot, so cost per site must stay low. [Your budget or hardware limits.]',
+    'The first site is a home connection on a wireless ISP with about 20 Mbps shared, so bandwidth — not data — is the scarce resource. Every device gets a speed cap.',
+    'The router has no public IP address, so it dials out to the server over WireGuard and holds the tunnel open.',
+    'Payment must start a session with no human involved, and one payment covers exactly one device.',
+    'Modern phones detect captive portals over HTTP, so the portal, Paystack and M-Pesa endpoints must be allowed through the walled garden.',
   ],
   flowIntro: 'From joining the network to browsing, with no voucher and no operator in the loop.',
-  flow: ['Phone joins the WiFi', 'Captive portal shows plans', 'Customer pays with M-Pesa', 'Payment confirmed, router opens a session', 'Operator sees it in the dashboard'],
+  flow: ['Device joins the WiFi', 'Captive portal shows plans', 'Customer pays with M-Pesa', 'Server grants that device via RADIUS', 'Operator sees it live'],
   flowHighlight: 2,
-  diagram: '[Architecture diagram: portal, payment callback, router, dashboard]',
-  decision: { chose: '[What you built and why]', rejected: '[The alternative, and what it would have cost you]' },
-  result: '[One paragraph with the numbers above, in context: since when, at how many sites.]',
-  change: '[One honest lesson. Senior readers trust this paragraph most.]',
+  diagram: '[Architecture: MikroTik hotspot, WireGuard tunnel, FreeRADIUS, server, Paystack]',
+  decision: {
+    chose: 'The cloud server owns paid time, keyed to the device. That makes the fairness promises possible: the clock pauses when the internet is down, and a device that drops and rejoins keeps its balance without paying again.',
+    rejected: 'Letting the router’s RADIUS session timers own time. They stay — but only as a backstop, not the source of truth.',
+  },
+  result: 'Jaza WiFi is in development. The first site is a home connection, and payments start with Paystack’s M-Pesa STK push, built behind an interface so direct Daraja can be swapped in later without a rewrite. [What works end to end today.]',
+  change: '[One honest lesson so far.]',
   cta: { eyebrow: 'Want this for your site?', title: 'Talk to me about Jaza WiFi', link: 'Book a call →', href: '/contact?route=partner' },
-  next: { label: 'Umoja Studio', href: '/work/umoja-studio' },
+  next: { label: 'Umoja', href: '/work/umoja' },
 };
 
-// Full case studies by slug. Projects without an entry render "Case study coming soon".
+// Full case studies by slug, in the order they are listed.
 export const caseStudies: Record<string, CaseStudy> = {
+  [umojaCaseStudy.slug]: umojaCaseStudy,
   [jazaCaseStudy.slug]: jazaCaseStudy,
 };
 
@@ -340,17 +410,21 @@ export const notFound = {
 
 export const seo = {
   home: {
-    title: 'Steve Arnold Otieno — payments and platform engineer, Nairobi',
-    description: 'I build and test the systems that move money on African payment rails: M-Pesa, Paystack, Stripe.',
+    title: 'Steve Arnold Otieno — full-stack software engineer and Lead QA',
+    description: 'I build payment systems end to end — Stripe, M-Pesa, Paystack — and test them before your customers do. Remote, working with teams worldwide.',
   },
   about: {
     title: 'About — Steve Arnold Otieno',
-    description: 'Full-stack engineer and QA specialist in Nairobi; founder of SaTechs Solutions.',
+    description: 'Full-stack software engineer and Lead QA, working remotely with teams worldwide; founder of SaTechs Solutions.',
   },
   contact: {
     title: 'Contact — Steve Arnold Otieno',
     description: 'Build with SaTechs, hire Steve, or partner on Jaza WiFi. Replies within one working day.',
   },
-  caseStudy: (name: string) => ({ title: `${name} case study — Steve Arnold Otieno` }),
-  caseStudyDescriptions: { 'jaza-wifi': 'Hotspot billing paid with M-Pesa on MikroTik routers.' } as Record<string, string>,
+  writing: {
+    title: 'Writing — Steve Arnold Otieno',
+    description: 'Notes from building and testing payment systems.',
+  },
+  caseStudy: (name: string) => `${name} case study — Steve Arnold Otieno`,
+  post: (title: string) => `${title} — Steve Arnold Otieno`,
 };
